@@ -1,7 +1,7 @@
-import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { useState, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaClock, FaCheckCircle, FaInstagram, FaFacebook, FaTiktok } from 'react-icons/fa'
+import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaClock, FaCheckCircle, FaExclamationCircle, FaTimes, FaInstagram, FaFacebook, FaTiktok } from 'react-icons/fa'
 
 const contactInfo = [
   { icon: FaPhoneAlt, title: 'Call Us', details: '+1 (305) 330-3123', link: 'tel:+13053303123' },
@@ -48,6 +48,16 @@ const Contact = () => {
   })
   const [status, setStatus] = useState({ type: '', message: '' })
   const [loading, setLoading] = useState(false)
+
+  // Auto-dismiss popup after 5 seconds
+  useEffect(() => {
+    if (status.message) {
+      const timer = setTimeout(() => {
+        setStatus({ type: '', message: '' })
+      }, 5000)
+      return () => clearTimeout(timer)
+    }
+  }, [status.message])
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -209,17 +219,6 @@ const Contact = () => {
                 </p>
               </div>
 
-              {status.message && (
-                <div className={`mb-8 p-5 rounded-xl flex items-start gap-3 ${
-                  status.type === 'success'
-                    ? 'bg-green-50 border border-green-200 text-green-700'
-                    : 'bg-red-50 border border-red-200 text-red-700'
-                }`}>
-                  {status.type === 'success' && <FaCheckCircle className="text-green-500 flex-shrink-0 mt-0.5" />}
-                  <span className="text-sm">{status.message}</span>
-                </div>
-              )}
-
               <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-gray-200 shadow-lg p-8 lg:p-10">
                 {/* Personal Info */}
                 <h3 className="text-dark font-bold text-lg mb-6 pb-3 border-b border-gray-100">
@@ -333,15 +332,62 @@ const Contact = () => {
                             className="input-field resize-none" />
                 </div>
 
-                <button type="submit" disabled={loading}
-                        className="btn-primary w-full sm:w-auto py-4 px-12 disabled:opacity-50 disabled:cursor-not-allowed">
-                  {loading ? 'Submitting...' : 'Submit Carrier Application'}
-                </button>
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                  <button type="submit" disabled={loading}
+                          className="btn-primary w-full sm:w-auto py-4 px-12 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
+                    {loading ? (
+                      <>
+                        <span className="inline-block w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                        <span>Submitting Application...</span>
+                      </>
+                    ) : (
+                      'Submit Carrier Application'
+                    )}
+                  </button>
+                </div>
               </form>
             </motion.div>
           </div>
         </div>
       </section>
+
+      {/* Floating Bottom Popup Notification with Auto-Dismiss */}
+      <AnimatePresence>
+        {status.message && (
+          <motion.div
+            initial={{ opacity: 0, y: 60, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 30, scale: 0.95 }}
+            transition={{ duration: 0.35, ease: 'easeOut' }}
+            className={`fixed bottom-6 left-1/2 -translate-x-1/2 z-50 max-w-lg w-[92vw] sm:w-auto p-4 sm:p-5 rounded-2xl shadow-2xl backdrop-blur-xl border flex items-start gap-3.5 ${
+              status.type === 'success'
+                ? 'bg-[#0A0F1C]/95 border-emerald-500/40 text-white shadow-emerald-950/40'
+                : 'bg-[#0A0F1C]/95 border-red-500/40 text-white shadow-red-950/40'
+            }`}
+          >
+            <div
+              className={`w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 ${
+                status.type === 'success' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-red-500/20 text-red-400'
+              }`}
+            >
+              {status.type === 'success' ? <FaCheckCircle size={18} /> : <FaExclamationCircle size={18} />}
+            </div>
+            <div className="flex-1 pr-2">
+              <h5 className="font-bold text-sm text-white mb-0.5">
+                {status.type === 'success' ? 'Application Submitted Successfully' : 'Submission Notice'}
+              </h5>
+              <p className="text-xs sm:text-sm text-gray-300 leading-relaxed">{status.message}</p>
+            </div>
+            <button
+              onClick={() => setStatus({ type: '', message: '' })}
+              className="text-gray-400 hover:text-white transition-colors p-1 flex-shrink-0"
+              aria-label="Close notification"
+            >
+              <FaTimes size={14} />
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   )
 }
