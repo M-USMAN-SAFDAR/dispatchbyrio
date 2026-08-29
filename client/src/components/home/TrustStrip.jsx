@@ -18,7 +18,7 @@ const TrustStrip = () => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 })
 
   return (
-    <section className="bg-dark-light/95 border-y border-white/5 py-10 lg:py-12" ref={ref}>
+    <section className="bg-dark border-t border-white/5 pt-10 pb-6 lg:pt-14 lg:pb-8" ref={ref}>
       <div className="container-custom">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-5">
           {badges.map((badge, index) => (
