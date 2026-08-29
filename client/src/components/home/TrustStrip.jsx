@@ -1,3 +1,5 @@
+import { motion } from 'framer-motion'
+import { useInView } from 'react-intersection-observer'
 import {
   FaUsers, FaHeadset, FaGlobeAmericas,
   FaFileInvoiceDollar, FaShieldAlt, FaHandsHelping
@@ -12,34 +14,33 @@ const badges = [
   { icon: FaHandsHelping, label: 'Hands-On Support' },
 ]
 
-// Duplicate sets to ensure a 100% smooth, infinite loop
-const duplicatedBadges = [...badges, ...badges, ...badges]
-
 const TrustStrip = () => {
-  return (
-    <section className="bg-dark-light/90 border-y border-white/5 py-8 sm:py-10 relative overflow-hidden group">
-      {/* Left/Right Edge Fade Mask */}
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-20 sm:w-36 bg-gradient-to-r from-dark to-transparent z-10" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-20 sm:w-36 bg-gradient-to-l from-dark to-transparent z-10" />
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 })
 
-      {/* Marquee Carousel moving right to left */}
-      <div className="flex overflow-hidden select-none py-2">
-        <div className="flex shrink-0 items-center gap-5 sm:gap-7 animate-marquee group-hover:[animation-play-state:paused]">
-          {duplicatedBadges.map((badge, index) => (
-            <div
-              key={`${badge.label}-${index}`}
-              className="relative flex items-center gap-3.5 px-6 py-3.5 rounded-2xl bg-white/[0.04] border border-white/[0.08]
-                         hover:bg-dark-mid hover:border-primary/60 hover:shadow-2xl hover:shadow-primary/25
-                         hover:scale-110 hover:-translate-y-2 hover:z-20 transition-all duration-300 cursor-pointer flex-shrink-0 group/card"
+  return (
+    <section className="bg-dark-light/95 border-y border-white/5 py-10 lg:py-12" ref={ref}>
+      <div className="container-custom">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-5">
+          {badges.map((badge, index) => (
+            <motion.div
+              key={badge.label}
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.4, delay: index * 0.06 }}
+              className="relative flex flex-col items-center justify-center text-center p-5 sm:p-6 rounded-2xl
+                         bg-white/[0.03] border border-white/[0.08] shadow-sm
+                         hover:bg-dark-mid hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/20
+                         hover:scale-105 hover:-translate-y-2 transition-all duration-300 cursor-pointer group"
             >
-              <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0
-                              group-hover/card:bg-primary group-hover/card:text-white group-hover/card:scale-105 transition-all duration-300">
-                <badge.icon className="text-primary group-hover/card:text-white text-lg transition-colors duration-300" />
+              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-3.5
+                              group-hover:bg-primary group-hover:scale-110 transition-all duration-300">
+                <badge.icon className="text-primary group-hover:text-white text-xl transition-colors duration-300" />
               </div>
-              <span className="text-gray-200 group-hover/card:text-white text-xs sm:text-[13px] font-bold uppercase tracking-wider whitespace-nowrap transition-colors duration-300">
+              <span className="text-white text-xs sm:text-[13px] font-bold uppercase tracking-wider leading-snug
+                               group-hover:text-primary-light transition-colors duration-300">
                 {badge.label}
               </span>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
