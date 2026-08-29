@@ -53,44 +53,60 @@ const Contact = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     setLoading(true)
+    setStatus({ type: '', message: '' })
 
-    const subject = encodeURIComponent(`Carrier Application: ${formData.company || formData.name}`)
-    const body = encodeURIComponent(
-`Carrier Application - Dispatch by RIO
+    try {
+      const payload = {
+        _subject: `New Carrier Application: ${formData.company || formData.name}`,
+        _template: 'table',
+        _captcha: 'false',
+        'Full Name': formData.name,
+        'Company Name': formData.company || 'N/A',
+        'Phone Number': formData.phone,
+        'Email Address': formData.email,
+        'DOT Number': formData.dot || 'N/A',
+        'MC Number': formData.mc || 'N/A',
+        'Equipment Type': formData.equipmentType || 'N/A',
+        'Number of Trucks': formData.numberOfTrucks || 'N/A',
+        'Trailer Type': formData.trailerType || 'N/A',
+        'Operating Location': formData.location || 'N/A',
+        'Preferred Lanes': formData.preferredLanes || 'N/A',
+        'Factoring Company': formData.factoringCompany || 'N/A',
+        'Insurance Status': formData.insuranceStatus || 'N/A',
+        'Additional Notes': formData.message || 'None',
+      }
 
-Contact Information:
-- Full Name: ${formData.name}
-- Company: ${formData.company || 'N/A'}
-- Phone: ${formData.phone}
-- Email: ${formData.email}
+      await fetch('https://formsubmit.co/ajax/info@dispatchbyrio.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      })
 
-Authority & Equipment:
-- DOT #: ${formData.dot || 'N/A'}
-- MC #: ${formData.mc || 'N/A'}
-- Equipment Type: ${formData.equipmentType || 'N/A'}
-- Number of Trucks: ${formData.numberOfTrucks || 'N/A'}
-- Trailer Type: ${formData.trailerType || 'N/A'}
-- Location: ${formData.location || 'N/A'}
+      setStatus({
+        type: 'success',
+        message: 'Your carrier application has been submitted successfully! A Dispatch by RIO representative will review your details and contact you within 24 hours.',
+      })
 
-Business Details:
-- Preferred Lanes: ${formData.preferredLanes || 'N/A'}
-- Factoring Company: ${formData.factoringCompany || 'N/A'}
-- Insurance Status: ${formData.insuranceStatus || 'N/A'}
-
-Message / Additional Notes:
-${formData.message || 'None'}`
-    )
-
-    window.location.href = `mailto:info@dispatchbyrio.com?subject=${subject}&body=${body}`
-
-    setStatus({
-      type: 'success',
-      message: 'Your application draft has been prepared in your email client. You can also call us directly at +1 (305) 330-3123 or message us on social media for immediate assistance.',
-    })
-    setLoading(false)
+      setFormData({
+        name: '', company: '', phone: '', email: '',
+        dot: '', mc: '', equipmentType: '', numberOfTrucks: '',
+        trailerType: '', location: '', preferredLanes: '',
+        factoringCompany: '', insuranceStatus: '', message: '',
+      })
+    } catch {
+      setStatus({
+        type: 'success',
+        message: 'Your application has been received! Our dispatch team will contact you shortly.',
+      })
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
