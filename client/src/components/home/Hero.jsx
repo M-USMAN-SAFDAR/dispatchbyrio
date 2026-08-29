@@ -28,9 +28,12 @@ const Hero = () => {
             transition={{ duration: 0.7 }}
           >
             {/* Label */}
-            <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20
+            <div className="inline-flex items-center gap-2.5 bg-primary/10 border border-primary/20
                           rounded-full px-4 py-2 mb-7">
-              <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
+              <span className="relative flex h-2.5 w-2.5 items-center justify-center">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]"></span>
+              </span>
               <span className="text-primary text-xs font-semibold uppercase tracking-wider">
                 Carrier Business Support Partner
               </span>

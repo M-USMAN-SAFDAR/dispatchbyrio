@@ -7,6 +7,7 @@ import FactoringInsurance from '../components/home/FactoringInsurance'
 import Equipment from '../components/home/Equipment'
 import Pricing from '../components/home/Pricing'
 import WhyCarriers from '../components/home/WhyCarriers'
+import Testimonials from '../components/home/Testimonials'
 import FAQ from '../components/home/FAQ'
 import CTA from '../components/home/CTA'
 
@@ -22,6 +23,7 @@ const Home = () => {
       <Equipment />
       <Pricing />
       <WhyCarriers />
+      <Testimonials />
       <FAQ />
       <CTA />
     </>
