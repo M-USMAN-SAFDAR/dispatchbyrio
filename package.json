@@ -1,14 +1,10 @@
 {
-  "name": "dispatchbyrio-clone",
+  "name": "dispatchbyrio",
   "version": "1.0.0",
-  "description": "DispatchByRIO website clone - MERN + Tailwind CSS",
+  "description": "Dispatch By RIO - Carrier Business Support Partner Website",
   "scripts": {
-    "server": "cd server && node server.js",
-    "client": "cd client && npm run dev",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "install-all": "npm install && cd server && npm install && cd ../client && npm install"
-  },
-  "dependencies": {
-    "concurrently": "^8.2.2"
+    "dev": "npm --prefix client run dev",
+    "build": "npm --prefix client run build",
+    "preview": "npm --prefix client run preview"
   }
 }

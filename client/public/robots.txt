@@ -1,0 +1,9 @@
+# DispatchByRIO Robots.txt
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://dispatchbyrio.com/sitemap.xml
+
+# Disallow admin/API routes
+Disallow: /api/

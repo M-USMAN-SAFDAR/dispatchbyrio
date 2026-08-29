@@ -1,181 +1,113 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { HiMenu, HiX, HiChevronDown } from 'react-icons/hi'
-import { FaPhoneAlt, FaShieldAlt, FaUserTie, FaBoxes } from 'react-icons/fa'
-import logoImg from '../assets/logo.jpg'
+import { HiMenu, HiX } from 'react-icons/hi'
+import { FaPhoneAlt } from 'react-icons/fa'
+import logoImg from '../assets/rio_logo_clean.png'
+
+const navLinks = [
+  { name: 'Home', path: '/' },
+  { name: 'Services', path: '/services' },
+  { name: 'How It Works', path: '/#how-it-works' },
+  { name: 'About', path: '/about' },
+  { name: 'Equipment', path: '/#equipment' },
+  { name: 'FAQ', path: '/faq' },
+  { name: 'Contact', path: '/contact' },
+]
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const [servicesOpen, setServicesOpen] = useState(false)
-  const [mobileServicesOpen, setMobileServicesOpen] = useState(false)
   const location = useLocation()
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50)
-    }
+    const handleScroll = () => setScrolled(window.scrollY > 50)
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   useEffect(() => {
     setIsOpen(false)
-    setServicesOpen(false)
-    setMobileServicesOpen(false)
   }, [location])
+
+  // Handle anchor links (/#how-it-works, /#equipment)
+  const handleNavClick = (path) => {
+    if (path.startsWith('/#')) {
+      const id = path.substring(2)
+      if (location.pathname === '/') {
+        const el = document.getElementById(id)
+        if (el) el.scrollIntoView({ behavior: 'smooth' })
+      }
+      // If not on home page, the Link will navigate to / and the hash will handle scroll
+    }
+    setIsOpen(false)
+  }
+
+  const isActive = (path) => {
+    if (path.startsWith('/#')) {
+      return location.pathname === '/' && location.hash === path.substring(1)
+    }
+    if (path === '/') {
+      return location.pathname === '/' && (!location.hash || location.hash === '#')
+    }
+    return location.pathname === path
+  }
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-dark/95 backdrop-blur-md shadow-lg shadow-black/20' : 'bg-transparent'
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-dark/95 backdrop-blur-md shadow-lg shadow-black/20' : 'bg-transparent'
+        }`}
     >
-      <div className="container-custom">
-        <nav className="flex items-center justify-between py-4 lg:py-5">
-          <Link to="/" className="flex items-center group">
-            <img 
-              src={logoImg} 
-              alt="DispatchByRIO Logo" 
-              className="h-12 md:h-14 w-auto object-contain drop-shadow-lg" 
+      <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-10">
+        <nav className="flex items-center justify-between py-3 sm:py-3.5">
+          <Link to="/" className="flex items-center gap-2 sm:gap-2.5 group flex-shrink-0">
+            <img
+              src={logoImg}
+              alt="Dispatch by RIO"
+              className="h-8 sm:h-9 md:h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105 drop-shadow-[0_2px_6px_rgba(0,0,0,0.5)]"
             />
+            <div className="flex items-baseline select-none whitespace-nowrap font-bold text-sm sm:text-base md:text-lg tracking-tight">
+              <span className="text-white font-bold">Dispatch</span>
+              <span className="text-primary mx-1 font-semibold">by</span>
+              <span className="text-white font-extrabold uppercase tracking-wider">RIO</span>
+            </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-8">
-            <Link
-              to="/"
-              className={`text-sm font-semibold uppercase tracking-wider transition-all duration-300 hover:text-gray-300 ${
-                location.pathname === '/' ? 'text-white' : 'text-gray-400'
-              }`}
-            >
-              Home
-            </Link>
-
-            {/* Services Dropdown */}
-            <div 
-              className="relative group py-2"
-              onMouseEnter={() => setServicesOpen(true)}
-              onMouseLeave={() => setServicesOpen(false)}
-            >
-              <button
-                className="text-sm font-semibold uppercase tracking-wider transition-all duration-300 hover:text-gray-300 flex items-center gap-1 cursor-pointer outline-none text-gray-400"
-              >
-                Services
-                <HiChevronDown className={`transition-transform duration-300 ${servicesOpen ? 'rotate-180' : ''}`} />
-              </button>
-
-              {/* Dropdown Menu Wrapper (Bridges the hover gap) */}
-              <div 
-                className={`absolute top-full left-1/2 -translate-x-1/2 pt-2 w-[450px] z-50 transition-all duration-300 origin-top ${
-                  servicesOpen ? 'opacity-100 scale-100 visible' : 'opacity-0 scale-95 invisible pointer-events-none'
-                }`}
-              >
-                {/* The actual styled menu card */}
-                <div className="bg-dark-light/95 border border-white/10 rounded-2xl p-4 shadow-2xl backdrop-blur-xl">
-                  <div className="flex flex-col gap-2">
-                    <Link 
-                      to="/services/insurance" 
-                      className="flex items-start gap-4 p-3 rounded-xl hover:bg-white/5 transition-all duration-300 group/item"
-                    >
-                      <div className="w-11 h-11 bg-primary/10 rounded-xl flex items-center justify-center text-primary group-hover/item:bg-primary group-hover/item:text-white transition-colors duration-300 flex-shrink-0 mt-0.5">
-                        <FaShieldAlt size={20} />
-                      </div>
-                      <div className="text-left">
-                        <div className="flex items-center gap-2">
-                          <span className="text-white font-bold text-sm group-hover/item:text-primary transition-colors">Insurance Type & Coverage</span>
-                          <span className="bg-primary/10 text-primary text-[10px] font-semibold px-2 py-0.5 rounded-full animate-pulse">Secure</span>
-                        </div>
-                        <div className="text-gray-300 font-semibold text-xs mt-0.5">Cargo, Physical Damage & Auto Liability</div>
-                        <p className="text-gray-400 text-xs mt-1.5 leading-relaxed">
-                          We verify and manage certificates for Cargo ($250k+), Physical Damage, and Auto Liability ($1M+) ensuring absolute freight protection and carrier compliance.
-                        </p>
-                      </div>
-                    </Link>
-
-                    <Link 
-                      to="/services/consulting" 
-                      className="flex items-start gap-4 p-3 rounded-xl hover:bg-white/5 transition-all duration-300 group/item"
-                    >
-                      <div className="w-11 h-11 bg-primary/10 rounded-xl flex items-center justify-center text-primary group-hover/item:bg-primary group-hover/item:text-white transition-colors duration-300 flex-shrink-0 mt-0.5">
-                        <FaUserTie size={20} />
-                      </div>
-                      <div className="text-left">
-                        <div className="flex items-center gap-2">
-                          <span className="text-white font-bold text-sm group-hover/item:text-primary transition-colors">Fleet Consultation Specialist</span>
-                          <span className="bg-green-500/10 text-green-400 text-[10px] font-semibold px-2 py-0.5 rounded-full">1-on-1 Support</span>
-                        </div>
-                        <div className="text-gray-300 font-semibold text-xs mt-0.5">Fleet Scaling, Equipment Strategy & Profitability</div>
-                        <p className="text-gray-400 text-xs mt-1.5 leading-relaxed">
-                          Get dedicated consultations on equipment selection, route profitability, driver recruitment, and building long-term direct-shipper relations.
-                        </p>
-                      </div>
-                    </Link>
-
-                    <Link 
-                      to="/services/logistics" 
-                      className="flex items-start gap-4 p-3 rounded-xl hover:bg-white/5 transition-all duration-300 group/item"
-                    >
-                      <div className="w-11 h-11 bg-primary/10 rounded-xl flex items-center justify-center text-primary group-hover/item:bg-primary group-hover/item:text-white transition-colors duration-300 flex-shrink-0 mt-0.5">
-                        <FaBoxes size={20} />
-                      </div>
-                      <div className="text-left">
-                        <div className="flex items-center gap-2">
-                          <span className="text-white font-bold text-sm group-hover/item:text-primary transition-colors">Advanced Logistics Operations</span>
-                          <span className="bg-blue-500/10 text-blue-400 text-[10px] font-semibold px-2 py-0.5 rounded-full">Full Service</span>
-                        </div>
-                        <div className="text-gray-300 font-semibold text-xs mt-0.5">Rate Confirmations, Factoring & Invoicing Setup</div>
-                        <p className="text-gray-400 text-xs mt-1.5 leading-relaxed">
-                          Full-service logistics support: broker packet setup, load booking, rate confirmations, factoring submission, and optimized route planning.
-                        </p>
-                      </div>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <Link
-              to="/about"
-              className={`text-sm font-semibold uppercase tracking-wider transition-all duration-300 hover:text-gray-300 ${
-                location.pathname === '/about' ? 'text-white' : 'text-gray-400'
-              }`}
-            >
-              About
-            </Link>
-            <Link
-              to="/prices"
-              className={`text-sm font-semibold uppercase tracking-wider transition-all duration-300 hover:text-gray-300 ${
-                location.pathname === '/prices' ? 'text-white' : 'text-gray-400'
-              }`}
-            >
-              Prices
-            </Link>
-            <Link
-              to="/contact"
-              className={`text-sm font-semibold uppercase tracking-wider transition-all duration-300 hover:text-gray-300 ${
-                location.pathname === '/contact' ? 'text-white' : 'text-gray-400'
-              }`}
-            >
-              Contact
-            </Link>
+          <div className="hidden lg:flex items-center gap-4 xl:gap-6 2xl:gap-7">
+            {navLinks.map((link) => {
+              const active = isActive(link.path)
+              return (
+                <Link
+                  key={link.name}
+                  to={link.path}
+                  onClick={() => handleNavClick(link.path)}
+                  className={`relative py-1 text-xs xl:text-[13px] font-semibold uppercase tracking-wider transition-colors duration-300 whitespace-nowrap ${active ? 'text-white' : 'text-gray-400 hover:text-white'
+                    }`}
+                >
+                  {link.name}
+                  {active && (
+                    <span className="absolute -bottom-1 left-0 w-full h-[2.5px] bg-primary rounded-full shadow-[0_0_8px_rgba(244,110,22,0.6)]" />
+                  )}
+                </Link>
+              )
+            })}
           </div>
 
           {/* Desktop CTA */}
-          <div className="hidden lg:flex items-center gap-4">
+          <div className="hidden lg:flex items-center gap-3 xl:gap-4 flex-shrink-0">
             <a
-              href="tel:+13322285736"
-              className="flex items-center gap-2 text-gray-300 hover:text-white transition-all duration-300"
+              href="tel:+13053303123"
+              className="flex items-center gap-2 text-gray-300 hover:text-white transition-all duration-300 whitespace-nowrap"
             >
-              <FaPhoneAlt className="text-white text-sm" />
-              <span className="text-sm font-semibold">+1 (332) 228-5736</span>
+              <FaPhoneAlt className="text-primary text-xs xl:text-sm" />
+              <span className="text-xs xl:text-sm font-semibold">+1 (305) 330-3123</span>
             </a>
-            <Link to="/contact" className="btn-yellow text-sm">
-              Start Dispatching
+            <Link to="/contact" className="btn-primary text-xs px-4 xl:px-6 py-2.5 xl:py-3 whitespace-nowrap">
+              Start With Dispatch by RIO
             </Link>
           </div>
 
-          {/* Mobile Menu Toggle */}
+          {/* Mobile Toggle */}
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="lg:hidden text-white hover:text-gray-300 transition-colors p-2"
@@ -188,90 +120,41 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       <div
-        className={`lg:hidden absolute top-full left-0 right-0 bg-dark/98 backdrop-blur-lg 
-                    border-t border-white/10 transition-all duration-300 overflow-hidden ${
-          isOpen ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0'
-        }`}
+        className={`lg:hidden absolute top-full left-0 right-0 bg-dark/98 backdrop-blur-lg
+                    border-t border-white/10 transition-all duration-300 overflow-hidden ${isOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
+          }`}
       >
-        <div className="container-custom py-6 flex flex-col gap-4">
-          <Link
-            to="/"
-            className={`text-base font-semibold uppercase tracking-wider py-2 transition-all duration-300 hover:text-white hover:pl-2 ${
-              location.pathname === '/' ? 'text-white' : 'text-gray-400'
-            }`}
-          >
-            Home
-          </Link>
-
-          {/* Mobile Services Accordion */}
-          <div className="flex flex-col">
-            <button
-              onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
-              className="flex items-center justify-between text-base font-semibold uppercase tracking-wider py-2 text-gray-400 hover:text-white transition-all duration-300 outline-none"
-            >
-              Services
-              <HiChevronDown className={`transition-transform duration-300 ${mobileServicesOpen ? 'rotate-180' : ''}`} />
-            </button>
-            
-            <div className={`flex flex-col pl-4 gap-3 border-l border-white/10 transition-all duration-300 overflow-hidden ${
-              mobileServicesOpen ? 'max-h-60 mt-2 pb-2' : 'max-h-0'
-            }`}>
-              <Link 
-                to="/services/insurance"
-                className="text-sm font-medium text-gray-400 hover:text-white py-1 transition-colors"
+        <div className="container-custom py-6 flex flex-col gap-1">
+          {navLinks.map((link) => {
+            const active = isActive(link.path)
+            return (
+              <Link
+                key={link.name}
+                to={link.path}
+                onClick={() => handleNavClick(link.path)}
+                className={`relative flex items-center justify-between text-base font-semibold py-3 transition-all duration-300 ${active
+                    ? 'text-white border-l-2 border-primary pl-3'
+                    : 'text-gray-400 hover:text-white hover:pl-2'
+                  }`}
               >
-                Insurance Type
+                <span>{link.name}</span>
+                {active && (
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_6px_rgba(244,110,22,0.8)]" />
+                )}
               </Link>
-              <Link 
-                to="/services/consulting"
-                className="text-sm font-medium text-gray-400 hover:text-white py-1 transition-colors"
-              >
-                Consultation Specialist
-              </Link>
-              <Link 
-                to="/services/logistics"
-                className="text-sm font-medium text-gray-400 hover:text-white py-1 transition-colors"
-              >
-                Logistics Things
-              </Link>
-            </div>
-          </div>
+            )
+          })}
 
-          <Link
-            to="/about"
-            className={`text-base font-semibold uppercase tracking-wider py-2 transition-all duration-300 hover:text-white hover:pl-2 ${
-              location.pathname === '/about' ? 'text-white' : 'text-gray-400'
-            }`}
-          >
-            About
-          </Link>
-          <Link
-            to="/prices"
-            className={`text-base font-semibold uppercase tracking-wider py-2 transition-all duration-300 hover:text-white hover:pl-2 ${
-              location.pathname === '/prices' ? 'text-white' : 'text-gray-400'
-            }`}
-          >
-            Prices
-          </Link>
-          <Link
-            to="/contact"
-            className={`text-base font-semibold uppercase tracking-wider py-2 transition-all duration-300 hover:text-white hover:pl-2 ${
-              location.pathname === '/contact' ? 'text-white' : 'text-gray-400'
-            }`}
-          >
-            Contact
-          </Link>
-
-          <div className="border-t border-white/10 pt-4 mt-2">
+          <div className="border-t border-white/10 pt-5 mt-3 space-y-4">
             <a
-              href="tel:+13322285736"
-              className="flex items-center gap-2 text-white hover:text-gray-300 mb-4"
+              href="tel:+13053303123"
+              className="flex items-center gap-2 text-white hover:text-gray-300"
             >
-              <FaPhoneAlt className="text-white" />
-              <span className="font-semibold">+1 (332) 228-5736</span>
+              <FaPhoneAlt className="text-primary" />
+              <span className="font-semibold">+1 (305) 330-3123</span>
             </a>
-            <Link to="/contact" className="btn-yellow w-full text-center">
-              Start Dispatching
+            <Link to="/contact" className="btn-primary w-full text-center">
+              Start With Dispatch by RIO
             </Link>
           </div>
         </div>

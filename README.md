@@ -1,63 +1,84 @@
-# DispatchByRIO Clone - MERN & Tailwind CSS
+# DispatchByRIO — Truck Dispatch Services
 
-This is a premium MERN stack clone of the DispatchByRIO website, updated with a modern Black & White theme.
+Professional truck dispatch services website for owner-operators and fleet owners across the United States.
 
 ## Architecture
 
-- **Frontend**: React (Vite) + Tailwind CSS + Framer Motion (SPA routed)
+- **Frontend**: React 19 (Vite) + Tailwind CSS 4 + Framer Motion
 - **Backend**: Node.js + Express.js + Mongoose (MongoDB)
-- **API**: Contact form submissions are stored in MongoDB
-
----
-
-## Deployment Guide
-
-Follow these steps to deploy the application to Vercel (Frontend) and Render (Backend).
-
-### 1. Backend Deployment (Render)
-
-1. Sign up/log in to [Render](https://render.com/).
-2. Click **New** > **Web Service**.
-3. Connect your Git repository.
-4. Set the following configurations:
-   - **Name**: `dispatchbyrio-backend` (or your preferred name)
-   - **Runtime**: `Node`
-   - **Root Directory**: `server`
-   - **Build Command**: `npm install`
-   - **Start Command**: `node server.js`
-5. Click **Advanced** and add the following **Environment Variables**:
-   - `MONGO_URI`: Your MongoDB Atlas connection string (e.g., `mongodb+srv://...`)
-   - `PORT`: `10000` (Render's default)
-6. Click **Create Web Service**. Once deployed, copy your backend URL (e.g., `https://dispatchbyrio-backend.onrender.com`).
-
----
-
-### 2. Frontend Deployment (Vercel)
-
-1. Sign up/log in to [Vercel](https://vercel.com/).
-2. Click **Add New** > **Project**.
-3. Import your Git repository.
-4. Set the following configurations:
-   - **Root Directory**: Select `client` (Very Important)
-   - **Framework Preset**: `Vite` (automatically detected)
-   - **Build Command**: `npm run build`
-   - **Output Directory**: `dist`
-5. Open **Environment Variables** and add:
-   - `VITE_API_URL`: Paste your Render backend URL (e.g., `https://dispatchbyrio-backend.onrender.com`) without a trailing slash.
-6. Click **Deploy**. Vercel will build and host your frontend.
+- **API**: Contact form submissions stored in MongoDB
 
 ---
 
 ## Local Development
 
-1. Install dependencies at the root level:
+1. Install dependencies:
    ```bash
    npm run install-all
    ```
-2. Start MongoDB locally.
-3. Run both client and server concurrently:
+2. Create a `.env` file in `server/` (copy from `.env.example`):
+   ```bash
+   cp server/.env.example server/.env
+   ```
+3. Start MongoDB locally (or use MongoDB Atlas URI in `.env`).
+4. Run both client and server:
    ```bash
    npm run dev
    ```
-   - Frontend runs on: [http://localhost:3000](http://localhost:3000)
-   - Backend API runs on: [http://localhost:5000](http://localhost:5000)
+   - Frontend: [http://localhost:3000](http://localhost:3000)
+   - Backend API: [http://localhost:5000](http://localhost:5000)
+
+---
+
+## Deployment Guide
+
+### 1. Backend (Render)
+
+1. Sign up at [Render](https://render.com/)
+2. Create a **Web Service**, connect your Git repo
+3. Configure:
+   - **Root Directory**: `server`
+   - **Build Command**: `npm install`
+   - **Start Command**: `node server.js`
+4. Add **Environment Variables**:
+   - `MONGO_URI` — Your MongoDB Atlas connection string
+   - `PORT` — `10000`
+   - `ALLOWED_ORIGINS` — Your frontend URL (e.g. `https://dispatchbyrio.com`)
+   - `ADMIN_API_KEY` — A strong random key for admin access
+
+### 2. Frontend (Vercel)
+
+1. Sign up at [Vercel](https://vercel.com/)
+2. Import your Git repo
+3. Configure:
+   - **Root Directory**: `client`
+   - **Framework Preset**: `Vite`
+   - **Build Command**: `npm run build`
+   - **Output Directory**: `dist`
+4. Add **Environment Variable**:
+   - `VITE_API_URL` — Your Render backend URL (e.g. `https://dispatchbyrio-backend.onrender.com`)
+5. Connect your custom domain in Vercel settings
+
+---
+
+## Project Structure
+
+```
+├── client/                 # React frontend
+│   ├── public/             # Static assets (images, robots.txt, sitemap.xml)
+│   ├── src/
+│   │   ├── assets/         # Logo
+│   │   ├── components/     # Reusable components (Navbar, Footer, home sections)
+│   │   ├── pages/          # Route pages (Home, About, Pricing, Contact, etc.)
+│   │   ├── App.jsx         # Router + lazy-loaded routes
+│   │   ├── main.jsx        # Entry point
+│   │   └── index.css       # Global styles + Tailwind theme
+│   ├── vite.config.js
+│   └── vercel.json         # SPA rewrites for Vercel
+├── server/                 # Express backend
+│   ├── config/db.js        # MongoDB connection
+│   ├── models/Contact.js   # Contact form schema
+│   ├── routes/contact.js   # Contact API (POST + admin GET)
+│   └── server.js           # Express app entry
+└── package.json            # Root monorepo scripts
+```

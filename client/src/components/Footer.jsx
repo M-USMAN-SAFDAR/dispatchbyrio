@@ -1,41 +1,48 @@
 import { Link } from 'react-router-dom'
-import { FaFacebookF, FaInstagram, FaLinkedinIn, FaTwitter, FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa'
-import logoImg from '../assets/logo.jpg'
+import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaInstagram, FaFacebook, FaTiktok } from 'react-icons/fa'
+import logoImg from '../assets/rio_logo_clean.png'
 
 const Footer = () => {
   return (
     <footer className="bg-dark border-t border-white/10">
-      {/* Main Footer */}
       <div className="container-custom py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-          {/* Company Info */}
+          {/* Company */}
           <div>
-            <Link to="/" className="flex items-center mb-6 group">
-              <img 
-                src={logoImg} 
-                alt="DispatchByRIO Logo" 
-                className="h-14 md:h-16 w-auto object-contain drop-shadow-lg" 
+            <Link to="/" className="inline-flex items-center gap-3.5 mb-6 group">
+              <img
+                src={logoImg}
+                alt="Dispatch by RIO"
+                className="h-11 md:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105 drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]"
               />
+              <div className="flex items-baseline select-none whitespace-nowrap font-extrabold text-xl md:text-2xl tracking-tight">
+                <span className="text-white">Dispatch</span>
+                <span className="text-primary mx-1.5 font-bold">by</span>
+                <span className="text-white uppercase tracking-wider">RIO</span>
+              </div>
             </Link>
-            <p className="text-gray-400 text-sm leading-relaxed mb-6">
-              Professional truck dispatch services for owner-operators and fleet owners across the United States. 
-              We help you find the best loads and maximize your revenue.
+            <p className="text-gray-400 text-sm leading-relaxed mb-4">
+              More than dispatch. We help carriers manage the business side of trucking
+              so they can focus on the road.
             </p>
-            <div className="flex gap-3">
+            <p className="text-gray-500 text-xs mb-5">
+              Your Truck. Your Business. Our Support.
+            </p>
+            <div className="flex items-center gap-2.5">
               {[
-                { icon: FaFacebookF, href: '#' },
-                { icon: FaInstagram, href: '#' },
-                { icon: FaLinkedinIn, href: '#' },
-                { icon: FaTwitter, href: '#' },
-              ].map((social, index) => (
+                { icon: FaInstagram, link: 'https://www.instagram.com/dispatchbyrio?igsi=MTY2ZG5peGU2d3Z1cA%3D%3D&utm_source=qr', label: 'Instagram' },
+                { icon: FaFacebook, link: 'https://www.facebook.com/share/1C6QHYgu7J/?mibextid=wwXIfr', label: 'Facebook' },
+                { icon: FaTiktok, link: 'https://www.tiktok.com/@dispatch.by.rio?_r=1&_t=ZP-99HnNNLHe9e', label: 'TikTok' },
+              ].map((s) => (
                 <a
-                  key={index}
-                  href={social.href}
-                  className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center 
-                           text-white hover:bg-white hover:border-white hover:text-dark transition-all duration-300"
-                  aria-label={`Social link ${index + 1}`}
+                  key={s.label}
+                  href={s.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={s.label}
+                  className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-primary hover:border-primary/40 hover:bg-primary/10 transition-all duration-300"
                 >
-                  <social.icon size={14} />
+                  <s.icon size={15} />
                 </a>
               ))}
             </div>
@@ -43,23 +50,25 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h5 className="text-white font-bold text-lg mb-6 relative">
+            <h5 className="text-white font-bold text-base mb-6 relative">
               Quick Links
               <span className="absolute bottom-[-8px] left-0 w-8 h-0.5 bg-primary"></span>
             </h5>
             <ul className="space-y-3 mt-4">
               {[
                 { name: 'Home', path: '/' },
+                { name: 'Services', path: '/services' },
                 { name: 'About Us', path: '/about' },
-                { name: 'Our Prices', path: '/prices' },
+                { name: 'FAQ', path: '/faq' },
                 { name: 'Contact Us', path: '/contact' },
               ].map((link) => (
                 <li key={link.name}>
                   <Link
                     to={link.path}
-                    className="text-gray-400 hover:text-white transition-colors duration-300 text-sm flex items-center gap-2"
+                    className="text-gray-400 hover:text-white transition-colors duration-300 text-sm
+                               flex items-center gap-2"
                   >
-                    <span className="text-white text-xs">›</span>
+                    <span className="text-primary text-xs">›</span>
                     {link.name}
                   </Link>
                 </li>
@@ -69,51 +78,55 @@ const Footer = () => {
 
           {/* Services */}
           <div>
-            <h5 className="text-white font-bold text-lg mb-6 relative">
+            <h5 className="text-white font-bold text-base mb-6 relative">
               Our Services
               <span className="absolute bottom-[-8px] left-0 w-8 h-0.5 bg-primary"></span>
             </h5>
             <ul className="space-y-3 mt-4">
               {[
                 'Truck Dispatching',
-                'Billing Services',
-                'Document Management',
-                'Rate Negotiation',
-                'Route Planning',
-                'Compliance Support',
+                'Factoring Solutions',
+                'Insurance Solutions',
+                'Paperwork & Admin Support',
+                'Carrier Business Support',
+                'Load & Rate Management',
               ].map((service) => (
                 <li key={service}>
-                  <span className="text-gray-400 text-sm flex items-center gap-2 hover:text-white transition-colors duration-300 cursor-pointer">
-                    <span className="text-white text-xs">›</span>
+                  <Link
+                    to="/services"
+                    className="text-gray-400 text-sm flex items-center gap-2
+                               hover:text-white transition-colors duration-300"
+                  >
+                    <span className="text-primary text-xs">›</span>
                     {service}
-                  </span>
+                  </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Contact Info */}
+          {/* Contact */}
           <div>
-            <h5 className="text-white font-bold text-lg mb-6 relative">
+            <h5 className="text-white font-bold text-base mb-6 relative">
               Contact Us
               <span className="absolute bottom-[-8px] left-0 w-8 h-0.5 bg-primary"></span>
             </h5>
             <ul className="space-y-4 mt-4">
               <li>
-                <a href="tel:+13322285736" className="flex items-start gap-3 text-gray-400 hover:text-white transition-colors group">
-                  <FaPhoneAlt className="text-white mt-1 flex-shrink-0" size={14} />
-                  <span className="text-sm">+1 (332) 228-5736</span>
+                <a href="tel:+13053303123" className="flex items-start gap-3 text-gray-400 hover:text-white transition-colors">
+                  <FaPhoneAlt className="text-primary mt-1 flex-shrink-0" size={14} />
+                  <span className="text-sm">+1 (305) 330-3123</span>
                 </a>
               </li>
               <li>
-                <a href="mailto:info@dispatchbyrio.com" className="flex items-start gap-3 text-gray-400 hover:text-white transition-colors group">
-                  <FaEnvelope className="text-white mt-1 flex-shrink-0" size={14} />
+                <a href="mailto:info@dispatchbyrio.com" className="flex items-start gap-3 text-gray-400 hover:text-white transition-colors">
+                  <FaEnvelope className="text-primary mt-1 flex-shrink-0" size={14} />
                   <span className="text-sm">info@dispatchbyrio.com</span>
                 </a>
               </li>
               <li>
                 <div className="flex items-start gap-3 text-gray-400">
-                  <FaMapMarkerAlt className="text-white mt-1 flex-shrink-0" size={14} />
+                  <FaMapMarkerAlt className="text-primary mt-1 flex-shrink-0" size={14} />
                   <span className="text-sm">United States</span>
                 </div>
               </li>
@@ -122,15 +135,16 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Bottom Bar */}
+      {/* Bottom */}
       <div className="border-t border-white/10">
         <div className="container-custom py-5 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-gray-500 text-xs">
-            © {new Date().getFullYear()} DispatchByRIO. All Rights Reserved.
+            © {new Date().getFullYear()} Dispatch by RIO. All Rights Reserved.
           </p>
           <div className="flex items-center gap-6">
-            <a href="#" className="text-gray-500 hover:text-white text-xs transition-colors">Privacy Policy</a>
-            <a href="#" className="text-gray-500 hover:text-white text-xs transition-colors">Terms of Service</a>
+            <Link to="/privacy-policy" className="text-gray-500 hover:text-white text-xs transition-colors">Privacy Policy</Link>
+            <Link to="/terms-of-service" className="text-gray-500 hover:text-white text-xs transition-colors">Terms of Service</Link>
+            <Link to="/contact" className="text-gray-500 hover:text-white text-xs transition-colors">Contact</Link>
           </div>
         </div>
       </div>

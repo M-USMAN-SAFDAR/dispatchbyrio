@@ -21,14 +21,14 @@ const NotFound = () => {
             Page Not Found
           </h2>
           <p className="text-gray-400 text-lg max-w-md mx-auto mb-8">
-            The page you're looking for doesn't exist or has been moved. 
+            The page you're looking for doesn't exist or has been moved.
             Let's get you back on track.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <Link to="/" className="btn-yellow px-10 py-4">
+            <Link to="/" className="btn-primary px-10 py-4">
               Go Home
             </Link>
-            <Link to="/contact" className="btn-outline-white px-10 py-4">
+            <Link to="/contact" className="btn-outline px-10 py-4">
               Contact Us
             </Link>
           </div>

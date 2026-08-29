@@ -5,36 +5,48 @@ import { FaPlus, FaMinus } from 'react-icons/fa'
 
 const faqs = [
   {
-    question: 'What is a truck dispatch service?',
-    answer: 'A truck dispatch service acts as your dedicated partner in finding and securing freight loads. Our dispatchers search load boards, negotiate rates with brokers and shippers, handle paperwork, and manage your schedule — all so you can focus on driving and earning.',
+    question: 'What does Dispatch by RIO do?',
+    answer: 'Dispatch by RIO is a carrier business support partner. We help with truck dispatching, freight search, rate negotiation, paperwork, invoicing, broker communication, and we can connect you with trusted factoring and insurance partners. We handle the business side of trucking so you can focus on driving.',
   },
   {
-    question: 'How much do you charge for dispatch services?',
-    answer: 'Our pricing is transparent and based on a percentage of gross revenue — typically between 3-5% depending on your plan. There are no hidden fees, no upfront costs, and no long-term contracts. You only pay when you earn.',
+    question: 'Do you work with all types of trucks?',
+    answer: 'Yes. We work with semi trucks, dry vans, reefers, flatbeds, step decks, hotshots, box trucks, straight trucks, and other commercial equipment. Whatever you operate, we can build a dispatch setup around it.',
   },
   {
-    question: 'What types of trucks do you dispatch?',
-    answer: 'We dispatch all types of commercial vehicles including dry vans, reefers (refrigerated trailers), flatbeds, step decks, power only, box trucks, hotshots, and more. Whatever your equipment type, we have the expertise to find the best loads for you.',
+    question: 'Do I choose which loads to take?',
+    answer: 'Absolutely. We present load options and provide recommendations, but you always have the final say. There is no forced dispatch — you stay in control of your truck and your business.',
   },
   {
-    question: 'Do I need to sign a long-term contract?',
-    answer: 'No! We believe in earning your business every day. Our agreements are flexible with no long-term commitments. You can cancel anytime with just a 2-week notice. We\'re confident in our service quality to keep you happy.',
+    question: 'Can you negotiate rates?',
+    answer: 'Yes. Our team has experience negotiating with brokers and shippers to secure competitive rates. We work to find freight that matches your operation and negotiate on your behalf.',
   },
   {
-    question: 'How do you find loads for my truck?',
-    answer: 'Our dispatchers use multiple load boards (DAT, Truckstop, direct broker relationships, and proprietary databases) to find the highest-paying loads that match your equipment, preferred lanes, and schedule. We handle all negotiations to get you the best rates.',
+    question: 'Can you help with broker paperwork?',
+    answer: 'Yes. We handle carrier packets, broker setup, rate confirmations, BOL/POD paperwork, invoicing, and general administrative support. Our goal is to take the paperwork off your plate.',
   },
   {
-    question: 'What areas do you cover?',
-    answer: 'We dispatch loads across all 48 contiguous states in the United States. Whether you prefer regional routes or long-haul cross-country loads, we can accommodate your preferences and find loads in your desired lanes.',
+    question: 'Do you work with factoring companies?',
+    answer: 'We are not a factoring company ourselves, but we can connect you with trusted factoring partners. We also help with the setup process, invoice submission, and communication with your factoring provider.',
   },
   {
-    question: 'How quickly can I get started?',
-    answer: 'You can get started within 24-48 hours! Simply fill out our contact form or give us a call. We\'ll gather your information, set up your account, and have you dispatched on your first load in no time.',
+    question: 'Can you help me find insurance?',
+    answer: 'We are not an insurance company, but we can connect you with insurance partners and help you explore coverage options suitable for your trucking operation. We can also help coordinate Certificate of Insurance documentation.',
   },
   {
-    question: 'Do you handle billing and invoicing?',
-    answer: 'Yes! Our Professional and Fleet plans include complete billing and invoicing services. We handle invoice generation, submission to brokers, payment tracking, and collections — ensuring you get paid on time, every time.',
+    question: 'Can you submit invoices to my factoring company?',
+    answer: 'Yes. As part of our administrative support, we can help prepare and submit invoices to your factoring company, including rate confirmations and signed proof of delivery documents.',
+  },
+  {
+    question: 'Do you work with owner-operators and fleets?',
+    answer: 'Yes. We work with owner-operators, new authorities, experienced carriers, small fleets, and growing fleets. Our support is flexible and built around each carrier\'s specific operation.',
+  },
+  {
+    question: 'How do I get started?',
+    answer: 'Fill out our carrier application form or give us a call. We\'ll learn about your operation, equipment, and goals, and set up a dispatch plan that works for you. Most carriers are set up within 24–48 hours.',
+  },
+  {
+    question: 'What documents do I need to onboard?',
+    answer: 'Typically we\'ll need your MC authority, DOT number, W9, Certificate of Insurance, and any relevant equipment information. Our team will guide you through the onboarding process step by step.',
   },
 ]
 
@@ -43,28 +55,28 @@ const AccordionItem = ({ faq, isOpen, onClick, index }) => {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.05 }}
+      transition={{ delay: index * 0.04 }}
       className={`border rounded-xl overflow-hidden transition-all duration-300 ${
-        isOpen ? 'border-white/30 bg-dark-light/50' : 'border-white/10 hover:border-white/20'
+        isOpen ? 'border-primary/30 bg-dark-light/50' : 'border-white/10 hover:border-white/20'
       }`}
     >
       <button
         onClick={onClick}
-        className="w-full flex items-center justify-between p-5 md:p-6 text-left group"
+        className="w-full flex items-center justify-between p-5 md:p-6 text-left group cursor-pointer"
       >
-        <span className={`font-bold text-base md:text-lg pr-4 transition-colors duration-300 ${
+        <span className={`font-bold text-sm md:text-base pr-4 transition-colors duration-300 ${
           isOpen ? 'text-white' : 'text-gray-400 group-hover:text-white'
         }`}>
           {faq.question}
         </span>
-        <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 
-                       transition-all duration-300 ${
-          isOpen ? 'bg-white text-dark rotate-0' : 'bg-white/10 text-white'
+        <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0
+                        transition-all duration-300 ${
+          isOpen ? 'bg-primary text-white' : 'bg-white/10 text-white'
         }`}>
           {isOpen ? <FaMinus className="text-xs" /> : <FaPlus className="text-xs" />}
         </div>
       </button>
-      
+
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -92,19 +104,17 @@ const FAQ = () => {
 
   return (
     <section className="bg-dark py-20 lg:py-28 relative overflow-hidden" id="faq" ref={ref}>
-      {/* Decorative */}
-      <div className="absolute top-20 right-0 w-80 h-80 bg-white/5 rounded-full blur-3xl" />
+      <div className="absolute top-20 right-0 w-80 h-80 bg-primary/5 rounded-full blur-3xl" />
 
       <div className="container-custom relative z-10">
-        {/* Section Header */}
+        {/* Header */}
         <div className="text-center mb-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
           >
-            <span className="inline-flex items-center gap-2 bg-white/10 border border-white/20 
-                          rounded-full px-4 py-1.5 text-sm font-semibold text-white mb-4">
+            <span className="section-label bg-white/10 text-white border border-white/20">
               <span className="w-1.5 h-1.5 bg-white rounded-full" />
               FAQ
             </span>
@@ -112,12 +122,12 @@ const FAQ = () => {
               Frequently Asked <span className="text-gray-400">Questions</span>
             </h2>
             <p className="section-subtitle text-gray-400 mx-auto">
-              Got questions? We've got answers. Find everything you need to know about our dispatch services.
+              Have questions about working with Dispatch by RIO? Find answers below.
             </p>
           </motion.div>
         </div>
 
-        {/* FAQ Accordion */}
+        {/* Accordion */}
         <div className="max-w-3xl mx-auto space-y-3">
           {faqs.map((faq, index) => (
             <AccordionItem

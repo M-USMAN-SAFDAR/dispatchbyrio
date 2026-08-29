@@ -1,25 +1,27 @@
 import Hero from '../components/home/Hero'
-import Services from '../components/home/Services'
+import TrustStrip from '../components/home/TrustStrip'
 import AboutSection from '../components/home/About'
-import Stats from '../components/home/Stats'
-import WhyChooseUs from '../components/home/WhyChooseUs'
+import HowWeHelp from '../components/home/HowWeHelp'
+import Services from '../components/home/Services'
+import FactoringInsurance from '../components/home/FactoringInsurance'
+import Equipment from '../components/home/Equipment'
 import Pricing from '../components/home/Pricing'
-import Testimonials from '../components/home/Testimonials'
+import WhyCarriers from '../components/home/WhyCarriers'
 import FAQ from '../components/home/FAQ'
 import CTA from '../components/home/CTA'
-import Partners from '../components/home/Partners'
 
 const Home = () => {
   return (
     <>
       <Hero />
-      <Partners />
-      <Services />
+      <TrustStrip />
       <AboutSection />
-      <Stats />
-      <WhyChooseUs />
+      <HowWeHelp />
+      <Services />
+      <FactoringInsurance />
+      <Equipment />
       <Pricing />
-      <Testimonials />
+      <WhyCarriers />
       <FAQ />
       <CTA />
     </>
