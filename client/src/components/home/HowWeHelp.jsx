@@ -24,8 +24,8 @@ const steps = [
   },
   {
     num: '05',
-    title: 'We Connect You With Business Partners',
-    desc: 'Need factoring or insurance? We can help connect you with trusted industry partners.',
+    title: 'Factoring & Insurance Solutions',
+    desc: 'Get support navigating factoring solutions and insurance options that fit your trucking operation.',
   },
   {
     num: '06',
@@ -75,8 +75,7 @@ const HowWeHelp = () => {
               className="group relative bg-white border border-gray-200 rounded-2xl p-8
                         hover:shadow-xl hover:-translate-y-1 transition-all duration-500"
             >
-              <div className="text-5xl font-black text-gray-100 group-hover:text-primary/10
-                            transition-colors duration-500 mb-4 leading-none">
+              <div className="text-5xl font-black text-black mb-4 leading-none select-none">
                 {step.num}
               </div>
               <h4 className="text-dark font-bold text-lg mb-3">{step.title}</h4>
