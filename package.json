@@ -1,10 +1,10 @@
 {
   "name": "dispatchbyrio",
   "version": "1.0.0",
-  "description": "Dispatch By RIO - Carrier Business Support Partner Website",
+  "private": true,
   "scripts": {
-    "dev": "npm --prefix client run dev",
-    "build": "npm --prefix client run build",
-    "preview": "npm --prefix client run preview"
+    "dev": "cd client && npm run dev",
+    "build": "cd client && npm install && npm run build",
+    "preview": "cd client && npm run preview"
   }
 }
