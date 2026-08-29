@@ -28,9 +28,9 @@ const TrustStrip = () => {
           {duplicatedBadges.map((badge, index) => (
             <div
               key={`${badge.label}-${index}`}
-              className="flex items-center gap-3.5 px-6 py-3.5 rounded-2xl bg-white/[0.03] border border-white/[0.08]
-                         hover:bg-white/[0.08] hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/20
-                         hover:scale-110 hover:-translate-y-2 transition-all duration-300 cursor-pointer flex-shrink-0 group/card"
+              className="relative flex items-center gap-3.5 px-6 py-3.5 rounded-2xl bg-white/[0.04] border border-white/[0.08]
+                         hover:bg-dark-mid hover:border-primary/60 hover:shadow-2xl hover:shadow-primary/25
+                         hover:scale-110 hover:-translate-y-2 hover:z-20 transition-all duration-300 cursor-pointer flex-shrink-0 group/card"
             >
               <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0
                               group-hover/card:bg-primary group-hover/card:text-white group-hover/card:scale-105 transition-all duration-300">

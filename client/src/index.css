@@ -121,4 +121,9 @@
   display: flex;
   width: max-content;
   animation: marquee 28s linear infinite;
+}
+
+.animate-marquee:hover,
+.animate-marquee:has(:hover) {
+  animation-play-state: paused !important;
 }
