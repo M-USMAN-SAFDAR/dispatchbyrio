@@ -4,7 +4,7 @@ const TermsOfService = () => {
   return (
     <>
       {/* Hero */}
-      <section className="relative pt-32 pb-16 lg:pt-40 lg:pb-20 bg-dark">
+      <section className="relative pt-24 pb-10 sm:pt-36 sm:pb-16 lg:pt-40 lg:pb-20 bg-dark">
         <div className="container-custom relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -12,10 +12,10 @@ const TermsOfService = () => {
             transition={{ duration: 0.7 }}
             className="text-center max-w-3xl mx-auto"
           >
-            <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4">
+            <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-extrabold text-white mb-2.5 sm:mb-4 tracking-tight">
               Terms of <span className="text-gray-300">Service</span>
             </h1>
-            <p className="text-gray-400 text-sm">
+            <p className="text-gray-400 text-xs sm:text-sm">
               Last updated: {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
             </p>
           </motion.div>
@@ -23,14 +23,14 @@ const TermsOfService = () => {
       </section>
 
       {/* Content */}
-      <section className="bg-white py-16 lg:py-20">
+      <section className="bg-white py-10 sm:py-16 lg:py-20">
         <div className="container-custom">
           <div className="max-w-3xl mx-auto">
-            <div className="space-y-8 text-gray-600">
+            <div className="space-y-6 sm:space-y-8 text-gray-600">
 
               <div>
-                <h2 className="text-dark font-bold text-2xl mb-3">1. Acceptance of Terms</h2>
-                <p className="text-sm leading-relaxed">
+                <h2 className="text-dark font-bold text-lg sm:text-2xl mb-2 sm:mb-3">1. Acceptance of Terms</h2>
+                <p className="text-xs sm:text-sm leading-relaxed">
                   By accessing and using the DispatchByRIO website and services, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our website or services. These terms apply to all visitors, users, and clients of DispatchByRIO.
                 </p>
               </div>

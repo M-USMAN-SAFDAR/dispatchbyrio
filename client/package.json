@@ -10,19 +10,18 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@tailwindcss/vite": "^4.3.2",
-    "@vitejs/plugin-react": "^6.0.3",
-    "axios": "^1.18.1",
     "framer-motion": "^12.42.2",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "react-icons": "^5.7.0",
     "react-intersection-observer": "^10.1.0",
-    "react-router-dom": "^7.18.1",
-    "tailwindcss": "^4.3.2",
-    "vite": "^8.1.4"
+    "react-router-dom": "^7.18.1"
   },
   "devDependencies": {
-    "oxlint": "^1.71.0"
+    "@tailwindcss/vite": "^4.3.2",
+    "@vitejs/plugin-react": "^6.0.3",
+    "oxlint": "^1.71.0",
+    "tailwindcss": "^4.3.2",
+    "vite": "^8.1.4"
   }
 }

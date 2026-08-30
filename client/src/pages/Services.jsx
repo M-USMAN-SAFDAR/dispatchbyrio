@@ -96,7 +96,7 @@ const ServicesPage = () => {
   return (
     <>
       {/* Hero */}
-      <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 bg-dark overflow-hidden" ref={heroRef}>
+      <section className="relative pt-24 pb-12 sm:pt-36 sm:pb-20 lg:pt-40 lg:pb-28 bg-dark overflow-hidden" ref={heroRef}>
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-cover bg-center"
                style={{ backgroundImage: `url('/images/cta-truck.jpg')` }} />
@@ -113,10 +113,10 @@ const ServicesPage = () => {
               <span className="w-1.5 h-1.5 bg-white rounded-full" />
               Our Services
             </span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight">
+            <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-3 sm:mb-6 leading-tight tracking-tight">
               You Drive. <span className="text-gray-300">We Handle the Business Side.</span>
             </h1>
-            <p className="text-gray-300 text-base md:text-lg leading-relaxed max-w-2xl mx-auto">
+            <p className="text-gray-300 text-xs sm:text-base md:text-lg leading-relaxed max-w-2xl mx-auto">
               From dispatching and freight management to paperwork, factoring solutions,
               and insurance options — Dispatch by RIO is your carrier business support partner.
             </p>
@@ -125,37 +125,34 @@ const ServicesPage = () => {
       </section>
 
       {/* Services Detail */}
-      <section className="bg-white py-20 lg:py-28">
+      <section className="bg-white py-12 sm:py-20 lg:py-28">
         <div className="container-custom">
-          <div className="space-y-16 lg:space-y-24">
+          <div className="space-y-10 sm:space-y-16 lg:space-y-24">
             {services.map((service, index) => {
-              const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 })
               const isEven = index % 2 === 0
 
               return (
                 <motion.div
                   key={service.title}
-                  ref={ref}
                   initial={{ opacity: 0, y: 40 }}
-                  animate={inView ? { opacity: 1, y: 0 } : {}}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.1 }}
                   transition={{ duration: 0.6 }}
-                  className={`grid lg:grid-cols-2 gap-10 lg:gap-16 items-start ${
-                    !isEven ? 'lg:direction-rtl' : ''
-                  }`}
+                  className="grid lg:grid-cols-2 gap-6 sm:gap-10 lg:gap-16 items-start"
                 >
                   {/* Icon + Title block */}
                   <div className={!isEven ? 'lg:order-2' : ''}>
-                    <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-6">
-                      <service.icon className="text-primary text-3xl" />
+                    <div className="w-11 h-11 sm:w-16 sm:h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-3.5 sm:mb-6">
+                      <service.icon className="text-primary text-xl sm:text-3xl" />
                     </div>
-                    <h3 className="text-dark font-extrabold text-2xl md:text-3xl mb-4">
+                    <h3 className="text-dark font-extrabold text-lg sm:text-2xl md:text-3xl mb-2 sm:mb-4">
                       {service.title}
                     </h3>
-                    <p className="text-gray-500 text-base leading-relaxed mb-6">
+                    <p className="text-gray-500 text-xs sm:text-base leading-relaxed mb-3.5 sm:mb-6">
                       {service.description}
                     </p>
                     {service.note && (
-                      <div className="bg-gray-100 border border-gray-200 rounded-xl p-4 mb-6">
+                      <div className="bg-gray-100 border border-gray-200 rounded-xl p-3 sm:p-4 mb-3.5 sm:mb-6">
                         <p className="text-gray-500 text-xs leading-relaxed italic">
                           {service.note}
                         </p>
@@ -165,12 +162,12 @@ const ServicesPage = () => {
 
                   {/* Bullets */}
                   <div className={!isEven ? 'lg:order-1' : ''}>
-                    <div className="bg-gray-50 border border-gray-200 rounded-2xl p-8">
-                      <div className="space-y-4">
+                    <div className="bg-gray-50 border border-gray-200 rounded-2xl p-4 sm:p-8">
+                      <div className="space-y-2.5 sm:space-y-4">
                         {service.bullets.map((bullet) => (
-                          <div key={bullet} className="flex items-start gap-3">
-                            <FaCheckCircle className="text-primary flex-shrink-0 mt-0.5 text-sm" />
-                            <span className="text-gray-700 text-sm font-medium">{bullet}</span>
+                          <div key={bullet} className="flex items-start gap-2.5 sm:gap-3">
+                            <FaCheckCircle className="text-primary flex-shrink-0 mt-0.5 text-xs sm:text-sm" />
+                            <span className="text-gray-700 text-xs sm:text-sm font-medium leading-relaxed">{bullet}</span>
                           </div>
                         ))}
                       </div>
@@ -182,10 +179,10 @@ const ServicesPage = () => {
           </div>
 
           {/* Bottom CTA */}
-          <div className="text-center mt-20">
-            <Link to="/contact" className="btn-primary text-base px-10 py-4">
+          <div className="text-center mt-10 sm:mt-20">
+            <Link to="/contact" className="btn-primary w-full sm:w-auto text-xs sm:text-base px-8 sm:px-10 py-3.5 sm:py-4">
               Start With Dispatch by RIO
-              <FaArrowRight className="text-sm" />
+              <FaArrowRight className="text-xs sm:text-sm" />
             </Link>
           </div>
         </div>

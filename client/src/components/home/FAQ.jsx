@@ -62,18 +62,18 @@ const AccordionItem = ({ faq, isOpen, onClick, index }) => {
     >
       <button
         onClick={onClick}
-        className="w-full flex items-center justify-between p-5 md:p-6 text-left group cursor-pointer"
+        className="w-full flex items-center justify-between p-3.5 sm:p-5 md:p-6 text-left group cursor-pointer min-h-[48px]"
       >
-        <span className={`font-bold text-sm md:text-base pr-4 transition-colors duration-300 ${
-          isOpen ? 'text-white' : 'text-gray-400 group-hover:text-white'
+        <span className={`font-bold text-xs sm:text-sm md:text-base pr-2.5 sm:pr-4 transition-colors duration-300 ${
+          isOpen ? 'text-white' : 'text-gray-300 group-hover:text-white'
         }`}>
           {faq.question}
         </span>
-        <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0
+        <div className={`w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center flex-shrink-0
                         transition-all duration-300 ${
           isOpen ? 'bg-primary text-white' : 'bg-white/10 text-white'
         }`}>
-          {isOpen ? <FaMinus className="text-xs" /> : <FaPlus className="text-xs" />}
+          {isOpen ? <FaMinus className="text-[9px] sm:text-xs" /> : <FaPlus className="text-[9px] sm:text-xs" />}
         </div>
       </button>
 
@@ -86,8 +86,8 @@ const AccordionItem = ({ faq, isOpen, onClick, index }) => {
             transition={{ duration: 0.3 }}
             className="overflow-hidden"
           >
-            <div className="px-5 md:px-6 pb-5 md:pb-6">
-              <p className="text-gray-400 text-sm md:text-base leading-relaxed">
+            <div className="px-3.5 sm:px-5 md:px-6 pb-3.5 sm:pb-5 md:pb-6">
+              <p className="text-gray-300 text-xs sm:text-sm md:text-base leading-relaxed">
                 {faq.answer}
               </p>
             </div>
@@ -103,12 +103,12 @@ const FAQ = () => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 })
 
   return (
-    <section className="bg-dark py-20 lg:py-28 relative overflow-hidden" id="faq" ref={ref}>
-      <div className="absolute top-20 right-0 w-80 h-80 bg-primary/5 rounded-full blur-3xl" />
+    <section className="bg-dark py-12 sm:py-20 lg:py-28 relative overflow-hidden" id="faq" ref={ref}>
+      <div className="absolute top-20 right-0 w-80 h-80 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
 
       <div className="container-custom relative z-10">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-8 sm:mb-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -118,17 +118,17 @@ const FAQ = () => {
               <span className="w-1.5 h-1.5 bg-white rounded-full" />
               FAQ
             </span>
-            <h2 className="section-title text-white mb-4">
+            <h2 className="section-title text-white mb-2.5 sm:mb-4">
               Frequently Asked <span className="text-gray-400">Questions</span>
             </h2>
-            <p className="section-subtitle text-gray-400 mx-auto">
+            <p className="section-subtitle text-gray-300 mx-auto text-xs sm:text-base md:text-lg">
               Have questions about working with Dispatch by RIO? Find answers below.
             </p>
           </motion.div>
         </div>
 
         {/* Accordion */}
-        <div className="max-w-3xl mx-auto space-y-3">
+        <div className="max-w-3xl mx-auto space-y-2 sm:space-y-3">
           {faqs.map((faq, index) => (
             <AccordionItem
               key={index}

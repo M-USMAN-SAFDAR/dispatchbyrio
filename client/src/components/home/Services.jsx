@@ -43,12 +43,12 @@ const Services = () => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 })
 
   return (
-    <section className="bg-dark py-20 lg:py-28 relative overflow-hidden" id="services-section" ref={ref}>
-      <div className="absolute top-20 right-0 w-80 h-80 bg-primary/5 rounded-full blur-3xl" />
+    <section className="bg-dark py-12 sm:py-20 lg:py-28 relative overflow-hidden" id="services-section" ref={ref}>
+      <div className="absolute top-20 right-0 w-80 h-80 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
 
       <div className="container-custom relative z-10">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-8 sm:mb-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -58,10 +58,10 @@ const Services = () => {
               <span className="w-1.5 h-1.5 bg-white rounded-full" />
               What We Do
             </span>
-            <h2 className="section-title text-white mb-4">
+            <h2 className="section-title text-white mb-2.5 sm:mb-4">
               More Than <span className="text-gray-400">Just Dispatch</span>
             </h2>
-            <p className="section-subtitle text-gray-400 mx-auto">
+            <p className="section-subtitle text-gray-300 mx-auto text-xs sm:text-base md:text-lg">
               Dispatch by RIO provides the support carriers need to manage the business side
               of trucking — from freight to paperwork to industry connections.
             </p>
@@ -69,28 +69,28 @@ const Services = () => {
         </div>
 
         {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-6">
           {services.map((service, index) => (
             <motion.div
               key={service.title}
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="glass-card p-8 hover:border-primary/30 hover:-translate-y-1
+              className="glass-card p-5 sm:p-8 hover:border-primary/30 hover:-translate-y-1
                         transition-all duration-500 group"
             >
-              <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6
-                            group-hover:bg-primary/20 transition-colors duration-500">
-                <service.icon className="text-primary text-2xl" />
+              <div className="w-11 h-11 sm:w-14 sm:h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-4 sm:mb-6
+                            group-hover:bg-primary/20 transition-colors duration-500 flex-shrink-0">
+                <service.icon className="text-primary text-lg sm:text-2xl" />
               </div>
-              <h4 className="text-white font-bold text-lg mb-3">{service.title}</h4>
-              <p className="text-gray-400 text-sm leading-relaxed">{service.description}</p>
+              <h4 className="text-white font-bold text-base sm:text-lg mb-1.5 sm:mb-3">{service.title}</h4>
+              <p className="text-gray-400 text-xs sm:text-sm leading-relaxed">{service.description}</p>
             </motion.div>
           ))}
         </div>
 
-        <div className="text-center mt-12">
-          <Link to="/services" className="btn-primary">
+        <div className="text-center mt-8 sm:mt-12">
+          <Link to="/services" className="btn-primary w-full sm:w-auto text-center">
             View All Services
           </Link>
         </div>

@@ -38,13 +38,13 @@ const HowWeHelp = () => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 })
 
   return (
-    <section className="bg-white py-20 lg:py-28 relative overflow-hidden" id="how-it-works" ref={ref}>
-      <div className="absolute top-0 right-0 w-96 h-96 bg-gray-100 rounded-full blur-3xl
-                      -translate-y-1/2 translate-x-1/2" />
+    <section className="bg-white py-12 sm:py-20 lg:py-28 relative overflow-hidden" id="how-it-works" ref={ref}>
+      <div className="absolute top-0 right-0 w-80 sm:w-96 h-80 sm:h-96 bg-gray-100 rounded-full blur-3xl
+                      -translate-y-1/2 translate-x-1/2 pointer-events-none" />
 
       <div className="container-custom relative z-10">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-8 sm:mb-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -54,10 +54,10 @@ const HowWeHelp = () => {
               <span className="w-1.5 h-1.5 bg-dark rounded-full" />
               How It Works
             </span>
-            <h2 className="section-title text-dark mb-4">
+            <h2 className="section-title text-dark mb-2.5 sm:mb-4">
               How We <span className="text-gray-400">Help</span> You
             </h2>
-            <p className="section-subtitle text-gray-500 mx-auto">
+            <p className="section-subtitle text-gray-500 mx-auto text-xs sm:text-base md:text-lg">
               From your first call to daily dispatch support — here's how Dispatch by RIO
               works alongside your operation.
             </p>
@@ -65,21 +65,21 @@ const HowWeHelp = () => {
         </div>
 
         {/* Steps Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-6 lg:gap-8">
           {steps.map((step, index) => (
             <motion.div
               key={step.num}
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group relative bg-white border border-gray-200 rounded-2xl p-8
+              className="group relative bg-white border border-gray-200 rounded-2xl p-5 sm:p-8
                         hover:shadow-xl hover:-translate-y-1 transition-all duration-500"
             >
-              <div className="text-5xl font-black text-black mb-4 leading-none select-none">
+              <div className="text-3xl sm:text-4xl lg:text-5xl font-black text-black mb-2 sm:mb-4 leading-none select-none">
                 {step.num}
               </div>
-              <h4 className="text-dark font-bold text-lg mb-3">{step.title}</h4>
-              <p className="text-gray-500 text-sm leading-relaxed">{step.desc}</p>
+              <h4 className="text-dark font-bold text-base sm:text-lg mb-1.5 sm:mb-3">{step.title}</h4>
+              <p className="text-gray-500 text-xs sm:text-sm leading-relaxed">{step.desc}</p>
             </motion.div>
           ))}
         </div>

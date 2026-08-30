@@ -75,14 +75,14 @@ const Testimonials = () => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 })
 
   return (
-    <section className="bg-dark py-20 lg:py-28 relative overflow-hidden" id="testimonials" ref={ref}>
+    <section className="bg-dark py-12 sm:py-20 lg:py-28 relative overflow-hidden" id="testimonials" ref={ref}>
       {/* Glow effects */}
-      <div className="absolute top-1/2 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 -translate-x-1/2" />
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl translate-y-1/2 translate-x-1/2" />
+      <div className="absolute top-1/2 left-0 w-80 sm:w-96 h-80 sm:h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 -translate-x-1/2 pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-80 sm:w-96 h-80 sm:h-96 bg-primary/5 rounded-full blur-3xl translate-y-1/2 translate-x-1/2 pointer-events-none" />
 
       <div className="container-custom relative z-10">
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -95,10 +95,10 @@ const Testimonials = () => {
               </span>
               Carrier Reviews & Testimonials
             </span>
-            <h2 className="section-title text-white mb-4">
+            <h2 className="section-title text-white mb-2.5 sm:mb-4">
               Trusted by <span className="text-primary">Carriers Across the USA</span>
             </h2>
-            <p className="section-subtitle mx-auto text-gray-400">
+            <p className="section-subtitle mx-auto text-gray-300 text-xs sm:text-base md:text-lg">
               Hear directly from owner-operators and fleet owners who rely on Dispatch by RIO
               to keep their trucks loaded, paperwork organized, and business profitable.
             </p>
@@ -106,54 +106,54 @@ const Testimonials = () => {
         </div>
 
         {/* Reviews Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-6 lg:gap-8">
           {testimonials.map((item, index) => (
             <motion.div
               key={item.name}
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: index * 0.08 }}
-              className="relative rounded-2xl p-7 bg-white/[0.03] border border-white/[0.08] shadow-lg
+              className="relative rounded-2xl p-4 sm:p-7 bg-white/[0.03] border border-white/[0.08] shadow-lg
                          hover:bg-dark-mid hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/20
-                         hover:scale-105 hover:-translate-y-2.5 transition-all duration-300 cursor-pointer group flex flex-col justify-between"
+                         hover:scale-105 hover:-translate-y-2.5 active:scale-95 transition-all duration-300 cursor-pointer group flex flex-col justify-between"
             >
               <div>
                 {/* Header: Stars & Verified Badge */}
-                <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center justify-between mb-3 sm:mb-4 gap-2 flex-wrap">
                   <div className="flex items-center gap-1 text-amber-400">
                     {[...Array(item.rating)].map((_, i) => (
-                      <FaStar key={i} className="text-sm" />
+                      <FaStar key={i} className="text-xs sm:text-sm" />
                     ))}
                   </div>
-                  <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 rounded-full">
+                  <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full whitespace-nowrap">
                     <FaCheckCircle size={10} />
                     {item.date}
                   </span>
                 </div>
 
                 {/* Quote Icon & Text */}
-                <FaQuoteLeft className="text-primary/20 text-2xl mb-3 group-hover:text-primary/40 transition-colors duration-300" />
-                <p className="text-gray-300 text-sm leading-relaxed mb-6 group-hover:text-white transition-colors duration-300">
+                <FaQuoteLeft className="text-primary/20 text-lg sm:text-2xl mb-2 sm:mb-3 group-hover:text-primary/40 transition-colors duration-300" />
+                <p className="text-gray-300 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6 group-hover:text-white transition-colors duration-300">
                   "{item.quote}"
                 </p>
               </div>
 
               {/* Author & Equipment Details */}
-              <div className="pt-4 border-t border-white/10 flex items-center justify-between">
-                <div>
-                  <h4 className="text-white font-bold text-sm group-hover:text-primary-light transition-colors duration-300">
+              <div className="pt-3 sm:pt-4 border-t border-white/10 flex items-center justify-between gap-2">
+                <div className="min-w-0 flex-1">
+                  <h4 className="text-white font-bold text-xs sm:text-sm truncate group-hover:text-primary-light transition-colors duration-300">
                     {item.name}
                   </h4>
-                  <p className="text-gray-400 text-xs font-medium">
+                  <p className="text-gray-400 text-[10px] sm:text-xs font-medium truncate">
                     {item.company}
                   </p>
                 </div>
-                <div className="text-right">
-                  <span className="inline-flex items-center gap-1 text-primary text-xs font-semibold">
+                <div className="text-right flex-shrink-0 pl-1.5">
+                  <span className="inline-flex items-center gap-1 text-primary text-[10px] sm:text-xs font-semibold">
                     <FaTruck size={10} />
                     {item.equipment.split(' ')[0]}
                   </span>
-                  <p className="text-gray-500 text-[10px]">
+                  <p className="text-gray-500 text-[10px] whitespace-nowrap">
                     {item.role}
                   </p>
                 </div>

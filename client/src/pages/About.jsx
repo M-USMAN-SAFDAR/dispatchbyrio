@@ -11,7 +11,7 @@ const About = () => {
   return (
     <>
       {/* Hero */}
-      <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 bg-dark overflow-hidden" ref={heroRef}>
+      <section className="relative pt-24 pb-12 sm:pt-36 sm:pb-20 lg:pt-40 lg:pb-28 bg-dark overflow-hidden" ref={heroRef}>
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-cover bg-center"
                style={{ backgroundImage: `url('/images/hero-truck.jpg')` }} />
@@ -28,10 +28,10 @@ const About = () => {
               <span className="w-1.5 h-1.5 bg-white rounded-full" />
               About Us
             </span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight">
+            <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-3 sm:mb-6 leading-tight tracking-tight">
               Built Around <span className="text-gray-300">the Carrier.</span>
             </h1>
-            <p className="text-gray-300 text-base md:text-lg leading-relaxed">
+            <p className="text-gray-300 text-xs sm:text-base md:text-lg leading-relaxed">
               Dispatch by RIO was built to help carriers handle the business side of trucking
               from one place — so they can stay focused on the road.
             </p>
@@ -40,9 +40,9 @@ const About = () => {
       </section>
 
       {/* Story */}
-      <section className="bg-white py-20 lg:py-28" ref={storyRef}>
+      <section className="bg-white py-12 sm:py-20 lg:py-28" ref={storyRef}>
         <div className="container-custom">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-20 items-center">
             <motion.div
               initial={{ opacity: 0, x: -40 }}
               animate={storyInView ? { opacity: 1, x: 0 } : {}}
@@ -52,7 +52,8 @@ const About = () => {
                 <img
                   src="/images/team-work.jpg"
                   alt="Dispatch by RIO team"
-                  className="rounded-2xl w-full h-[350px] sm:h-[400px] lg:h-[500px] object-cover"
+                  className="rounded-2xl w-full h-[220px] xs:h-[280px] sm:h-[350px] lg:h-[500px] object-cover shadow-xl"
+                  loading="lazy"
                 />
               </div>
             </motion.div>
@@ -66,24 +67,24 @@ const About = () => {
                 <span className="w-1.5 h-1.5 bg-dark rounded-full" />
                 Our Story
               </span>
-              <h2 className="section-title text-dark mb-6">
+              <h2 className="section-title text-dark mb-3 sm:mb-6">
                 More Than Dispatch. <span className="text-gray-400">A Business Partner.</span>
               </h2>
-              <p className="text-gray-600 text-base leading-relaxed mb-5">
+              <p className="text-gray-600 text-xs sm:text-base leading-relaxed mb-3.5 sm:mb-5">
                 Running a trucking company takes more than finding a load. It takes communication,
                 paperwork, cash flow, insurance, broker relationships, and constant attention to
                 the details.
               </p>
-              <p className="text-gray-600 text-base leading-relaxed mb-5">
+              <p className="text-gray-600 text-xs sm:text-base leading-relaxed mb-3.5 sm:mb-5">
                 Dispatch by RIO was built to help carriers handle those moving parts from one place.
                 We work alongside owner-operators and fleets to simplify the business side of
                 trucking and help them stay focused on the road.
               </p>
-              <p className="text-gray-600 text-base leading-relaxed mb-8">
+              <p className="text-gray-600 text-xs sm:text-base leading-relaxed mb-5 sm:mb-8">
                 Whether you're a new authority getting started or an experienced carrier looking for
                 reliable support — we're here to help manage the details so you can keep moving.
               </p>
-              <div className="space-y-3">
+              <div className="space-y-2 sm:space-y-3">
                 {[
                   'Dispatch, paperwork, and admin support in one place',
                   'Factoring and insurance solutions',
@@ -91,9 +92,9 @@ const About = () => {
                   'No forced dispatch — carriers stay in control',
                   'Honest, straightforward communication',
                 ].map((item) => (
-                  <div key={item} className="flex items-center gap-3">
-                    <FaCheckCircle className="text-primary flex-shrink-0 text-sm" />
-                    <span className="text-gray-700 text-sm font-medium">{item}</span>
+                  <div key={item} className="flex items-start gap-2.5 sm:gap-3">
+                    <FaCheckCircle className="text-primary flex-shrink-0 text-xs sm:text-sm mt-1" />
+                    <span className="text-gray-700 text-xs sm:text-sm font-medium leading-relaxed">{item}</span>
                   </div>
                 ))}
               </div>
@@ -103,9 +104,9 @@ const About = () => {
       </section>
 
       {/* What We Believe */}
-      <section className="bg-dark py-20 lg:py-28" ref={valuesRef}>
+      <section className="bg-dark py-12 sm:py-20 lg:py-28" ref={valuesRef}>
         <div className="container-custom">
-          <div className="text-center mb-16">
+          <div className="text-center mb-8 sm:mb-16">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={valuesInView ? { opacity: 1, y: 0 } : {}}
@@ -115,13 +116,13 @@ const About = () => {
                 <span className="w-1.5 h-1.5 bg-white rounded-full" />
                 How We Work
               </span>
-              <h2 className="section-title text-white mb-4">
+              <h2 className="section-title text-white mb-2.5 sm:mb-4">
                 What Carriers Can <span className="text-gray-400">Expect</span>
               </h2>
             </motion.div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-6 max-w-5xl mx-auto">
             {[
               {
                 title: 'Straightforward Communication',
@@ -153,10 +154,10 @@ const About = () => {
                 initial={{ opacity: 0, y: 30 }}
                 animate={valuesInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="glass-card p-8 hover:border-primary/30 transition-all duration-500"
+                className="glass-card p-5 sm:p-8 hover:border-primary/30 transition-all duration-500"
               >
-                <h4 className="text-white font-bold text-lg mb-3">{value.title}</h4>
-                <p className="text-gray-400 text-sm leading-relaxed">{value.desc}</p>
+                <h4 className="text-white font-bold text-base sm:text-lg mb-1.5 sm:mb-3">{value.title}</h4>
+                <p className="text-gray-400 text-xs sm:text-sm leading-relaxed">{value.desc}</p>
               </motion.div>
             ))}
           </div>
