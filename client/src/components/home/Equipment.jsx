@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion'
-import { useInView } from 'react-intersection-observer'
 import {
   FaTruck, FaTrailer, FaSnowflake, FaLayerGroup,
   FaTruckMoving, FaShuttleVan, FaBoxOpen, FaTruckLoading
@@ -17,10 +16,8 @@ const equipment = [
 ]
 
 const Equipment = () => {
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 })
-
   return (
-    <section className="bg-dark py-12 sm:py-20 lg:py-28 relative overflow-hidden" id="equipment" ref={ref}>
+    <section className="bg-dark py-12 sm:py-20 lg:py-28 relative overflow-hidden" id="equipment">
       <div className="absolute inset-0 pointer-events-none">
         <div
           className="absolute inset-0 bg-cover bg-center opacity-5"
@@ -32,9 +29,10 @@ const Equipment = () => {
         {/* Header */}
         <div className="text-center mb-8 sm:mb-16">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
           >
             <span className="section-label bg-white/10 text-white border border-white/20">
               <span className="w-1.5 h-1.5 bg-white rounded-full" />
@@ -55,9 +53,14 @@ const Equipment = () => {
           {equipment.map((item, index) => (
             <motion.div
               key={item.name}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={inView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ duration: 0.4, delay: index * 0.06 }}
+              initial={{ opacity: 0, scale: 0.85, y: 30 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{
+                duration: 1.1,
+                delay: (index % 4) * 0.16,
+                ease: [0.22, 1, 0.36, 1],
+              }}
               className="glass-card p-3.5 sm:p-6 text-center hover:border-primary/30 hover:-translate-y-1 active:scale-95
                         transition-all duration-500 group cursor-pointer"
             >

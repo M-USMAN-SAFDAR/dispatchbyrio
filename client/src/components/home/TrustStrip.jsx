@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion'
-import { useInView } from 'react-intersection-observer'
 import {
   FaUsers, FaHeadset, FaGlobeAmericas,
   FaFileInvoiceDollar, FaShieldAlt, FaHandsHelping
@@ -15,18 +14,21 @@ const badges = [
 ]
 
 const TrustStrip = () => {
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 })
-
   return (
-    <section className="bg-dark border-t border-white/5 pt-8 pb-6 lg:pt-14 lg:pb-8" ref={ref}>
+    <section className="bg-dark border-t border-white/5 pt-8 pb-6 lg:pt-14 lg:pb-8">
       <div className="container-custom">
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 sm:gap-4 lg:gap-5">
           {badges.map((badge, index) => (
             <motion.div
               key={badge.label}
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.4, delay: index * 0.06 }}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{
+                duration: 1.2,
+                delay: (index % 6) * 0.15,
+                ease: [0.22, 1, 0.36, 1],
+              }}
               className="relative flex flex-col items-center justify-center text-center p-3 xs:p-4 sm:p-5 lg:p-6 rounded-xl sm:rounded-2xl
                          bg-white/[0.03] border border-white/[0.08] shadow-sm
                          hover:bg-dark-mid hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/20

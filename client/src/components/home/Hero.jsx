@@ -25,7 +25,7 @@ const Hero = () => {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
+            transition={{ duration: 1.2, delay: 0.8 }}
           >
             {/* Label */}
             <div className="inline-flex items-center gap-2 sm:gap-2.5 bg-primary/10 border border-primary/20

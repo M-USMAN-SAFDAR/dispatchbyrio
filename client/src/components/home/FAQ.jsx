@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { useInView } from 'react-intersection-observer'
 import { FaPlus, FaMinus } from 'react-icons/fa'
 
 const faqs = [
@@ -53,9 +52,14 @@ const faqs = [
 const AccordionItem = ({ faq, isOpen, onClick, index }) => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.04 }}
+      initial={{ opacity: 0, y: 35 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.25 }}
+      transition={{
+        duration: 0.9,
+        delay: (index % 4) * 0.12,
+        ease: [0.22, 1, 0.36, 1],
+      }}
       className={`border rounded-xl overflow-hidden transition-all duration-300 ${
         isOpen ? 'border-primary/30 bg-dark-light/50' : 'border-white/10 hover:border-white/20'
       }`}
@@ -83,7 +87,7 @@ const AccordionItem = ({ faq, isOpen, onClick, index }) => {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             className="overflow-hidden"
           >
             <div className="px-3.5 sm:px-5 md:px-6 pb-3.5 sm:pb-5 md:pb-6">
@@ -100,19 +104,19 @@ const AccordionItem = ({ faq, isOpen, onClick, index }) => {
 
 const FAQ = () => {
   const [openIndex, setOpenIndex] = useState(0)
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 })
 
   return (
-    <section className="bg-dark py-12 sm:py-20 lg:py-28 relative overflow-hidden" id="faq" ref={ref}>
+    <section className="bg-dark py-12 sm:py-20 lg:py-28 relative overflow-hidden" id="faq">
       <div className="absolute top-20 right-0 w-80 h-80 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
 
       <div className="container-custom relative z-10">
         {/* Header */}
         <div className="text-center mb-8 sm:mb-16">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
           >
             <span className="section-label bg-white/10 text-white border border-white/20">
               <span className="w-1.5 h-1.5 bg-white rounded-full" />

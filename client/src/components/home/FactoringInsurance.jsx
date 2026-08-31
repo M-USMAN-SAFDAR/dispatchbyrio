@@ -1,20 +1,18 @@
 import { motion } from 'framer-motion'
-import { useInView } from 'react-intersection-observer'
 import { Link } from 'react-router-dom'
 import { FaFileInvoiceDollar, FaShieldAlt, FaArrowRight } from 'react-icons/fa'
 
 const FactoringInsurance = () => {
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 })
-
   return (
-    <section className="bg-white py-12 sm:py-20 lg:py-28 relative overflow-hidden" ref={ref}>
+    <section className="bg-white py-12 sm:py-20 lg:py-28 relative overflow-hidden">
       <div className="container-custom relative z-10">
         {/* Header */}
         <div className="text-center mb-8 sm:mb-16">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
           >
             <span className="section-label bg-dark/5 text-dark">
               <span className="w-1.5 h-1.5 bg-dark rounded-full" />
@@ -34,9 +32,10 @@ const FactoringInsurance = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-8 max-w-5xl mx-auto">
           {/* Factoring */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6 }}
+            initial={{ opacity: 0, x: -60 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 1.3, ease: [0.22, 1, 0.36, 1] }}
             className="bg-dark rounded-2xl p-5 sm:p-8 lg:p-10 border border-white/10 relative overflow-hidden
                       group hover:border-primary/30 transition-all duration-500"
           >
@@ -72,9 +71,10 @@ const FactoringInsurance = () => {
 
           {/* Insurance */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            initial={{ opacity: 0, x: 60 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 1.3, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
             className="bg-dark rounded-2xl p-5 sm:p-8 lg:p-10 border border-white/10 relative overflow-hidden
                       group hover:border-primary/30 transition-all duration-500"
           >

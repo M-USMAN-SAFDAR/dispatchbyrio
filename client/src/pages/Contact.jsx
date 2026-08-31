@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { useInView } from 'react-intersection-observer'
 import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaClock, FaCheckCircle, FaExclamationCircle, FaTimes, FaInstagram, FaFacebook, FaTiktok } from 'react-icons/fa'
 
 const contactInfo = [
@@ -37,9 +36,6 @@ const equipmentOptions = [
 ]
 
 const Contact = () => {
-  const [heroRef, heroInView] = useInView({ triggerOnce: true, threshold: 0.1 })
-  const [formRef, formInView] = useInView({ triggerOnce: true, threshold: 0.1 })
-
   const [formData, setFormData] = useState({
     name: '', company: '', phone: '', email: '',
     dot: '', mc: '', equipmentType: '', numberOfTrucks: '',
@@ -122,7 +118,7 @@ const Contact = () => {
   return (
     <>
       {/* Hero */}
-      <section className="relative pt-28 pb-14 sm:pt-36 sm:pb-20 lg:pt-40 lg:pb-28 bg-dark overflow-hidden" ref={heroRef}>
+      <section className="relative pt-28 pb-14 sm:pt-36 sm:pb-20 lg:pt-40 lg:pb-28 bg-dark overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-cover bg-center"
                style={{ backgroundImage: `url('/images/cta-truck.jpg')` }} />
@@ -131,8 +127,8 @@ const Contact = () => {
         <div className="container-custom relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
-            animate={heroInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2 }}
             className="text-center max-w-3xl mx-auto"
           >
             <span className="section-label bg-white/10 text-white border border-white/20">
@@ -157,9 +153,14 @@ const Contact = () => {
             {contactInfo.map((info, index) => (
               <motion.div
                 key={info.title}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.25 }}
+                transition={{
+                  duration: 1.2,
+                  delay: (index % 4) * 0.18,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
                 className="bg-white rounded-2xl p-5 sm:p-6 shadow-lg border border-gray-200
                           hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-center"
               >
@@ -204,13 +205,14 @@ const Contact = () => {
       </section>
 
       {/* Application Form */}
-      <section className="bg-gray-100 py-12 sm:py-20 lg:py-28" ref={formRef}>
+      <section className="bg-gray-100 py-12 sm:py-20 lg:py-28">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto">
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={formInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6 }}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ duration: 1.3, ease: [0.22, 1, 0.36, 1] }}
             >
               <div className="text-center mb-7 sm:mb-12">
                 <h2 className="section-title text-dark mb-2 sm:mb-3">Carrier Application</h2>
@@ -358,7 +360,7 @@ const Contact = () => {
             initial={{ opacity: 0, y: 60, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 30, scale: 0.95 }}
-            transition={{ duration: 0.35, ease: 'easeOut' }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
             className={`fixed bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-50 max-w-lg w-[calc(100%-1.5rem)] sm:w-auto p-3.5 sm:p-5 rounded-2xl shadow-2xl backdrop-blur-xl border flex items-start gap-2.5 sm:gap-3 ${
               status.type === 'success'
                 ? 'bg-[#0A0F1C]/95 border-emerald-500/40 text-white shadow-emerald-950/40'

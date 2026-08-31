@@ -8,11 +8,11 @@ const BookIntro = () => {
     // Prevent scrolling while the opening animation is playing
     document.body.style.overflow = 'hidden'
 
-    // Unmount the intro overlay and restore scrolling after 2.0 seconds (2000ms)
+    // Unmount the intro overlay and restore scrolling after 3.5 seconds (3500ms)
     const timer = setTimeout(() => {
       setIsVisible(false)
       document.body.style.overflow = ''
-    }, 2000)
+    }, 3500)
 
     return () => {
       document.body.style.overflow = ''
@@ -29,9 +29,9 @@ const BookIntro = () => {
         initial={{ x: 0 }}
         animate={{ x: '-100%' }}
         transition={{
-          duration: 1.5,
+          duration: 2.5,
           ease: [0.85, 0, 0.15, 1], // Custom smooth cubic-bezier easing
-          delay: 0.5, // Brief initial pause (0.5s) + animation (1.5s) = 2.0s total
+          delay: 0.8, // Brief initial pause (0.8s) + animation (2.5s) = 3.3s total
         }}
         className="w-1/2 h-full bg-black border-r border-white/5 shadow-[10px_0_30px_rgba(0,0,0,0.8)] pointer-events-auto"
       />
@@ -41,9 +41,9 @@ const BookIntro = () => {
         initial={{ x: 0 }}
         animate={{ x: '100%' }}
         transition={{
-          duration: 1.5,
+          duration: 2.5,
           ease: [0.85, 0, 0.15, 1],
-          delay: 0.5,
+          delay: 0.8,
         }}
         className="w-1/2 h-full bg-black border-l border-white/5 shadow-[-10px_0_30px_rgba(0,0,0,0.8)] pointer-events-auto"
       />

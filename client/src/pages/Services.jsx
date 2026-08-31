@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion'
-import { useInView } from 'react-intersection-observer'
 import { Link } from 'react-router-dom'
 import {
   FaTruck, FaFileInvoiceDollar, FaShieldAlt,
@@ -91,12 +90,10 @@ const services = [
 ]
 
 const ServicesPage = () => {
-  const [heroRef, heroInView] = useInView({ triggerOnce: true, threshold: 0.1 })
-
   return (
     <>
       {/* Hero */}
-      <section className="relative pt-24 pb-12 sm:pt-36 sm:pb-20 lg:pt-40 lg:pb-28 bg-dark overflow-hidden" ref={heroRef}>
+      <section className="relative pt-24 pb-12 sm:pt-36 sm:pb-20 lg:pt-40 lg:pb-28 bg-dark overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-cover bg-center"
                style={{ backgroundImage: `url('/images/cta-truck.jpg')` }} />
@@ -105,8 +102,8 @@ const ServicesPage = () => {
         <div className="container-custom relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
-            animate={heroInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2 }}
             className="text-center max-w-3xl mx-auto"
           >
             <span className="section-label bg-white/10 text-white border border-white/20">
@@ -134,10 +131,10 @@ const ServicesPage = () => {
               return (
                 <motion.div
                   key={service.title}
-                  initial={{ opacity: 0, y: 40 }}
+                  initial={{ opacity: 0, y: 50 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.1 }}
-                  transition={{ duration: 0.6 }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  transition={{ duration: 1.3, ease: [0.22, 1, 0.36, 1] }}
                   className="grid lg:grid-cols-2 gap-6 sm:gap-10 lg:gap-16 items-start"
                 >
                   {/* Icon + Title block */}

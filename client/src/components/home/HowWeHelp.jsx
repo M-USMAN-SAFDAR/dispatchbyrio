@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion'
-import { useInView } from 'react-intersection-observer'
 
 const steps = [
   {
@@ -35,10 +34,8 @@ const steps = [
 ]
 
 const HowWeHelp = () => {
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 })
-
   return (
-    <section className="bg-white py-12 sm:py-20 lg:py-28 relative overflow-hidden" id="how-it-works" ref={ref}>
+    <section className="bg-white py-12 sm:py-20 lg:py-28 relative overflow-hidden" id="how-it-works">
       <div className="absolute top-0 right-0 w-80 sm:w-96 h-80 sm:h-96 bg-gray-100 rounded-full blur-3xl
                       -translate-y-1/2 translate-x-1/2 pointer-events-none" />
 
@@ -46,9 +43,10 @@ const HowWeHelp = () => {
         {/* Header */}
         <div className="text-center mb-8 sm:mb-16">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
           >
             <span className="section-label bg-dark/5 text-dark">
               <span className="w-1.5 h-1.5 bg-dark rounded-full" />
@@ -69,9 +67,14 @@ const HowWeHelp = () => {
           {steps.map((step, index) => (
             <motion.div
               key={step.num}
-              initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{
+                duration: 1.2,
+                delay: (index % 3) * 0.22,
+                ease: [0.22, 1, 0.36, 1],
+              }}
               className="group relative bg-white border border-gray-200 rounded-2xl p-5 sm:p-8
                         hover:shadow-xl hover:-translate-y-1 transition-all duration-500"
             >

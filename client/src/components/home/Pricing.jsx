@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion'
-import { useInView } from 'react-intersection-observer'
 import { Link } from 'react-router-dom'
 import { FaUser, FaTruckMoving, FaCog, FaArrowRight } from 'react-icons/fa'
 
@@ -44,17 +43,16 @@ const plans = [
 ]
 
 const Pricing = () => {
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 })
-
   return (
-    <section className="bg-white py-12 sm:py-20 lg:py-28 relative overflow-hidden" id="pricing" ref={ref}>
+    <section className="bg-white py-12 sm:py-20 lg:py-28 relative overflow-hidden" id="pricing">
       <div className="container-custom relative z-10">
         {/* Header */}
         <div className="text-center mb-8 sm:mb-16">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
           >
             <span className="section-label bg-dark/5 text-dark">
               <span className="w-1.5 h-1.5 bg-dark rounded-full" />
@@ -75,9 +73,14 @@ const Pricing = () => {
           {plans.map((plan, index) => (
             <motion.div
               key={plan.name}
-              initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: index * 0.15 }}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{
+                duration: 1.2,
+                delay: index * 0.22,
+                ease: [0.22, 1, 0.36, 1],
+              }}
               className={`rounded-2xl p-5 sm:p-8 transition-all duration-500 hover:-translate-y-1 sm:hover:-translate-y-2 ${
                 plan.highlighted
                   ? 'bg-dark text-white border-2 border-primary/50 shadow-xl shadow-black/20'
@@ -126,9 +129,10 @@ const Pricing = () => {
 
         {/* Note */}
         <motion.p
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ delay: 0.6 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 1.0, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
           className="text-center text-gray-500 text-xs sm:text-sm mt-6 sm:mt-10"
         >
           No complicated pricing displayed online. Contact us for details.

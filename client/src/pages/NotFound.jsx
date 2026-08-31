@@ -12,7 +12,7 @@ const NotFound = () => {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
+          transition={{ duration: 1.2 }}
         >
           <h1 className="text-6xl xs:text-7xl sm:text-8xl md:text-[140px] font-extrabold text-primary leading-none mb-2 sm:mb-4">
             404

@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion'
-import { useInView } from 'react-intersection-observer'
 import { FaStar, FaQuoteLeft, FaCheckCircle, FaTruck } from 'react-icons/fa'
 
 const testimonials = [
@@ -72,10 +71,8 @@ const testimonials = [
 ]
 
 const Testimonials = () => {
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 })
-
   return (
-    <section className="bg-dark py-12 sm:py-20 lg:py-28 relative overflow-hidden" id="testimonials" ref={ref}>
+    <section className="bg-dark py-12 sm:py-20 lg:py-28 relative overflow-hidden" id="testimonials">
       {/* Glow effects */}
       <div className="absolute top-1/2 left-0 w-80 sm:w-96 h-80 sm:h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 -translate-x-1/2 pointer-events-none" />
       <div className="absolute bottom-0 right-0 w-80 sm:w-96 h-80 sm:h-96 bg-primary/5 rounded-full blur-3xl translate-y-1/2 translate-x-1/2 pointer-events-none" />
@@ -84,9 +81,10 @@ const Testimonials = () => {
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-16">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
           >
             <span className="section-label bg-primary/10 text-primary border border-primary/20">
               <span className="relative flex h-2 w-2 items-center justify-center">
@@ -110,9 +108,14 @@ const Testimonials = () => {
           {testimonials.map((item, index) => (
             <motion.div
               key={item.name}
-              initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: index * 0.08 }}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{
+                duration: 1.2,
+                delay: (index % 3) * 0.22,
+                ease: [0.22, 1, 0.36, 1],
+              }}
               className="relative rounded-2xl p-4 sm:p-7 bg-white/[0.03] border border-white/[0.08] shadow-lg
                          hover:bg-dark-mid hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/20
                          hover:scale-105 hover:-translate-y-2.5 active:scale-95 transition-all duration-300 cursor-pointer group flex flex-col justify-between"

@@ -1,17 +1,12 @@
 import { motion } from 'framer-motion'
-import { useInView } from 'react-intersection-observer'
 import { FaCheckCircle } from 'react-icons/fa'
 import CTA from '../components/home/CTA'
 
 const About = () => {
-  const [heroRef, heroInView] = useInView({ triggerOnce: true, threshold: 0.1 })
-  const [storyRef, storyInView] = useInView({ triggerOnce: true, threshold: 0.1 })
-  const [valuesRef, valuesInView] = useInView({ triggerOnce: true, threshold: 0.1 })
-
   return (
     <>
       {/* Hero */}
-      <section className="relative pt-24 pb-12 sm:pt-36 sm:pb-20 lg:pt-40 lg:pb-28 bg-dark overflow-hidden" ref={heroRef}>
+      <section className="relative pt-24 pb-12 sm:pt-36 sm:pb-20 lg:pt-40 lg:pb-28 bg-dark overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-cover bg-center"
                style={{ backgroundImage: `url('/images/hero-truck.jpg')` }} />
@@ -20,8 +15,8 @@ const About = () => {
         <div className="container-custom relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
-            animate={heroInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2 }}
             className="text-center max-w-3xl mx-auto"
           >
             <span className="section-label bg-white/10 text-white border border-white/20">
@@ -40,13 +35,14 @@ const About = () => {
       </section>
 
       {/* Story */}
-      <section className="bg-white py-12 sm:py-20 lg:py-28" ref={storyRef}>
+      <section className="bg-white py-12 sm:py-20 lg:py-28">
         <div className="container-custom">
           <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-20 items-center">
             <motion.div
-              initial={{ opacity: 0, x: -40 }}
-              animate={storyInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.7 }}
+              initial={{ opacity: 0, x: -60 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{ duration: 1.3, ease: [0.22, 1, 0.36, 1] }}
             >
               <div className="relative">
                 <img
@@ -59,9 +55,10 @@ const About = () => {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, x: 40 }}
-              animate={storyInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.7, delay: 0.2 }}
+              initial={{ opacity: 0, x: 60 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{ duration: 1.3, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
             >
               <span className="section-label bg-dark/5 text-dark">
                 <span className="w-1.5 h-1.5 bg-dark rounded-full" />
@@ -91,11 +88,18 @@ const About = () => {
                   'Works with all equipment types and carrier sizes',
                   'No forced dispatch — carriers stay in control',
                   'Honest, straightforward communication',
-                ].map((item) => (
-                  <div key={item} className="flex items-start gap-2.5 sm:gap-3">
+                ].map((item, index) => (
+                  <motion.div
+                    key={item}
+                    initial={{ opacity: 0, x: 30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ duration: 0.9, delay: 0.4 + index * 0.18, ease: [0.22, 1, 0.36, 1] }}
+                    className="flex items-start gap-2.5 sm:gap-3"
+                  >
                     <FaCheckCircle className="text-primary flex-shrink-0 text-xs sm:text-sm mt-1" />
                     <span className="text-gray-700 text-xs sm:text-sm font-medium leading-relaxed">{item}</span>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </motion.div>
@@ -104,13 +108,14 @@ const About = () => {
       </section>
 
       {/* What We Believe */}
-      <section className="bg-dark py-12 sm:py-20 lg:py-28" ref={valuesRef}>
+      <section className="bg-dark py-12 sm:py-20 lg:py-28">
         <div className="container-custom">
           <div className="text-center mb-8 sm:mb-16">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={valuesInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6 }}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
             >
               <span className="section-label bg-white/10 text-white border border-white/20">
                 <span className="w-1.5 h-1.5 bg-white rounded-full" />
@@ -151,9 +156,14 @@ const About = () => {
             ].map((value, index) => (
               <motion.div
                 key={value.title}
-                initial={{ opacity: 0, y: 30 }}
-                animate={valuesInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.25 }}
+                transition={{
+                  duration: 1.2,
+                  delay: (index % 3) * 0.22,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
                 className="glass-card p-5 sm:p-8 hover:border-primary/30 transition-all duration-500"
               >
                 <h4 className="text-white font-bold text-base sm:text-lg mb-1.5 sm:mb-3">{value.title}</h4>

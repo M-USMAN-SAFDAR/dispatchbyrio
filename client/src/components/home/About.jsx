@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion'
-import { useInView } from 'react-intersection-observer'
 import { FaCheckCircle } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 
@@ -11,10 +10,8 @@ const highlights = [
 ]
 
 const AboutSection = () => {
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 })
-
   return (
-    <section className="bg-dark py-12 sm:py-20 lg:py-28 relative overflow-hidden" id="about-section" ref={ref}>
+    <section className="bg-dark py-12 sm:py-20 lg:py-28 relative overflow-hidden" id="about-section">
       <div className="absolute bottom-0 left-0 w-80 h-80 bg-primary/5 rounded-full blur-3xl
                       translate-y-1/2 -translate-x-1/2 pointer-events-none" />
 
@@ -22,9 +19,10 @@ const AboutSection = () => {
         <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-20 items-center">
           {/* Image */}
           <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.7 }}
+            initial={{ opacity: 0, x: -60 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 1.3, ease: [0.22, 1, 0.36, 1] }}
             className="relative"
           >
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
@@ -42,9 +40,10 @@ const AboutSection = () => {
 
           {/* Content */}
           <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.2 }}
+            initial={{ opacity: 0, x: 60 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 1.3, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
           >
             <span className="section-label bg-primary/10 text-primary border border-primary/20">
               <span className="w-1.5 h-1.5 bg-primary rounded-full" />
@@ -70,9 +69,10 @@ const AboutSection = () => {
               {highlights.map((item, index) => (
                 <motion.div
                   key={item}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={inView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ delay: 0.4 + index * 0.1 }}
+                  initial={{ opacity: 0, x: 30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.9, delay: 0.4 + index * 0.2, ease: [0.22, 1, 0.36, 1] }}
                   className="flex items-start gap-2.5 sm:gap-3"
                 >
                   <FaCheckCircle className="text-primary flex-shrink-0 text-xs sm:text-sm mt-1" />

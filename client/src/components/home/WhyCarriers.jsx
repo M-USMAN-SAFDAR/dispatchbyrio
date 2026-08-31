@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion'
-import { useInView } from 'react-intersection-observer'
 import {
   FaHeadset, FaRoute, FaClipboardCheck, FaUserTie,
   FaTruck, FaHandshake
@@ -39,17 +38,16 @@ const reasons = [
 ]
 
 const WhyCarriers = () => {
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 })
-
   return (
-    <section className="bg-dark-light py-12 sm:py-20 lg:py-28 relative overflow-hidden" ref={ref}>
+    <section className="bg-dark-light py-12 sm:py-20 lg:py-28 relative overflow-hidden">
       <div className="container-custom relative z-10">
         {/* Header */}
         <div className="text-center mb-8 sm:mb-16">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
           >
             <span className="section-label bg-white/10 text-white border border-white/20">
               <span className="w-1.5 h-1.5 bg-white rounded-full" />
@@ -70,9 +68,14 @@ const WhyCarriers = () => {
           {reasons.map((reason, index) => (
             <motion.div
               key={reason.title}
-              initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              initial={{ opacity: 0, y: 45 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{
+                duration: 1.2,
+                delay: (index % 3) * 0.22,
+                ease: [0.22, 1, 0.36, 1],
+              }}
               className="flex items-start gap-3.5 sm:gap-5 p-4 sm:p-5 rounded-2xl bg-white/[0.02] border border-white/5 group"
             >
               <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary/10 rounded-xl flex items-center justify-center

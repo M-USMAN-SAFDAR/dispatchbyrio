@@ -1,13 +1,10 @@
 import { motion } from 'framer-motion'
-import { useInView } from 'react-intersection-observer'
 import { Link } from 'react-router-dom'
 import { FaArrowRight } from 'react-icons/fa'
 
 const CTA = () => {
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2 })
-
   return (
-    <section className="relative py-12 sm:py-20 lg:py-28 overflow-hidden" ref={ref}>
+    <section className="relative py-12 sm:py-20 lg:py-28 overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0">
         <div
@@ -19,9 +16,10 @@ const CTA = () => {
 
       <div className="container-custom relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 1.3, ease: [0.22, 1, 0.36, 1] }}
           className="text-center max-w-3xl mx-auto"
         >
           <h2 className="section-title text-white mb-3.5 sm:mb-6">
