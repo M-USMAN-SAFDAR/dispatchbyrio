@@ -6,6 +6,7 @@ import {
   FaCheckCircle, FaArrowRight
 } from 'react-icons/fa'
 import CTA from '../components/home/CTA'
+import WaveDivider from '../components/WaveDivider'
 
 const services = [
   {
@@ -120,6 +121,7 @@ const ServicesPage = () => {
           </motion.div>
         </div>
       </section>
+      <WaveDivider color="white" bgColor="dark" />
 
       {/* Services Detail */}
       <section className="bg-white py-12 sm:py-20 lg:py-28">
@@ -184,6 +186,7 @@ const ServicesPage = () => {
           </div>
         </div>
       </section>
+      <WaveDivider color="white" bgColor="dark" flip />
 
       <CTA />
     </>

@@ -16,7 +16,7 @@ const TermsOfService = () => {
               Terms of <span className="text-gray-300">Service</span>
             </h1>
             <p className="text-gray-400 text-xs sm:text-sm">
-              Last updated: {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+              Last updated: September 1, 2026
             </p>
           </motion.div>
         </div>
@@ -36,7 +36,7 @@ const TermsOfService = () => {
               </div>
 
               <div>
-                <h2 className="text-dark font-bold text-2xl mb-3">2. Description of Services</h2>
+                <h2 className="text-dark font-bold text-lg sm:text-2xl mb-2 sm:mb-3">2. Description of Services</h2>
                 <p className="text-sm leading-relaxed mb-3">
                   DispatchByRIO provides truck dispatch services including but not limited to:
                 </p>
@@ -51,14 +51,14 @@ const TermsOfService = () => {
               </div>
 
               <div>
-                <h2 className="text-dark font-bold text-2xl mb-3">3. Service Agreement</h2>
+                <h2 className="text-dark font-bold text-lg sm:text-2xl mb-2 sm:mb-3">3. Service Agreement</h2>
                 <p className="text-sm leading-relaxed">
                   Engagement of our dispatch services requires a separate service agreement detailing fees, responsibilities, and terms specific to your account. The percentage-based pricing displayed on our website (3-5% of gross revenue) is subject to the terms of your individual service agreement.
                 </p>
               </div>
 
               <div>
-                <h2 className="text-dark font-bold text-2xl mb-3">4. User Responsibilities</h2>
+                <h2 className="text-dark font-bold text-lg sm:text-2xl mb-2 sm:mb-3">4. User Responsibilities</h2>
                 <p className="text-sm leading-relaxed mb-3">As a user of our services, you agree to:</p>
                 <ul className="list-disc pl-6 text-sm leading-relaxed space-y-1">
                   <li>Provide accurate, current, and complete information</li>
@@ -71,56 +71,56 @@ const TermsOfService = () => {
               </div>
 
               <div>
-                <h2 className="text-dark font-bold text-2xl mb-3">5. Payment Terms</h2>
+                <h2 className="text-dark font-bold text-lg sm:text-2xl mb-2 sm:mb-3">5. Payment Terms</h2>
                 <p className="text-sm leading-relaxed">
                   Dispatch fees are calculated as a percentage of gross revenue from loads booked through our services. Payment is due according to the terms specified in your service agreement. Late payments may be subject to service suspension. DispatchByRIO reserves the right to modify pricing with reasonable advance notice.
                 </p>
               </div>
 
               <div>
-                <h2 className="text-dark font-bold text-2xl mb-3">6. Cancellation Policy</h2>
+                <h2 className="text-dark font-bold text-lg sm:text-2xl mb-2 sm:mb-3">6. Cancellation Policy</h2>
                 <p className="text-sm leading-relaxed">
                   Either party may terminate the service agreement with a minimum of two (2) weeks written notice. Upon termination, you remain responsible for all fees incurred up to and including the termination date, as well as any loads already booked and in transit.
                 </p>
               </div>
 
               <div>
-                <h2 className="text-dark font-bold text-2xl mb-3">7. Limitation of Liability</h2>
+                <h2 className="text-dark font-bold text-lg sm:text-2xl mb-2 sm:mb-3">7. Limitation of Liability</h2>
                 <p className="text-sm leading-relaxed">
                   DispatchByRIO acts as a dispatch service provider and is not a motor carrier, broker, or freight forwarder. We are not liable for cargo loss, damage, delays, or any claims arising from the transportation of freight. Our liability is limited to the dispatch services we provide and shall not exceed the total fees paid by you in the preceding 3-month period.
                 </p>
               </div>
 
               <div>
-                <h2 className="text-dark font-bold text-2xl mb-3">8. Intellectual Property</h2>
+                <h2 className="text-dark font-bold text-lg sm:text-2xl mb-2 sm:mb-3">8. Intellectual Property</h2>
                 <p className="text-sm leading-relaxed">
                   All content on this website, including text, graphics, logos, images, and software, is the property of DispatchByRIO and is protected by applicable intellectual property laws. You may not reproduce, distribute, or create derivative works from any content without our express written permission.
                 </p>
               </div>
 
               <div>
-                <h2 className="text-dark font-bold text-2xl mb-3">9. Disclaimer of Warranties</h2>
+                <h2 className="text-dark font-bold text-lg sm:text-2xl mb-2 sm:mb-3">9. Disclaimer of Warranties</h2>
                 <p className="text-sm leading-relaxed">
                   Our website and services are provided on an "as is" and "as available" basis without warranties of any kind, either express or implied. We do not guarantee specific revenue amounts, load availability, or rate levels. Past performance and statistics referenced on our website are not guarantees of future results.
                 </p>
               </div>
 
               <div>
-                <h2 className="text-dark font-bold text-2xl mb-3">10. Governing Law</h2>
+                <h2 className="text-dark font-bold text-lg sm:text-2xl mb-2 sm:mb-3">10. Governing Law</h2>
                 <p className="text-sm leading-relaxed">
                   These Terms of Service shall be governed by and construed in accordance with the laws of the United States. Any disputes arising from these terms shall be resolved through binding arbitration in accordance with applicable rules.
                 </p>
               </div>
 
               <div>
-                <h2 className="text-dark font-bold text-2xl mb-3">11. Changes to Terms</h2>
+                <h2 className="text-dark font-bold text-lg sm:text-2xl mb-2 sm:mb-3">11. Changes to Terms</h2>
                 <p className="text-sm leading-relaxed">
                   We reserve the right to modify these Terms of Service at any time. Changes will be effective immediately upon posting on this page. Your continued use of our services after changes constitutes acceptance of the modified terms.
                 </p>
               </div>
 
               <div>
-                <h2 className="text-dark font-bold text-2xl mb-3">12. Contact Information</h2>
+                <h2 className="text-dark font-bold text-lg sm:text-2xl mb-2 sm:mb-3">12. Contact Information</h2>
                 <p className="text-sm leading-relaxed">
                   For questions about these Terms of Service, please contact us:
                 </p>

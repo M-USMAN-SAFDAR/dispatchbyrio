@@ -43,14 +43,30 @@ const Navbar = () => {
     setIsOpen(false)
   }, [location])
 
+  // After navigating to home, scroll to anchor if hash is present
+  useEffect(() => {
+    if (location.pathname === '/' && location.hash) {
+      const id = location.hash.substring(1)
+      // Small delay to let the page render first
+      const timer = setTimeout(() => {
+        const el = document.getElementById(id)
+        if (el) el.scrollIntoView({ behavior: 'smooth' })
+      }, 150)
+      return () => clearTimeout(timer)
+    }
+  }, [location.pathname, location.hash])
+
   // Handle anchor links (/#how-it-works, /#equipment)
-  const handleNavClick = (path) => {
+  const handleNavClick = (e, path) => {
     if (path.startsWith('/#')) {
       const id = path.substring(2)
       if (location.pathname === '/') {
+        // Already on home page, just scroll
+        e.preventDefault()
         const el = document.getElementById(id)
         if (el) el.scrollIntoView({ behavior: 'smooth' })
       }
+      // If not on home, Link navigates to /#section, useEffect above handles scroll
     }
     setIsOpen(false)
   }
@@ -95,7 +111,7 @@ const Navbar = () => {
                   <Link
                     key={link.name}
                     to={link.path}
-                    onClick={() => handleNavClick(link.path)}
+                    onClick={(e) => handleNavClick(e, link.path)}
                     className={`relative py-1 text-xs xl:text-[13px] font-semibold uppercase tracking-wider transition-colors duration-300 whitespace-nowrap ${
                       active ? 'text-white' : 'text-gray-400 hover:text-white'
                     }`}
@@ -151,7 +167,7 @@ const Navbar = () => {
                 <Link
                   key={link.name}
                   to={link.path}
-                  onClick={() => handleNavClick(link.path)}
+                  onClick={(e) => handleNavClick(e, link.path)}
                   className={`relative flex items-center justify-between text-base font-semibold py-3 transition-all duration-300 min-h-[44px] ${
                     active
                       ? 'text-white border-l-2 border-primary pl-3'

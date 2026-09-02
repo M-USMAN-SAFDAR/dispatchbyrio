@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaClock, FaCheckCircle, FaExclamationCircle, FaTimes, FaInstagram, FaFacebook, FaTiktok } from 'react-icons/fa'
+import WaveDivider from '../components/WaveDivider'
 
 const contactInfo = [
   { icon: FaPhoneAlt, title: 'Call Us', details: '+1 (305) 330-3123', link: 'tel:+13053303123' },
@@ -85,7 +86,7 @@ const Contact = () => {
         'Additional Notes': formData.message || 'None',
       }
 
-      await fetch('https://formsubmit.co/ajax/info@dispatchbyrio.com', {
+      const response = await fetch('https://formsubmit.co/ajax/info@dispatchbyrio.com', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -93,6 +94,12 @@ const Contact = () => {
         },
         body: JSON.stringify(payload),
       })
+
+      const data = await response.json()
+
+      if (!response.ok || data.success === 'false' || data.success === false) {
+        throw new Error(data.message || `Submission failed with status ${response.status}`)
+      }
 
       setStatus({
         type: 'success',
@@ -105,10 +112,10 @@ const Contact = () => {
         trailerType: '', location: '', preferredLanes: '',
         factoringCompany: '', insuranceStatus: '', message: '',
       })
-    } catch {
+    } catch (err) {
       setStatus({
-        type: 'success',
-        message: 'Your application has been received! Our dispatch team will contact you shortly.',
+        type: 'error',
+        message: err.message || 'Something went wrong while submitting your application. Please try again or contact us directly at +1 (305) 330-3123.',
       })
     } finally {
       setLoading(false)
@@ -145,9 +152,10 @@ const Contact = () => {
           </motion.div>
         </div>
       </section>
+      <WaveDivider color="white" bgColor="dark" />
 
       {/* Contact Info Cards */}
-      <section className="bg-white py-10 sm:py-14 relative -mt-6 sm:-mt-8 z-10">
+      <section className="bg-white py-10 sm:py-14 relative z-10">
         <div className="container-custom">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-5">
             {contactInfo.map((info, index) => (
@@ -203,6 +211,7 @@ const Contact = () => {
           </div>
         </div>
       </section>
+      <WaveDivider color="gray-100" bgColor="white" />
 
       {/* Application Form */}
       <section className="bg-gray-100 py-12 sm:py-20 lg:py-28">
@@ -352,6 +361,7 @@ const Contact = () => {
           </div>
         </div>
       </section>
+      <WaveDivider color="dark" bgColor="gray-100" />
 
       {/* Floating Bottom Popup Notification with Auto-Dismiss */}
       <AnimatePresence>

@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { FaUser, FaTruckMoving, FaCog, FaArrowRight } from 'react-icons/fa'
+import { FaUser, FaTruckMoving, FaCog, FaArrowRight, FaStar } from 'react-icons/fa'
 
 const plans = [
   {
@@ -69,7 +69,7 @@ const Pricing = () => {
         </div>
 
         {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 max-w-5xl mx-auto items-stretch">
           {plans.map((plan, index) => (
             <motion.div
               key={plan.name}
@@ -81,12 +81,24 @@ const Pricing = () => {
                 delay: index * 0.22,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className={`rounded-2xl p-5 sm:p-8 transition-all duration-500 hover:-translate-y-1 sm:hover:-translate-y-2 ${
+              className={`relative rounded-2xl p-5 sm:p-8 transition-all duration-500 hover:-translate-y-1 sm:hover:-translate-y-2 flex flex-col ${
                 plan.highlighted
-                  ? 'bg-dark text-white border-2 border-primary/50 shadow-xl shadow-black/20'
+                  ? 'bg-dark text-white border-2 border-primary/50 shadow-xl shadow-primary/10 md:scale-105 md:-my-2'
                   : 'bg-white text-dark border border-gray-200 hover:shadow-xl hover:shadow-black/5'
               }`}
             >
+              {/* Most Popular Badge */}
+              {plan.highlighted && (
+                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
+                  <span className="inline-flex items-center gap-1.5 bg-gradient-to-r from-primary to-amber-500 text-white
+                                   text-[10px] sm:text-xs font-bold uppercase tracking-wider px-4 py-1.5 rounded-full
+                                   shadow-lg shadow-primary/30 whitespace-nowrap">
+                    <FaStar className="text-[9px]" />
+                    Most Popular
+                  </span>
+                </div>
+              )}
+
               <div className={`w-11 h-11 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center mb-4 sm:mb-6 ${
                 plan.highlighted ? 'bg-primary/15' : 'bg-dark/5'
               }`}>
@@ -100,7 +112,7 @@ const Pricing = () => {
                 {plan.description}
               </p>
 
-              <div className="space-y-2 sm:space-y-3 mb-5 sm:mb-8">
+              <div className="space-y-2 sm:space-y-3 mb-5 sm:mb-8 flex-1">
                 {plan.features.map((feature) => (
                   <div key={feature} className="flex items-start gap-2">
                     <span className="text-primary text-xs flex-shrink-0 mt-0.5">✓</span>
@@ -114,9 +126,9 @@ const Pricing = () => {
               <Link
                 to="/contact"
                 className={`w-full text-center py-3 sm:py-3.5 min-h-[44px] rounded-full font-bold text-xs sm:text-sm
-                           transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer ${
+                           transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer mt-auto ${
                   plan.highlighted
-                    ? 'bg-primary text-white hover:bg-primary-dark active:scale-95'
+                    ? 'bg-gradient-to-r from-primary to-amber-500 text-white hover:shadow-lg hover:shadow-primary/30 active:scale-95'
                     : 'bg-dark text-white hover:bg-gray-800 active:scale-95'
                 }`}
               >

@@ -39,7 +39,7 @@ const Equipment = () => {
               Equipment
             </span>
             <h2 className="section-title text-white mb-2.5 sm:mb-4">
-              One Dispatch Team. <span className="text-gray-400">All Types of Equipment.</span>
+              One Dispatch Team. <span className="gradient-text">All Types of Equipment.</span>
             </h2>
             <p className="section-subtitle text-gray-300 mx-auto text-xs sm:text-base md:text-lg">
               Whether you operate one truck or manage a growing fleet, Dispatch by RIO works around

@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { FaCheckCircle } from 'react-icons/fa'
 import CTA from '../components/home/CTA'
+import WaveDivider from '../components/WaveDivider'
 
 const About = () => {
   return (
@@ -33,6 +34,7 @@ const About = () => {
           </motion.div>
         </div>
       </section>
+      <WaveDivider color="white" bgColor="dark" />
 
       {/* Story */}
       <section className="bg-white py-12 sm:py-20 lg:py-28">
@@ -106,6 +108,7 @@ const About = () => {
           </div>
         </div>
       </section>
+      <WaveDivider color="white" bgColor="dark" flip />
 
       {/* What We Believe */}
       <section className="bg-dark py-12 sm:py-20 lg:py-28">

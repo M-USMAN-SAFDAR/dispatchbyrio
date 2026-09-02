@@ -1,5 +1,6 @@
+import { useState, useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { FaStar, FaQuoteLeft, FaCheckCircle, FaTruck } from 'react-icons/fa'
+import { FaStar, FaQuoteLeft, FaCheckCircle, FaTruck, FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 
 const testimonials = [
   {
@@ -11,7 +12,7 @@ const testimonials = [
     rating: 5,
     date: 'Verified Carrier',
     quote:
-      'Dispatch by RIO changed the way I run my truck. I don’t spend hours searching load boards or arguing with brokers anymore. They negotiate strong rates and keep me moving without forced dispatch.',
+      "Dispatch by RIO changed the way I run my truck. I don't spend hours searching load boards or arguing with brokers anymore. They negotiate strong rates and keep me moving without forced dispatch.",
   },
   {
     name: 'Dmitri & Elena K.',
@@ -70,7 +71,94 @@ const testimonials = [
   },
 ]
 
+const TestimonialCard = ({ item }) => (
+  <div
+    className="relative rounded-2xl p-4 sm:p-7 bg-white/[0.03] border border-white/[0.08] shadow-lg
+               hover:bg-dark-mid hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/20
+               hover:scale-[1.02] hover:-translate-y-1 active:scale-95 transition-all duration-300 cursor-pointer group flex flex-col justify-between
+               min-w-[280px] sm:min-w-[340px] lg:min-w-[380px] snap-center"
+  >
+    <div>
+      {/* Header: Stars & Verified Badge */}
+      <div className="flex items-center justify-between mb-3 sm:mb-4 gap-2 flex-wrap">
+        <div className="flex items-center gap-1 text-amber-400">
+          {[...Array(item.rating)].map((_, i) => (
+            <FaStar key={i} className="text-xs sm:text-sm" />
+          ))}
+        </div>
+        <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full whitespace-nowrap">
+          <FaCheckCircle size={10} />
+          {item.date}
+        </span>
+      </div>
+
+      {/* Quote Icon & Text */}
+      <FaQuoteLeft className="text-primary/20 text-lg sm:text-2xl mb-2 sm:mb-3 group-hover:text-primary/40 transition-colors duration-300" />
+      <p className="text-gray-300 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6 group-hover:text-white transition-colors duration-300">
+        "{item.quote}"
+      </p>
+    </div>
+
+    {/* Author & Equipment Details */}
+    <div className="pt-3 sm:pt-4 border-t border-white/10 flex items-center justify-between gap-2">
+      <div className="min-w-0 flex-1">
+        {/* Initials avatar */}
+        <div className="flex items-center gap-2.5 mb-1">
+          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-amber-500 flex items-center justify-center flex-shrink-0">
+            <span className="text-white text-[10px] font-bold">
+              {item.name.split(' ').map(w => w[0]).join('').substring(0, 2)}
+            </span>
+          </div>
+          <div className="min-w-0">
+            <h4 className="text-white font-bold text-xs sm:text-sm truncate group-hover:text-primary-light transition-colors duration-300">
+              {item.name}
+            </h4>
+            <p className="text-gray-400 text-[10px] sm:text-xs font-medium truncate">
+              {item.company}
+            </p>
+          </div>
+        </div>
+      </div>
+      <div className="text-right flex-shrink-0 pl-1.5">
+        <span className="inline-flex items-center gap-1 text-primary text-[10px] sm:text-xs font-semibold">
+          <FaTruck size={10} />
+          {item.equipment.split(' ')[0]}
+        </span>
+        <p className="text-gray-500 text-[10px] whitespace-nowrap">
+          {item.role}
+        </p>
+      </div>
+    </div>
+  </div>
+)
+
 const Testimonials = () => {
+  const scrollRef = useRef(null)
+  const [canScrollLeft, setCanScrollLeft] = useState(false)
+  const [canScrollRight, setCanScrollRight] = useState(true)
+
+  const checkScrollState = () => {
+    const el = scrollRef.current
+    if (!el) return
+    setCanScrollLeft(el.scrollLeft > 5)
+    setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 5)
+  }
+
+  useEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+    el.addEventListener('scroll', checkScrollState, { passive: true })
+    checkScrollState()
+    return () => el.removeEventListener('scroll', checkScrollState)
+  }, [])
+
+  const scroll = (direction) => {
+    const el = scrollRef.current
+    if (!el) return
+    const cardWidth = el.querySelector(':scope > *')?.offsetWidth || 380
+    el.scrollBy({ left: direction * (cardWidth + 24), behavior: 'smooth' })
+  }
+
   return (
     <section className="bg-dark py-12 sm:py-20 lg:py-28 relative overflow-hidden" id="testimonials">
       {/* Glow effects */}
@@ -79,7 +167,7 @@ const Testimonials = () => {
 
       <div className="container-custom relative z-10">
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -94,7 +182,7 @@ const Testimonials = () => {
               Carrier Reviews & Testimonials
             </span>
             <h2 className="section-title text-white mb-2.5 sm:mb-4">
-              Trusted by <span className="text-primary">Carriers Across the USA</span>
+              Trusted by <span className="gradient-text">Carriers Across the USA</span>
             </h2>
             <p className="section-subtitle mx-auto text-gray-300 text-xs sm:text-base md:text-lg">
               Hear directly from owner-operators and fleet owners who rely on Dispatch by RIO
@@ -103,65 +191,51 @@ const Testimonials = () => {
           </motion.div>
         </div>
 
-        {/* Reviews Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-6 lg:gap-8">
-          {testimonials.map((item, index) => (
-            <motion.div
-              key={item.name}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.25 }}
-              transition={{
-                duration: 1.2,
-                delay: (index % 3) * 0.22,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-              className="relative rounded-2xl p-4 sm:p-7 bg-white/[0.03] border border-white/[0.08] shadow-lg
-                         hover:bg-dark-mid hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/20
-                         hover:scale-105 hover:-translate-y-2.5 active:scale-95 transition-all duration-300 cursor-pointer group flex flex-col justify-between"
-            >
-              <div>
-                {/* Header: Stars & Verified Badge */}
-                <div className="flex items-center justify-between mb-3 sm:mb-4 gap-2 flex-wrap">
-                  <div className="flex items-center gap-1 text-amber-400">
-                    {[...Array(item.rating)].map((_, i) => (
-                      <FaStar key={i} className="text-xs sm:text-sm" />
-                    ))}
-                  </div>
-                  <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full whitespace-nowrap">
-                    <FaCheckCircle size={10} />
-                    {item.date}
-                  </span>
-                </div>
+        {/* Carousel */}
+        <div className="relative">
+          {/* Scroll arrows - desktop */}
+          <button
+            onClick={() => scroll(-1)}
+            className={`hidden lg:flex absolute -left-4 xl:-left-6 top-1/2 -translate-y-1/2 z-20
+                       w-10 h-10 rounded-full bg-white/10 border border-white/20 items-center justify-center
+                       text-white hover:bg-primary hover:border-primary transition-all duration-300 cursor-pointer
+                       ${canScrollLeft ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+            aria-label="Scroll left"
+          >
+            <FaChevronLeft className="text-xs" />
+          </button>
+          <button
+            onClick={() => scroll(1)}
+            className={`hidden lg:flex absolute -right-4 xl:-right-6 top-1/2 -translate-y-1/2 z-20
+                       w-10 h-10 rounded-full bg-white/10 border border-white/20 items-center justify-center
+                       text-white hover:bg-primary hover:border-primary transition-all duration-300 cursor-pointer
+                       ${canScrollRight ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+            aria-label="Scroll right"
+          >
+            <FaChevronRight className="text-xs" />
+          </button>
 
-                {/* Quote Icon & Text */}
-                <FaQuoteLeft className="text-primary/20 text-lg sm:text-2xl mb-2 sm:mb-3 group-hover:text-primary/40 transition-colors duration-300" />
-                <p className="text-gray-300 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6 group-hover:text-white transition-colors duration-300">
-                  "{item.quote}"
-                </p>
-              </div>
+          {/* Fade edges */}
+          <div className="absolute left-0 top-0 bottom-0 w-6 sm:w-12 bg-gradient-to-r from-dark to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-6 sm:w-12 bg-gradient-to-l from-dark to-transparent z-10 pointer-events-none" />
 
-              {/* Author & Equipment Details */}
-              <div className="pt-3 sm:pt-4 border-t border-white/10 flex items-center justify-between gap-2">
-                <div className="min-w-0 flex-1">
-                  <h4 className="text-white font-bold text-xs sm:text-sm truncate group-hover:text-primary-light transition-colors duration-300">
-                    {item.name}
-                  </h4>
-                  <p className="text-gray-400 text-[10px] sm:text-xs font-medium truncate">
-                    {item.company}
-                  </p>
-                </div>
-                <div className="text-right flex-shrink-0 pl-1.5">
-                  <span className="inline-flex items-center gap-1 text-primary text-[10px] sm:text-xs font-semibold">
-                    <FaTruck size={10} />
-                    {item.equipment.split(' ')[0]}
-                  </span>
-                  <p className="text-gray-500 text-[10px] whitespace-nowrap">
-                    {item.role}
-                  </p>
-                </div>
-              </div>
-            </motion.div>
+          {/* Scrollable row */}
+          <div
+            ref={scrollRef}
+            className="flex gap-4 sm:gap-6 overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-4
+                       -mx-3.5 px-3.5 sm:-mx-6 sm:px-6 lg:mx-0 lg:px-0"
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          >
+            {testimonials.map((item) => (
+              <TestimonialCard key={item.name} item={item} />
+            ))}
+          </div>
+        </div>
+
+        {/* Scroll indicator dots - mobile */}
+        <div className="flex justify-center gap-1.5 mt-4 lg:hidden">
+          {testimonials.map((_, i) => (
+            <div key={i} className="w-1.5 h-1.5 rounded-full bg-white/20" />
           ))}
         </div>
       </div>

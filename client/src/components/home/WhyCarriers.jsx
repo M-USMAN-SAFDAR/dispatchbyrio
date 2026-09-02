@@ -54,7 +54,7 @@ const WhyCarriers = () => {
               Why Dispatch by RIO
             </span>
             <h2 className="section-title text-white mb-2.5 sm:mb-4">
-              Why Carriers <span className="text-gray-400">Work With</span> Dispatch by RIO
+              Why Carriers <span className="gradient-text">Work With</span> Dispatch by RIO
             </h2>
             <p className="section-subtitle text-gray-300 mx-auto text-xs sm:text-base md:text-lg">
               No fabricated reviews — just the real reasons carriers choose us as their

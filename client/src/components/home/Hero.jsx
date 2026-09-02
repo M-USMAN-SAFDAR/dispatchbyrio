@@ -8,16 +8,17 @@ const Hero = () => {
       {/* Background */}
       <div className="absolute inset-0">
         <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-105"
           style={{ backgroundImage: `url('/images/hero-truck.jpg')` }}
         />
         <div className="absolute inset-0 bg-gradient-to-r from-dark/95 via-dark/80 to-dark/60" />
         <div className="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-dark/30" />
       </div>
 
-      {/* Decorative */}
-      <div className="absolute top-20 right-20 w-72 h-72 bg-primary/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-20 left-10 w-96 h-96 bg-primary/3 rounded-full blur-3xl" />
+      {/* Decorative glows */}
+      <div className="absolute top-20 right-20 w-72 h-72 bg-primary/8 rounded-full blur-3xl animate-pulse" />
+      <div className="absolute bottom-20 left-10 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+      <div className="absolute top-1/2 right-1/4 w-40 h-40 bg-amber-500/5 rounded-full blur-2xl" />
 
       {/* Content */}
       <div className="container-custom relative z-10 pt-28 pb-20">
@@ -39,14 +40,14 @@ const Hero = () => {
               </span>
             </div>
 
-            {/* Headline */}
+            {/* Headline with gradient text */}
             <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-white
                           leading-[1.15] mb-4 sm:mb-6 tracking-tight">
               More Than Dispatch.
               <br />
               <span className="text-gray-400">We Help You Run</span>
               <br />
-              the Business.
+              <span className="gradient-text">the Business.</span>
             </h1>
 
             {/* Subheadline */}
@@ -71,7 +72,7 @@ const Hero = () => {
             <div className="flex flex-wrap items-center gap-x-4 sm:gap-x-6 gap-y-2 sm:gap-y-3">
               {['All Equipment Types', 'Owner-Operators & Fleets', 'Nationwide Support'].map((item) => (
                 <div key={item} className="flex items-center gap-1.5 sm:gap-2">
-                  <div className="w-1.5 h-1.5 bg-primary rounded-full flex-shrink-0" />
+                  <div className="w-1.5 h-1.5 bg-primary rounded-full flex-shrink-0 shadow-[0_0_6px_rgba(244,110,22,0.6)]" />
                   <span className="text-gray-400 text-[10px] sm:text-xs font-medium uppercase tracking-wide">{item}</span>
                 </div>
               ))}

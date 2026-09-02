@@ -57,7 +57,7 @@ const Services = () => {
               What We Do
             </span>
             <h2 className="section-title text-white mb-2.5 sm:mb-4">
-              More Than <span className="text-gray-400">Just Dispatch</span>
+              More Than <span className="gradient-text">Just Dispatch</span>
             </h2>
             <p className="section-subtitle text-gray-300 mx-auto text-xs sm:text-base md:text-lg">
               Dispatch by RIO provides the support carriers need to manage the business side

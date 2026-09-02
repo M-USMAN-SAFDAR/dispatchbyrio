@@ -16,7 +16,7 @@ const PrivacyPolicy = () => {
               Privacy <span className="text-gray-300">Policy</span>
             </h1>
             <p className="text-gray-400 text-xs sm:text-sm">
-              Last updated: {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+              Last updated: September 1, 2026
             </p>
           </motion.div>
         </div>
@@ -42,7 +42,7 @@ const PrivacyPolicy = () => {
               </div>
 
               <div>
-                <h2 className="text-dark font-bold text-2xl mb-3">2. How We Use Your Information</h2>
+                <h2 className="text-dark font-bold text-lg sm:text-2xl mb-2 sm:mb-3">2. How We Use Your Information</h2>
                 <p className="text-sm leading-relaxed mb-3">We use the information we collect to:</p>
                 <ul className="list-disc pl-6 text-sm leading-relaxed space-y-1">
                   <li>Provide, maintain, and improve our truck dispatch services</li>
@@ -55,7 +55,7 @@ const PrivacyPolicy = () => {
               </div>
 
               <div>
-                <h2 className="text-dark font-bold text-2xl mb-3">3. Information Sharing</h2>
+                <h2 className="text-dark font-bold text-lg sm:text-2xl mb-2 sm:mb-3">3. Information Sharing</h2>
                 <p className="text-sm leading-relaxed">
                   We do not sell, trade, or rent your personal information to third parties. We may share your information only in the following circumstances:
                 </p>
@@ -67,21 +67,21 @@ const PrivacyPolicy = () => {
               </div>
 
               <div>
-                <h2 className="text-dark font-bold text-2xl mb-3">4. Data Security</h2>
+                <h2 className="text-dark font-bold text-lg sm:text-2xl mb-2 sm:mb-3">4. Data Security</h2>
                 <p className="text-sm leading-relaxed">
                   We implement appropriate technical and organizational security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction. However, no method of transmission over the Internet is 100% secure, and we cannot guarantee absolute security.
                 </p>
               </div>
 
               <div>
-                <h2 className="text-dark font-bold text-2xl mb-3">5. Data Retention</h2>
+                <h2 className="text-dark font-bold text-lg sm:text-2xl mb-2 sm:mb-3">5. Data Retention</h2>
                 <p className="text-sm leading-relaxed">
                   We retain your personal information only for as long as necessary to fulfill the purposes for which it was collected, including to satisfy any legal, accounting, or reporting requirements. Contact form submissions are retained for up to 2 years unless you request earlier deletion.
                 </p>
               </div>
 
               <div>
-                <h2 className="text-dark font-bold text-2xl mb-3">6. Your Rights</h2>
+                <h2 className="text-dark font-bold text-lg sm:text-2xl mb-2 sm:mb-3">6. Your Rights</h2>
                 <p className="text-sm leading-relaxed mb-3">You have the right to:</p>
                 <ul className="list-disc pl-6 text-sm leading-relaxed space-y-1">
                   <li>Request access to the personal information we hold about you</li>
@@ -96,21 +96,21 @@ const PrivacyPolicy = () => {
               </div>
 
               <div>
-                <h2 className="text-dark font-bold text-2xl mb-3">7. Third-Party Links</h2>
+                <h2 className="text-dark font-bold text-lg sm:text-2xl mb-2 sm:mb-3">7. Third-Party Links</h2>
                 <p className="text-sm leading-relaxed">
                   Our website may contain links to third-party websites. We are not responsible for the privacy practices or content of these external sites. We encourage you to review the privacy policies of any third-party sites you visit.
                 </p>
               </div>
 
               <div>
-                <h2 className="text-dark font-bold text-2xl mb-3">8. Changes to This Policy</h2>
+                <h2 className="text-dark font-bold text-lg sm:text-2xl mb-2 sm:mb-3">8. Changes to This Policy</h2>
                 <p className="text-sm leading-relaxed">
                   We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new policy on this page and updating the "Last updated" date. Your continued use of our services after changes constitutes acceptance of the updated policy.
                 </p>
               </div>
 
               <div>
-                <h2 className="text-dark font-bold text-2xl mb-3">9. Contact Us</h2>
+                <h2 className="text-dark font-bold text-lg sm:text-2xl mb-2 sm:mb-3">9. Contact Us</h2>
                 <p className="text-sm leading-relaxed">
                   If you have any questions about this Privacy Policy, please contact us at:
                 </p>

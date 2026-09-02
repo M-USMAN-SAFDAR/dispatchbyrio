@@ -135,7 +135,7 @@ const FAQ = () => {
         <div className="max-w-3xl mx-auto space-y-2 sm:space-y-3">
           {faqs.map((faq, index) => (
             <AccordionItem
-              key={index}
+              key={faq.question}
               faq={faq}
               index={index}
               isOpen={openIndex === index}
