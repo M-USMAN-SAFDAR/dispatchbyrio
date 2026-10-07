@@ -41,7 +41,7 @@ export function createExperience(container, state, reduced = false, onReady = ()
   scene.environment=environment.texture;scene.environmentIntensity=.75
   pmrem.dispose()
   const sun=new THREE.DirectionalLight('#ffca8b',3.4);sun.position.set(-25,18,-17);sun.castShadow=true
-  sun.shadow.mapSize.set(2048,2048);Object.assign(sun.shadow.camera,{left:-30,right:30,top:28,bottom:-28,near:.1,far:90});sun.shadow.bias=-.0003;sun.shadow.normalBias=.03;sun.shadow.radius=3;scene.add(sun)
+  sun.shadow.mapSize.set(1024,1024);Object.assign(sun.shadow.camera,{left:-30,right:30,top:28,bottom:-28,near:.1,far:90});sun.shadow.bias=-.0003;sun.shadow.normalBias=.03;sun.shadow.radius=3;scene.add(sun)
   const fill=new THREE.HemisphereLight('#8ea6c1','#755036',1.3);scene.add(fill)
   const edge=new THREE.DirectionalLight('#b6d4ed',1.4);edge.position.set(10,12,18);scene.add(edge)
   const canvas=document.createElement('canvas');canvas.width=canvas.height=256
@@ -114,28 +114,43 @@ export function createExperience(container, state, reduced = false, onReady = ()
     routes.push(path);routeGroup.add(new THREE.Mesh(new THREE.TubeGeometry(path,80,.038,6,false),routeMat))
     const dot=new THREE.Mesh(new THREE.SphereGeometry(.18,12,8),routeMat);beacons.push(dot);routeGroup.add(dot)
   }
-  let frame,visible=true,elapsed=0,last=0,disposed=false,pointerX=0,pointerY=0,firstFrame=true
-  const resize=()=>{renderer.setSize(container.clientWidth,container.clientHeight);camera.aspect=container.clientWidth/container.clientHeight;camera.updateProjectionMatrix()}
+  let frame=null,visible=true,elapsed=0,last=0,disposed=false,pointerX=0,pointerY=0,firstFrame=true
+  let smoothX=0,smoothY=0,narrow=mobile(),width=0,height=0,contextFailed=false
+  // Stop the frame loop completely when the scene is offscreen or the tab is hidden.
+  const schedule=()=>{if(frame===null&&!disposed&&!contextFailed&&visible&&!document.hidden)frame=requestAnimationFrame(render)}
+  const suspend=()=>{if(frame!==null)cancelAnimationFrame(frame);frame=null;last=0}
+  const resize=()=>{
+    const nextWidth=container.clientWidth,nextHeight=container.clientHeight
+    if(!nextWidth||!nextHeight||(nextWidth===width&&nextHeight===height))return
+    width=nextWidth;height=nextHeight;narrow=mobile()
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio,narrow?1.25:1.5))
+    renderer.shadowMap.enabled=!narrow
+    renderer.setSize(width,height);camera.aspect=width/height;camera.updateProjectionMatrix();schedule()
+  }
   const resizeObserver=new ResizeObserver(resize);resizeObserver.observe(container)
-  const observer=new IntersectionObserver(([e])=>{visible=e.isIntersecting});observer.observe(container)
-  const point=e=>{if(e.pointerType==='touch')return;const r=container.getBoundingClientRect();pointerX=(e.clientX-r.left)/r.width-.5;pointerY=(e.clientY-r.top)/r.height-.5}
-  container.addEventListener('pointermove',point)
-  const contextLost=event=>{event.preventDefault();visible=false;onFailure()}
+  const observer=new IntersectionObserver(([e])=>{visible=e.isIntersecting;if(visible)schedule();else suspend()});observer.observe(container)
+  const visibilityChanged=()=>{if(document.hidden)suspend();else schedule()}
+  document.addEventListener('visibilitychange',visibilityChanged)
+  const point=e=>{if(reduced||e.pointerType==='touch')return;const r=container.getBoundingClientRect();pointerX=(e.clientX-r.left)/r.width-.5;pointerY=(e.clientY-r.top)/r.height-.5}
+  const resetPointer=()=>{pointerX=0;pointerY=0}
+  container.addEventListener('pointermove',point,{passive:true})
+  container.addEventListener('pointerleave',resetPointer)
+  const contextLost=event=>{event.preventDefault();contextFailed=true;suspend();onFailure()}
   renderer.domElement.addEventListener('webglcontextlost',contextLost)
   const target=new THREE.Vector3(),fogDay=new THREE.Color('#b98457'),fogNight=new THREE.Color('#142431')
   function render(now){
-    if(disposed)return
-    frame=requestAnimationFrame(render)
-    const dt=Math.min((now-last)/1000,.05);last=now
-    if(!visible||document.hidden)return
+    frame=null
+    if(disposed||contextFailed||!visible||document.hidden)return
+    const dt=last?Math.min((now-last)/1000,.05):0;last=now
     const animate=!reduced&&!state.paused
     if(animate)elapsed+=dt
-    const narrow=mobile(), zoom=narrow?1.2:1
-    camera.position.set(state.camX, state.camY+(reduced?0:pointerY*.2), state.camZ*zoom)
+    const blend=1-Math.exp(-8*dt),zoom=narrow?1.2:1
+    smoothX+=(pointerX-smoothX)*blend;smoothY+=(pointerY-smoothY)*blend
+    camera.position.set(state.camX, state.camY+(reduced?0:smoothY*.2), state.camZ*zoom)
     target.set(narrow?state.truckX:state.lookX,state.lookY,narrow?state.truckZ-1:state.lookZ)
     camera.lookAt(target)
     truck.position.set(state.truckX,animate?Math.sin(elapsed*3)*.008:0,state.truckZ)
-    truck.rotation.y=state.turn+(reduced?0:pointerX*.018)
+    truck.rotation.y=state.turn+(reduced?0:smoothX*.018)
     if(animate)wheels.forEach(w=>{w.rotation.z-=dt*(1.7-state.yard*1.25)})
     road.position.x=animate?-elapsed*1.6%5:road.position.x
     yard.visible=state.yard>.005
@@ -145,15 +160,19 @@ export function createExperience(container, state, reduced = false, onReady = ()
     fill.intensity=1.3-state.dusk*.4
     scene.fog.color.copy(fogDay).lerp(fogNight,state.dusk)
     wireMaterial.opacity=state.wire
+    wire.visible=state.wire>.005
     routeMat.opacity=state.routes
-    for(let i=0;i<beacons.length;i++)beacons[i].position.copy(routes[i].getPointAt((elapsed*.045+i*.3)%1))
+    routeGroup.visible=state.routes>.005
+    if(routeGroup.visible)for(let i=0;i<beacons.length;i++)beacons[i].position.copy(routes[i].getPointAt((elapsed*.045+i*.3)%1))
     renderer.render(scene,camera)
     if(firstFrame){firstFrame=false;onReady()}
-    container.dataset.progress=state.progress.toFixed(3)
+    // Reduced-motion renders only on initialization, resize, or visibility changes.
+    if(!reduced)schedule()
   }
-  resize();frame=requestAnimationFrame(render)
+  resize();schedule()
   return ()=>{
-    disposed=true;cancelAnimationFrame(frame);resizeObserver.disconnect();observer.disconnect();container.removeEventListener('pointermove',point)
+    disposed=true;suspend();resizeObserver.disconnect();observer.disconnect();container.removeEventListener('pointermove',point)
+    container.removeEventListener('pointerleave',resetPointer);document.removeEventListener('visibilitychange',visibilityChanged)
     renderer.domElement.removeEventListener('webglcontextlost',contextLost)
     const geometries=new Set(),materials=new Set(),textures=new Set([asphalt,labelTexture])
     scene.traverse(o=>{if(o.geometry)geometries.add(o.geometry);if(o.material)materials.add(o.material)})

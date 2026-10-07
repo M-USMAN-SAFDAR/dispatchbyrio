@@ -9,8 +9,8 @@ const MobileCTA = () => {
         <a
           href="tel:+13053303123"
           className="flex-1 flex items-center justify-center gap-2 bg-white/10 border border-white/20
-                     text-white font-bold py-2.5 rounded-full text-xs transition-all duration-300
-                     active:scale-95 min-h-[42px]"
+                     text-white font-semibold py-2.5 rounded-lg text-xs transition-all duration-300
+                     active:scale-95 min-h-[44px]"
         >
           <FaPhoneAlt className="text-primary text-xs" />
           Call
@@ -20,17 +20,17 @@ const MobileCTA = () => {
           target="_blank"
           rel="noopener noreferrer"
           className="flex-1 flex items-center justify-center gap-2 bg-white/10 border border-green-500/30
-                     text-white font-bold py-2.5 rounded-full text-xs transition-all duration-300
-                     active:scale-95 min-h-[42px]"
+                     text-white font-semibold py-2.5 rounded-lg text-xs transition-all duration-300
+                     active:scale-95 min-h-[44px]"
         >
           <FaWhatsapp className="text-green-500 text-sm" />
           WhatsApp
         </a>
         <Link
           to="/contact"
-          className="flex-[1.5] flex items-center justify-center gap-2 bg-gradient-to-r from-primary to-amber-500
-                     text-white font-bold py-2.5 rounded-full text-xs transition-all duration-300
-                     hover:shadow-lg hover:shadow-primary/25 active:scale-95 min-h-[42px]"
+          className="flex-[1.5] flex items-center justify-center gap-2 bg-primary
+                     text-dark font-semibold py-2.5 rounded-lg text-xs transition-all duration-300
+                     hover:shadow-lg hover:shadow-primary/25 active:scale-95 min-h-[44px]"
         >
           Get Started
           <FaArrowRight className="text-[10px]" />

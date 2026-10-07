@@ -37,27 +37,23 @@ export default function Home() {
     const media = gsap.matchMedia()
     media.add('(prefers-reduced-motion: no-preference)', () => {
       gsap.utils.toArray('[data-reveal]').forEach(element => {
-        gsap.fromTo(element, { y: 45, opacity: 0 }, { y: 0, opacity: 1, duration: .85, delay: Number(element.dataset.delay), ease: 'power3.out', scrollTrigger: { trigger: element, start: 'top 92%', toggleActions: 'play none none none' } })
-      })
-      gsap.fromTo('.process-photo img', { scale: 1.16, yPercent: -5 }, { scale: 1.02, yPercent: 5, ease: 'none', scrollTrigger: { trigger: '.process-photo', start: 'top bottom', end: 'bottom top', scrub: 1 } })
-      gsap.from('.intro-principles span', { y: 20, opacity: 0, stagger: .15, duration: .7, scrollTrigger: { trigger: '.intro-principles', start: 'top 90%' } })
-      gsap.from('.equipment-type', { rotateX: -40, y: 25, opacity: 0, stagger: .08, duration: .7, scrollTrigger: { trigger: '.equipment-list', start: 'top 90%' } })
-      gsap.to('.final-watermark', { x: -70, ease: 'none', scrollTrigger: { trigger: '.rio-final', start: 'top bottom', end: 'bottom top', scrub: 1 } })
-      const cleanups = []
-      if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-        gsap.utils.toArray('.service-tile, .plan-tile').forEach(card => {
-          const tilt = event => {
-            const rect = card.getBoundingClientRect()
-            gsap.to(card, { rotationY: ((event.clientX - rect.left) / rect.width - .5) * 7, rotationX: -((event.clientY - rect.top) / rect.height - .5) * 7, transformPerspective: 1000, duration: .4, overwrite: 'auto' })
-          }
-          const reset = () => gsap.to(card, { rotationX: 0, rotationY: 0, duration: .6 })
-          card.addEventListener('pointermove', tilt); card.addEventListener('pointerleave', reset)
-          cleanups.push(() => { card.removeEventListener('pointermove', tilt); card.removeEventListener('pointerleave', reset); gsap.killTweensOf(card) })
+        gsap.fromTo(element, { y: 24, opacity: 0 }, {
+          y: 0, opacity: 1, duration: .6, delay: Number(element.dataset.delay),
+          ease: 'power2.out', clearProps: 'transform,opacity',
+          scrollTrigger: { trigger: element, start: 'top 96%', once: true },
         })
+      })
+      gsap.from('.intro-principles span', { y: 16, opacity: 0, stagger: .06, duration: .5, ease: 'power2.out', clearProps: 'transform,opacity', scrollTrigger: { trigger: '.intro-principles', start: 'top 96%', once: true } })
+      gsap.from('.equipment-type', { y: 18, opacity: 0, stagger: .04, duration: .5, ease: 'power2.out', clearProps: 'transform,opacity', scrollTrigger: { trigger: '.equipment-list', start: 'top 96%', once: true } })
+      // Keep continuous decorative effects off touch devices.
+      if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+        gsap.fromTo('.process-photo img', { scale: 1.08, yPercent: -2 }, { scale: 1.02, yPercent: 2, ease: 'none', scrollTrigger: { trigger: '.process-photo', start: 'top bottom', end: 'bottom top', scrub: .6 } })
+        gsap.to('.final-watermark', { x: -35, ease: 'none', scrollTrigger: { trigger: '.rio-final', start: 'top bottom', end: 'bottom top', scrub: .6 } })
       }
-      return () => cleanups.forEach(cleanup => cleanup())
     }, home)
-    return () => media.revert()
+    let mounted = true
+    document.fonts.ready.then(() => { if (mounted) ScrollTrigger.refresh() })
+    return () => { mounted = false; media.revert() }
   }, [])
   return <div className="rio-home" ref={home}>
     <Hero />

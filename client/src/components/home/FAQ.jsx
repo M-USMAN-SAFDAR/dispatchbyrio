@@ -52,20 +52,22 @@ const faqs = [
 const AccordionItem = ({ faq, isOpen, onClick, index }) => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 35 }}
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.25 }}
+      viewport={{ once: true, amount: 0.08 }}
       transition={{
-        duration: 0.9,
-        delay: (index % 4) * 0.12,
+        duration: 0.5,
+        delay: (index % 4) * 0.06,
         ease: [0.22, 1, 0.36, 1],
       }}
-      className={`border rounded-xl overflow-hidden transition-all duration-300 ${
+      className={`border rounded-xl overflow-hidden transition-colors duration-300 ${
         isOpen ? 'border-primary/30 bg-dark-light/50' : 'border-white/10 hover:border-white/20'
       }`}
     >
       <button
         onClick={onClick}
+        aria-expanded={isOpen}
+        aria-controls={`faq-answer-${index}`}
         className="w-full flex items-center justify-between p-3.5 sm:p-5 md:p-6 text-left group cursor-pointer min-h-[48px]"
       >
         <span className={`font-bold text-xs sm:text-sm md:text-base pr-2.5 sm:pr-4 transition-colors duration-300 ${
@@ -74,7 +76,7 @@ const AccordionItem = ({ faq, isOpen, onClick, index }) => {
           {faq.question}
         </span>
         <div className={`w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center flex-shrink-0
-                        transition-all duration-300 ${
+                        transition-colors duration-300 ${
           isOpen ? 'bg-primary text-white' : 'bg-white/10 text-white'
         }`}>
           {isOpen ? <FaMinus className="text-[9px] sm:text-xs" /> : <FaPlus className="text-[9px] sm:text-xs" />}
@@ -84,10 +86,11 @@ const AccordionItem = ({ faq, isOpen, onClick, index }) => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            id={`faq-answer-${index}`}
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ height: { duration: 0.28, ease: [0.22, 1, 0.36, 1] }, opacity: { duration: 0.18 } }}
             className="overflow-hidden"
           >
             <div className="px-3.5 sm:px-5 md:px-6 pb-3.5 sm:pb-5 md:pb-6">
@@ -113,10 +116,10 @@ const FAQ = () => {
         {/* Header */}
         <div className="text-center mb-8 sm:mb-16">
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+            viewport={{ once: true, amount: 0.08 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           >
             <span className="section-label bg-white/10 text-white border border-white/20">
               <span className="w-1.5 h-1.5 bg-white rounded-full" />

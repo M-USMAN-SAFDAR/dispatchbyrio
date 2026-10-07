@@ -25,22 +25,27 @@ export default function Hero() {
       })
       gsap.set('.journey-chapter:not(.chapter-first)',{autoAlpha:0})
       if(!reduced){
-        const tl=gsap.timeline({scrollTrigger:{trigger:root.current,pin:stage.current,start:'top top',end:()=>`+=${window.innerHeight*(window.innerWidth<768?2.4:3.2)}`,scrub:.8,invalidateOnRefresh:true},defaults:{ease:'power2.inOut'}})
+        const tl=gsap.timeline({scrollTrigger:{trigger:root.current,pin:stage.current,start:'top top',end:()=>`+=${window.innerHeight*(window.innerWidth<768?2.4:3.2)}`,scrub:.55,anticipatePin:1,invalidateOnRefresh:true},defaults:{ease:'sine.inOut'}})
         timeline.current=tl
         tl.to(state.current,{progress:1,duration:1,ease:'none'},0)
           .to(state.current,{camX:15,camY:9,camZ:23,lookX:-3,lookY:1.6,lookZ:-3,truckX:3,truckZ:-1,turn:-.12,yard:1,duration:.34},.12)
           .to(state.current,{camX:20,camY:22,camZ:21,lookX:0,lookY:0,lookZ:-10,truckX:10,truckZ:-6,turn:.23,dusk:.7,duration:.32},.46)
           .to(state.current,{camX:5,camY:40,camZ:17,lookX:0,lookY:0,lookZ:-12,truckX:15,truckZ:-8,turn:.5,dusk:1,wire:.75,routes:.9,duration:.22},.78)
-          .to('.chapter-first',{autoAlpha:0,y:-35,duration:.09},.18)
-          .fromTo('.chapter-yard',{autoAlpha:0,y:35},{autoAlpha:1,y:0,duration:.09},.3)
-          .to('.chapter-yard',{autoAlpha:0,y:-30,duration:.07},.57)
-          .fromTo('.chapter-network',{autoAlpha:0,y:30},{autoAlpha:1,y:0,duration:.1},.68)
+          .to('.chapter-first',{autoAlpha:0,y:-18,duration:.12},.18)
+          .fromTo('.chapter-yard',{autoAlpha:0,y:18},{autoAlpha:1,y:0,duration:.12},.3)
+          .to('.chapter-yard',{autoAlpha:0,y:-18,duration:.1},.57)
+          .fromTo('.chapter-network',{autoAlpha:0,y:18},{autoAlpha:1,y:0,duration:.12},.68)
           .to('.journey-progress-fill',{scaleX:1,duration:1,ease:'none'},0)
         // Keep chapter labels synchronized without React renders on every scroll frame.
+        const chapterButtons=root.current.querySelectorAll('.journey-chapters button')
+        let activeChapter=-1
         tl.eventCallback('onUpdate',()=>{
           const p=state.current.progress
-          root.current.querySelectorAll('.journey-chapters button').forEach((el,i)=>{
-            const active=i===(p<.28?0:p<.65?1:2)
+          const nextChapter=p<.28?0:p<.65?1:2
+          if(nextChapter===activeChapter)return
+          activeChapter=nextChapter
+          chapterButtons.forEach((el,i)=>{
+            const active=i===activeChapter
             el.classList.toggle('active',active);el.setAttribute('aria-current',active?'step':'false')
           })
         })

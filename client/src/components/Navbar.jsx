@@ -27,7 +27,8 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50)
-    window.addEventListener('scroll', handleScroll)
+    handleScroll()
+    window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
@@ -90,13 +91,14 @@ const Navbar = () => {
 
   return (
     <>
+      <a className="rio-skip-link" href="#main-content">Skip to content</a>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        className={`rio-header fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled || isOpen ? 'bg-dark/95 backdrop-blur-md shadow-lg shadow-black/20' : 'bg-transparent'
         }`}
       >
         <div className="w-full px-3.5 sm:px-6 lg:px-8 xl:px-10">
-          <nav className="flex items-center justify-between py-2.5 sm:py-3.5">
+          <nav aria-label="Main navigation" className="flex items-center justify-between py-2.5 sm:py-3.5">
             <Link to="/" className="flex items-center gap-1.5 sm:gap-2.5 group flex-shrink-0">
               <img
                 src="/rio_logo_clean.png"
@@ -111,15 +113,16 @@ const Navbar = () => {
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center gap-4 xl:gap-6 2xl:gap-7">
+            <div className="hidden xl:flex items-center gap-4 2xl:gap-6">
               {navLinks.map((link) => {
                 const active = isActive(link.path)
                 return (
                   <Link
                     key={link.name}
                     to={link.path}
+                    aria-current={active ? (link.path.startsWith('/#') ? 'location' : 'page') : undefined}
                     onClick={(e) => handleNavClick(e, link.path)}
-                    className={`relative py-1 text-xs xl:text-[13px] font-semibold uppercase tracking-wider transition-colors duration-300 whitespace-nowrap ${
+                    className={`rio-nav-link relative py-2 text-sm font-medium transition-colors duration-300 whitespace-nowrap ${
                       active ? 'text-white' : 'text-gray-400 hover:text-white'
                     }`}
                   >
@@ -133,10 +136,10 @@ const Navbar = () => {
             </div>
 
             {/* Desktop CTA */}
-            <div className="hidden lg:flex items-center gap-3 xl:gap-4 flex-shrink-0">
+            <div className="hidden xl:flex items-center gap-4 flex-shrink-0">
               <a
                 href="tel:+13053303123"
-                className="flex items-center gap-2 text-gray-300 hover:text-white transition-all duration-300 whitespace-nowrap"
+                className="hidden 2xl:flex items-center gap-2 text-gray-300 hover:text-white transition-all duration-300 whitespace-nowrap"
               >
                 <FaPhoneAlt className="text-primary text-xs xl:text-sm" />
     <span className="text-xs xl:text-sm font-semibold">+1 (305) 330-3123</span>
@@ -149,9 +152,10 @@ const Navbar = () => {
             {/* Mobile Toggle */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="lg:hidden text-white hover:text-gray-300 transition-colors p-2 cursor-pointer min-w-[44px] min-h-[44px] flex items-center justify-center -mr-1"
+              className="xl:hidden text-white hover:text-gray-300 transition-colors p-2 cursor-pointer min-w-[44px] min-h-[44px] flex items-center justify-center -mr-1"
               aria-label="Toggle navigation menu"
               aria-expanded={isOpen}
+              aria-controls="mobile-navigation"
             >
               {isOpen ? <HiX size={26} /> : <HiMenu size={26} />}
             </button>
@@ -160,14 +164,17 @@ const Navbar = () => {
 
         {/* Mobile Menu Dropdown */}
         <div
-          className={`lg:hidden absolute top-full left-0 right-0 bg-dark/98 backdrop-blur-xl
-                      border-t border-white/10 transition-all duration-300 overscroll-contain ${
+          id="mobile-navigation"
+          inert={!isOpen}
+          className={`rio-mobile-menu xl:hidden absolute top-full left-0 right-0 bg-dark/98 backdrop-blur-xl
+                      border-t border-white/10 grid overscroll-contain ${
                         isOpen
-                          ? 'max-h-[calc(100dvh-4rem)] opacity-100 overflow-y-auto pointer-events-auto shadow-2xl'
-                          : 'max-h-0 opacity-0 overflow-hidden pointer-events-none'
+                          ? 'grid-rows-[1fr] opacity-100 pointer-events-auto shadow-2xl'
+                          : 'grid-rows-[0fr] opacity-0 pointer-events-none'
                       }`}
         >
-          <div className="container-custom py-5 flex flex-col gap-1">
+          <div className="min-h-0 overflow-hidden">
+          <div className="container-custom py-5 flex flex-col gap-1 max-h-[calc(100dvh-84px)] overflow-y-auto">
             {navLinks.map((link) => {
               const active = isActive(link.path)
               return (
@@ -204,6 +211,7 @@ const Navbar = () => {
               </Link>
             </div>
           </div>
+          </div>
         </div>
       </header>
 
@@ -211,7 +219,7 @@ const Navbar = () => {
       {isOpen && (
         <div
           onClick={() => setIsOpen(false)}
-          className="lg:hidden fixed inset-0 z-40 bg-black/60 backdrop-blur-xs transition-opacity duration-300 touch-none"
+          className="xl:hidden fixed inset-0 z-40 bg-black/60 backdrop-blur-xs transition-opacity duration-300 touch-none"
           aria-hidden="true"
         />
       )}

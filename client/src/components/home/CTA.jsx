@@ -16,10 +16,10 @@ const CTA = () => {
 
       <div className="container-custom relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 1.3, ease: [0.22, 1, 0.36, 1] }}
+          viewport={{ once: true, amount: 0.08 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           className="text-center max-w-3xl mx-auto"
         >
           <h2 className="section-title text-white mb-3.5 sm:mb-6">

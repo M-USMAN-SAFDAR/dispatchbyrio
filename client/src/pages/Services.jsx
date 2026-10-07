@@ -6,7 +6,7 @@ import {
   FaCheckCircle, FaArrowRight
 } from 'react-icons/fa'
 import CTA from '../components/home/CTA'
-import WaveDivider from '../components/WaveDivider'
+import PageHero from '../components/PageHero'
 
 const services = [
   {
@@ -93,35 +93,7 @@ const services = [
 const ServicesPage = () => {
   return (
     <>
-      {/* Hero */}
-      <section className="relative pt-24 pb-12 sm:pt-36 sm:pb-20 lg:pt-40 lg:pb-28 bg-dark overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-cover bg-center"
-               style={{ backgroundImage: `url('/images/cta-truck.jpg')` }} />
-          <div className="absolute inset-0 bg-dark/90" />
-        </div>
-        <div className="container-custom relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2 }}
-            className="text-center max-w-3xl mx-auto"
-          >
-            <span className="section-label bg-white/10 text-white border border-white/20">
-              <span className="w-1.5 h-1.5 bg-white rounded-full" />
-              Our Services
-            </span>
-            <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-3 sm:mb-6 leading-tight tracking-tight">
-              You Drive. <span className="text-gray-300">We Handle the Business Side.</span>
-            </h1>
-            <p className="text-gray-300 text-xs sm:text-base md:text-lg leading-relaxed max-w-2xl mx-auto">
-              From dispatching and freight management to paperwork, factoring solutions,
-              and insurance options — Dispatch by RIO is your carrier business support partner.
-            </p>
-          </motion.div>
-        </div>
-      </section>
-      <WaveDivider color="white" bgColor="dark" />
+      <PageHero number="02" label="OUR EXPERTISE" title="You drive." accent="We handle the details." description="From your next load to the business behind it. Dispatch, paperwork, factoring, and insurance support through one dependable team." image="/images/cta-truck.jpg" />
 
       {/* Services Detail */}
       <section className="bg-white py-12 sm:py-20 lg:py-28">
@@ -133,11 +105,11 @@ const ServicesPage = () => {
               return (
                 <motion.div
                   key={service.title}
-                  initial={{ opacity: 0, y: 50 }}
+                  initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.2 }}
-                  transition={{ duration: 1.3, ease: [0.22, 1, 0.36, 1] }}
-                  className="grid lg:grid-cols-2 gap-6 sm:gap-10 lg:gap-16 items-start"
+                  viewport={{ once: true, amount: 0.08 }}
+                  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                  className="rio-service-detail grid lg:grid-cols-2 gap-6 sm:gap-10 lg:gap-16 items-start"
                 >
                   {/* Icon + Title block */}
                   <div className={!isEven ? 'lg:order-2' : ''}>
@@ -186,7 +158,6 @@ const ServicesPage = () => {
           </div>
         </div>
       </section>
-      <WaveDivider color="white" bgColor="dark" flip />
 
       <CTA />
     </>

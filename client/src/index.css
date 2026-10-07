@@ -1,16 +1,17 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #F46E16;
+  --color-primary: #EE713D;
   --color-primary-dark: #D65507;
   --color-primary-light: #FF8A3D;
   --color-accent: #F59E0B;
-  --color-dark: #0A0F1C;
+  --color-dark: #141D20;
   --color-dark-light: #111827;
   --color-dark-mid: #1A2236;
   --color-navy: #0D1B2A;
   --color-navy-light: #1B2A3D;
   --font-sans: 'Inter', sans-serif;
+  --font-display: 'Satoshi', 'Inter', sans-serif;
   --breakpoint-xs: 400px;
 }
 
@@ -231,7 +232,7 @@
 body > #root header { border-bottom: 1px solid #ffffff15; }
 .btn-primary { border-radius: 4px; background: var(--rio-orange); color: #171c1d; }
 .btn-outline { border-radius: 4px; }
-footer { background: #111719 !important; }
+
 a:focus-visible, button:focus-visible { outline: 2px solid var(--rio-orange); outline-offset: 5px; }
 @keyframes rio-marquee { to { transform: translateX(-50%); } }
 @media (max-width: 1100px) {

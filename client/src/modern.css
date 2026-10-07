@@ -1,0 +1,169 @@
+/* Shared RIO design language: warm paper, copper and clear typography. */
+:root {
+  --rio-border: #d6d8cf;
+  --rio-muted: #5d665f;
+}
+::selection { background: #ee713d; color: #141d20; }
+h1, h2, h3, h4, h5 { font-family: var(--font-display); }
+.rio-home h1, .rio-home h2 { letter-spacing: -.035em; }
+.section-title { font-weight: 500; letter-spacing: -.035em; line-height: 1.12; }
+.container-custom, .rio-wrap { width: min(1320px, calc(100% - 96px)); max-width: 1320px; padding-inline: 0; }
+.rio-home p { text-wrap: pretty; }
+.rio-home h2, .rio-page h1, .rio-page h2 { text-wrap: balance; }
+.rio-skip-link { position: fixed; top: 12px; left: 16px; z-index: 100; padding: 12px 20px; border-radius: 8px; background: var(--rio-paper); color: var(--rio-ink); transform: translateY(-180%); }
+.rio-skip-link:focus { transform: translateY(0); }
+.rio-header { background: #141d20d9; backdrop-filter: blur(20px); }
+.rio-header > div:first-child { max-width: 1536px; margin-inline: auto; }
+.rio-header nav { min-height: 84px; }
+.rio-nav-link { color: #c6cdc8; }
+.rio-nav-link[aria-current] { color: #fff2de; }
+.rio-nav-link > span { height: 2px; box-shadow: none; }
+.btn-primary, .btn-outline, .rio-button {
+  min-height: 50px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0;
+  box-shadow: none;
+}
+.btn-primary, .rio-button { background: var(--rio-orange); color: #171c1d; }
+.btn-primary:hover, .rio-button:hover { background: #fa8959; box-shadow: 0 8px 22px #171c1d12; }
+.btn-outline { border-width: 1px; }
+.rio-eyebrow { font-size: 11px; letter-spacing: .12em; }
+.rio-text-link { font-size: 14px; }
+.intro-layout { gap: 80px; }
+.intro-layout p { font-size: 17px; line-height: 1.8; color: var(--rio-muted); }
+.intro-principles { gap: 42px; font-size: 14px; }
+.section-heading > p { font-size: 16px; color: #aeb6ad; }
+.rio-process .section-heading > p, .rio-plans .section-heading > p { color: var(--rio-muted); }
+.services-grid { border: 0; gap: 16px; }
+.service-tile { border: 1px solid #ffffff20; border-radius: 12px; background: #ffffff03; padding: 32px 28px 72px; min-height: 305px; }
+.service-tile:hover { background: #222e30; border-color: #ee713d80; }
+.service-icon { display: grid; place-items: center; width: 50px; height: 50px; padding: 11px; border: 1px solid #ee713d40; border-radius: 12px; background: #ee713d0d; }
+.service-tile h3 { font-size: 24px; letter-spacing: -.025em; }
+.service-tile p { font-size: 15px; color: #b7bdb4; line-height: 1.75; }
+.tile-number { font-size: 12px; }
+.tile-link { padding: 12px; right: 26px; bottom: 22px; }
+.process-photo { border-radius: 14px; }
+.process-photo p { font-size: 15px; }
+.process-photo span { font-size: 11px; }
+.process-step h3 { font-size: 21px; font-weight: 500; }
+.process-step p { font-size: 15px; color: var(--rio-muted); }
+.process-step > span { font-size: 13px; font-variant-numeric: tabular-nums; }
+.equipment-type { min-height: 90px; }
+.equipment-type > span { font-size: 11px; }
+.equipment-type h3 { font-size: 20px; }
+.plan-tile { border-radius: 14px; background: #f8f7f2; padding: 36px 30px; }
+.plan-tile h3 { font-size: 36px; letter-spacing: -.035em; }
+.plan-tile > p, .plan-tile li, .plan-cta { font-size: 14px; }
+.plan-tile > p { color: var(--rio-muted); }
+.plan-tile li { align-items: flex-start; line-height: 1.65; }
+.plan-tile li svg { margin-top: 5px; }
+.featured-plan { background: #202829; box-shadow: 0 16px 32px #17201b12; }
+.featured-plan > p { color: #b8c0b4; }
+.featured-plan .rio-eyebrow { color: #ff9d74; }
+.pricing-note { font-size: 13px; color: var(--rio-muted); }
+.rio-home #faq .section-title { letter-spacing: -.035em; }
+#faq button > span { font-family: var(--font-display); font-size: 18px; font-weight: 500; }
+#faq p { font-size: 16px; line-height: 1.75; }
+.rio-home #faq button > div { color: var(--rio-ink); background: #d5dbce; }
+.rio-home #faq button[aria-expanded="true"] > div { background: var(--rio-orange); }
+.rio-final h2 { letter-spacing: -.04em; }
+.light-button { background: var(--rio-paper); }
+.light-button:hover { background: white; }
+
+/* Inner routes share the homepage's editorial hierarchy. */
+.rio-page { background: var(--rio-paper); }
+.rio-page > section.bg-white { background: var(--rio-paper); }
+.rio-page > section.bg-gray-100 { background: #e8ebe3; }
+.rio-page .section-label { border-radius: 4px; font-size: 11px; letter-spacing: .12em; font-weight: 500; }
+.rio-page .section-title { font-size: clamp(32px, 4vw, 52px); }
+.rio-page p { font-size: 16px; line-height: 1.8; }
+.rio-page p.text-gray-500 { color: #626b65; }
+.rio-page p.text-gray-400 { color: #abb5ad; }
+.rio-page h3 { font-size: 24px; font-weight: 500; letter-spacing: -.02em; }
+.rio-page h1 { font-weight: 500; letter-spacing: -.035em; }
+.rio-page h4 { font-size: 22px; font-weight: 500; }
+.rio-page .glass-card { border-radius: 12px; background: #ffffff04; box-shadow: none; }
+.rio-page .text-gray-700.text-xs { font-size: 14px; }
+.rio-page-hero { position: relative; isolation: isolate; overflow: hidden; background: #141d20; padding-top: 146px; color: #f2f0e9; }
+.rio-page-hero-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 55%; z-index: -2; opacity: .25; }
+.rio-page-hero::before { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, #141d20f2, #141d20a6 60%, #141d2033); }
+.rio-page-kicker { display: flex; justify-content: space-between; gap: 20px; font-size: 11px; letter-spacing: .13em; color: #e8b89a; margin-bottom: 38px; }
+.rio-page-kicker > span:last-child { color: #aeb7ae; }
+.rio-page-hero h1 { max-width: 1000px; font-size: clamp(48px, 6vw, 86px); line-height: 1.04; font-weight: 500; letter-spacing: -.04em; }
+.rio-page-hero h1 span { color: #b2bcb3; }
+.rio-page-hero p { max-width: 580px; color: #c4cdc4; margin-top: 28px; font-size: 17px; }
+.rio-page-hero-foot { display: flex; justify-content: space-between; gap: 20px; padding-block: 24px; margin-top: 60px; border-top: 1px solid #ffffff24; font-size: 12px; color: #b6c0b7; }
+.rio-service-detail { padding-bottom: 56px; border-bottom: 1px solid var(--rio-border); }
+.rio-service-detail:last-child { border-bottom: 0; padding-bottom: 0; }
+.rio-service-detail h3 { font-size: clamp(28px, 3vw, 38px); }
+.rio-service-detail .bg-gray-50 { background: #f9f9f4; border-color: var(--rio-border); border-radius: 12px; }
+.rio-service-detail .bg-gray-100 { background: #e7ebe1; }
+.rio-service-detail .bg-gray-100 p { font-size: 13px; }
+.rio-contact-card { background: #f9f9f4; box-shadow: none; border-color: var(--rio-border); text-align: left; border-radius: 12px; }
+.rio-contact-card > div { margin-left: 0; }
+.rio-contact-card h5 { font-size: 17px; margin-block: 18px 8px; }
+.rio-contact-card a, .rio-contact-card p { font-size: 14px; overflow-wrap: anywhere; }
+.rio-application { border-radius: 16px; box-shadow: 0 20px 60px #1e2d2510; border-color: #d6dcd1; }
+.rio-application label { font-size: 14px; font-weight: 500; }
+.input-field, .select-field { border-radius: 8px; background-color: #f9faf6; border-color: #d4dacf; font-size: 16px; min-height: 52px; }
+.input-field:focus, .select-field:focus { background-color: #fff; }
+footer p, footer li, footer li a { font-size: 14px; }
+footer { border-top: 1px solid #ffffff18; }
+
+@media (max-width: 1023px) {
+  .container-custom, .rio-wrap { width: calc(100% - 48px); }
+  .intro-layout { gap: 40px; }
+  .intro-principles { flex-wrap: wrap; gap: 20px 30px; }
+}
+@media (max-width: 767px) {
+  .container-custom, .rio-wrap { width: calc(100% - 40px); }
+  .rio-header nav { min-height: 72px; }
+  .rio-home h2 { font-size: clamp(34px, 9vw, 46px); }
+  .intro-layout p { font-size: 16px; }
+  .services-grid { grid-template-columns: 1fr; gap: 12px; }
+  .service-tile { min-height: 270px; padding: 28px 24px 70px; }
+  .service-tile p { max-width: none; }
+  .section-heading { gap: 22px; }
+  .process-step { gap: 20px; }
+  .process-step h3 { font-size: 20px; }
+  .equipment-type h3 { font-size: 17px; }
+  .plan-tile { padding: 30px 26px; }
+  .rio-home #faq button { padding-inline: 0; gap: 12px; }
+  #faq button > span { font-size: 16px; }
+  .rio-page-hero { padding-top: 114px; }
+  .rio-page-kicker { margin-bottom: 28px; }
+  .rio-page-kicker > span:last-child { display: none; }
+  .rio-page-hero h1 { font-size: clamp(38px, 10vw, 62px); }
+  .rio-page-hero p { font-size: 16px; margin-top: 24px; }
+  .rio-page-hero-foot { margin-top: 36px; font-size: 11px; flex-wrap: wrap; gap: 10px; }
+  .rio-service-detail { padding-bottom: 34px; }
+  .rio-final h2 { font-size: clamp(40px, 10vw, 60px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; }
+  .btn-primary, .btn-outline, .rio-button { transition: none; }
+}
+
+/* CSS owns hover colors; GSAP and Motion own reveal transforms and opacity. */
+.service-tile, .plan-tile, .equipment-type, .rio-contact-card, .glass-card {
+  transition-property: background-color, border-color, box-shadow, color;
+  transition-duration: 220ms;
+  transition-timing-function: ease-out;
+}
+.rio-header { transition-property: background-color, border-color, box-shadow; }
+.rio-mobile-menu { transition: grid-template-rows 260ms cubic-bezier(.22,1,.36,1), opacity 180ms ease-out; }
+.btn-primary, .btn-outline, .rio-button, .tile-link, .rio-text-link {
+  transition-property: background-color, color, border-color, transform, box-shadow;
+  transition-duration: 220ms;
+  transition-timing-function: cubic-bezier(.22,1,.36,1);
+}
+.input-field, .input-field-dark, .select-field { transition-property: border-color, background-color, box-shadow; transition-duration: 180ms; }
+.tile-link svg, .rio-button svg { transition: transform 220ms cubic-bezier(.22,1,.36,1); }
+@media (hover: hover) and (pointer: fine) {
+  .tile-link:hover svg, .rio-button:hover svg { transform: translate(2px,-2px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: 0s !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+}

@@ -1,6 +1,6 @@
 import { lazy, Suspense } from 'react'
 import { MotionConfig } from 'framer-motion'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import ScrollToTop from './components/ScrollToTop'
@@ -24,11 +24,12 @@ const PageLoader = () => (
 )
 
 function App() {
+  const { pathname } = useLocation()
   return (
     <MotionConfig reducedMotion="user"><div className="min-h-screen bg-dark">
       <ScrollToTop />
       <Navbar />
-      <main>
+      <main id="main-content" className={pathname === '/' ? '' : 'rio-page'}>
         <ErrorBoundary>
           <Suspense fallback={<PageLoader />}>
             <Routes>

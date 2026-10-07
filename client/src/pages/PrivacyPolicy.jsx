@@ -7,9 +7,9 @@ const PrivacyPolicy = () => {
       <section className="relative pt-24 pb-10 sm:pt-36 sm:pb-16 lg:pt-40 lg:pb-20 bg-dark">
         <div className="container-custom relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2 }}
+            transition={{ duration: 0.6 }}
             className="text-center max-w-3xl mx-auto"
           >
             <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-extrabold text-white mb-2.5 sm:mb-4 tracking-tight">

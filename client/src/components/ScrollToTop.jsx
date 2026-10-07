@@ -1,10 +1,10 @@
-import { useEffect } from 'react'
+import { useLayoutEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 
 const ScrollToTop = () => {
   const { pathname, hash } = useLocation()
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     // Don't scroll to top when navigating to a hash anchor (e.g. /#how-it-works)
     // — the Navbar's hash-scroll handler will manage scrolling to the anchor
     if (!hash) {

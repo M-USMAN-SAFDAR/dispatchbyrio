@@ -10,9 +10,9 @@ const NotFound = () => {
 
       <div className="container-custom relative z-10 text-center py-16 sm:py-20">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2 }}
+          transition={{ duration: 0.6 }}
         >
           <h1 className="text-6xl xs:text-7xl sm:text-8xl md:text-[140px] font-extrabold text-primary leading-none mb-2 sm:mb-4">
             404

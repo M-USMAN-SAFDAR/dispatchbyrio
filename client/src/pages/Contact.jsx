@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaClock, FaCheckCircle, FaExclamationCircle, FaTimes, FaInstagram, FaFacebook, FaTiktok, FaWhatsapp } from 'react-icons/fa'
-import WaveDivider from '../components/WaveDivider'
+import PageHero from '../components/PageHero'
 
 const contactInfo = [
   { icon: FaPhoneAlt, title: 'Call Us', details: '+1 (305) 330-3123', link: 'tel:+13053303123' },
@@ -130,35 +130,7 @@ const Contact = () => {
 
   return (
     <>
-      {/* Hero */}
-      <section className="relative pt-28 pb-14 sm:pt-36 sm:pb-20 lg:pt-40 lg:pb-28 bg-dark overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-cover bg-center"
-               style={{ backgroundImage: `url('/images/cta-truck.jpg')` }} />
-          <div className="absolute inset-0 bg-dark/90" />
-        </div>
-        <div className="container-custom relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2 }}
-            className="text-center max-w-3xl mx-auto"
-          >
-            <span className="section-label bg-white/10 text-white border border-white/20">
-              <span className="w-1.5 h-1.5 bg-white rounded-full" />
-              Get Started
-            </span>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-4 sm:mb-6 leading-tight">
-              Start With <span className="text-gray-300">Dispatch by RIO</span>
-            </h1>
-            <p className="text-gray-300 text-sm sm:text-base md:text-lg leading-relaxed">
-              Fill out the carrier application below or give us a call. Most carriers are
-              set up within 24–48 hours.
-            </p>
-          </motion.div>
-        </div>
-      </section>
-      <WaveDivider color="white" bgColor="dark" />
+      <PageHero number="03" label="LET’S GET MOVING" title="Your next mile" accent="starts here." description="Tell us about your operation or give us a call. We’ll help you find the right support for your equipment, lanes, and goals." image="/images/hero-truck.jpg" />
 
       {/* Contact Info Cards */}
       <section className="bg-white py-10 sm:py-14 relative z-10">
@@ -167,16 +139,16 @@ const Contact = () => {
             {contactInfo.map((info, index) => (
               <motion.div
                 key={info.title}
-                initial={{ opacity: 0, y: 40 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.25 }}
+                viewport={{ once: true, amount: 0.08 }}
                 transition={{
-                  duration: 1.2,
-                  delay: (index % 4) * 0.18,
+                  duration: 0.6,
+                  delay: (index % 4) * 0.06,
                   ease: [0.22, 1, 0.36, 1],
                 }}
-                className="bg-white rounded-2xl p-5 sm:p-6 shadow-lg border border-gray-200
-                          hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-center"
+                className="rio-contact-card bg-white rounded-2xl p-5 sm:p-6 shadow-lg border border-gray-200
+                          hover:shadow-xl transition-colors duration-300 text-center"
               >
                 <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-2.5 sm:mb-3">
                   <info.icon className="text-primary text-base sm:text-lg" />
@@ -207,7 +179,7 @@ const Contact = () => {
                   rel="noopener noreferrer"
                   className={`inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-gray-50 border border-gray-200
                              text-gray-700 text-xs font-semibold hover:border-primary/40 hover:bg-white
-                             shadow-sm transition-all duration-300 ${social.color}`}
+                             shadow-sm transition-colors duration-300 ${social.color}`}
                 >
                   <social.icon className="text-xs sm:text-sm" />
                   <span>{social.name}</span>
@@ -217,17 +189,16 @@ const Contact = () => {
           </div>
         </div>
       </section>
-      <WaveDivider color="gray-100" bgColor="white" />
 
       {/* Application Form */}
       <section className="bg-gray-100 py-12 sm:py-20 lg:py-28">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto">
             <motion.div
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.15 }}
-              transition={{ duration: 1.3, ease: [0.22, 1, 0.36, 1] }}
+              viewport={{ once: true, amount: 0.08 }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             >
               <div className="text-center mb-7 sm:mb-12">
                 <h2 className="section-title text-dark mb-2 sm:mb-3">Carrier Application</h2>
@@ -236,7 +207,7 @@ const Contact = () => {
                 </p>
               </div>
 
-              <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-gray-200 shadow-lg p-4 sm:p-8 lg:p-10">
+              <form onSubmit={handleSubmit} className="rio-application bg-white rounded-2xl border border-gray-200 shadow-lg p-4 sm:p-8 lg:p-10">
                 {/* Personal Info */}
                 <h3 className="text-dark font-bold text-base sm:text-lg mb-4 sm:mb-6 pb-2.5 sm:pb-3 border-b border-gray-100">
                   Contact Information
@@ -367,7 +338,6 @@ const Contact = () => {
           </div>
         </div>
       </section>
-      <WaveDivider color="dark" bgColor="gray-100" />
 
       {/* Floating Bottom Popup Notification with Auto-Dismiss */}
       <AnimatePresence>
@@ -375,7 +345,7 @@ const Contact = () => {
           <motion.div
             initial={{ opacity: 0, y: 60, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 30, scale: 0.95 }}
+            exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
             className={`fixed bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-50 max-w-lg w-[calc(100%-1.5rem)] sm:w-auto p-3.5 sm:p-5 rounded-2xl shadow-2xl backdrop-blur-xl border flex items-start gap-2.5 sm:gap-3 ${
               status.type === 'success'
