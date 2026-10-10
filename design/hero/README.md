@@ -1,6 +1,6 @@
 # RIO cinematic hero assets
 
-The website uses `client/public/media/rio-hero-film.mp4` (17 seconds, 1600×900, 24fps, H.264, silent, approximately 2.8MB) and `rio-hero-poster.jpg`.
+The live website uses an original procedural Three.js truck scene and `client/public/media/rio-hero-poster.jpg` as its fallback. The unused MP4 has been removed from deployed assets. The original source images and offline render script are retained here for future design work.
 
 The two source images were made with the built-in imagegen tool, then rendered locally with slow camera pushes and crossfades using FFmpeg. This is an image-based motion film, not generated footage of an independently moving truck. Higgsfield rejected both Seedance 2.5 and Kling 3.0 generation attempts with “Requires plus plan or higher”; neither attempt returned a job.
 
@@ -8,7 +8,7 @@ The visual direction follows the supplied reference: a realistic side-profile se
 
 `render-film.py` recreates the film and poster using Python with `imageio-ffmpeg`. Source PNGs are kept here rather than in the deployed public directory.
 
-The hero pauses offscreen and in hidden tabs, respects reduced-motion and initial data-saving preferences, offers a play/pause button, and retains a poster if video loading fails. The source is self-hosted; no generated-media URLs are needed at runtime.
+The current 3D hero pauses offscreen and in hidden tabs, respects reduced-motion preferences, and retains the poster if WebGL fails. Animation starts automatically; the scroll journey has no play/pause or chapter controls.
 
 ## Sunset source prompt
 

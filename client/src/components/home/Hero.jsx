@@ -2,21 +2,20 @@ import { useLayoutEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { FiArrowUpRight, FiArrowDown, FiPause, FiPlay } from 'react-icons/fi'
+import { FiArrowUpRight, FiArrowDown } from 'react-icons/fi'
 import './Journey.css'
 
 gsap.registerPlugin(ScrollTrigger)
-const initial = () => ({ camX: 0, camY: 3.1, camZ: 25.5, lookX: 0, lookY: 2.1, lookZ: 0, truckX: 0, truckZ: 0, turn: 0, yard: 0, dusk: 0, wire: 0, routes: 0, progress: 0, paused: false })
+const initial = () => ({ camX: 0, camY: 3.1, camZ: 25.5, lookX: 0, lookY: 2.1, lookZ: 0, truckX: 0, truckZ: 0, turn: 0, yard: 0, dusk: 0, wire: 0, routes: 0, progress: 0 })
 export default function Hero() {
-  const root = useRef(null), stage = useRef(null), canvas = useRef(null), state = useRef(initial()), timeline = useRef(null)
-  const [ready,setReady]=useState(false),[failed,setFailed]=useState(false),[paused,setPaused]=useState(false)
+  const root = useRef(null), stage = useRef(null), canvas = useRef(null), state = useRef(initial())
+  const [ready,setReady]=useState(false),[failed,setFailed]=useState(false)
   useLayoutEffect(()=>{
     let cancelled=false,disposeScene
     const media=gsap.matchMedia()
     media.add({ reduced:'(prefers-reduced-motion: reduce)', normal:'(prefers-reduced-motion: no-preference)' },context=>{
       const reduced=context.conditions.reduced
-      Object.assign(state.current,initial());state.current.paused=reduced
-      root.current.classList.toggle('journey-reduced',reduced)
+      Object.assign(state.current,initial())
       let disposed=false
       import('../experience/createExperience').then(({createExperience})=>{
         if(cancelled||disposed)return
@@ -26,7 +25,6 @@ export default function Hero() {
       gsap.set('.journey-chapter:not(.chapter-first)',{autoAlpha:0})
       if(!reduced){
         const tl=gsap.timeline({scrollTrigger:{trigger:root.current,pin:stage.current,start:'top top',end:()=>`+=${window.innerHeight*(window.innerWidth<768?2.4:3.2)}`,scrub:.55,anticipatePin:1,invalidateOnRefresh:true},defaults:{ease:'sine.inOut'}})
-        timeline.current=tl
         tl.to(state.current,{progress:1,duration:1,ease:'none'},0)
           .to(state.current,{camX:15,camY:9,camZ:23,lookX:-3,lookY:1.6,lookZ:-3,truckX:3,truckZ:-1,turn:-.12,yard:1,duration:.34},.12)
           .to(state.current,{camX:20,camY:22,camZ:21,lookX:0,lookY:0,lookZ:-10,truckX:10,truckZ:-6,turn:.23,dusk:.7,duration:.32},.46)
@@ -36,29 +34,11 @@ export default function Hero() {
           .to('.chapter-yard',{autoAlpha:0,y:-18,duration:.1},.57)
           .fromTo('.chapter-network',{autoAlpha:0,y:18},{autoAlpha:1,y:0,duration:.12},.68)
           .to('.journey-progress-fill',{scaleX:1,duration:1,ease:'none'},0)
-        // Keep chapter labels synchronized without React renders on every scroll frame.
-        const chapterButtons=root.current.querySelectorAll('.journey-chapters button')
-        let activeChapter=-1
-        tl.eventCallback('onUpdate',()=>{
-          const p=state.current.progress
-          const nextChapter=p<.28?0:p<.65?1:2
-          if(nextChapter===activeChapter)return
-          activeChapter=nextChapter
-          chapterButtons.forEach((el,i)=>{
-            const active=i===activeChapter
-            el.classList.toggle('active',active);el.setAttribute('aria-current',active?'step':'false')
-          })
-        })
       }
-      return ()=>{disposed=true;disposeScene?.();disposeScene=undefined;timeline.current=null}
+      return ()=>{disposed=true;disposeScene?.();disposeScene=undefined}
     },root)
     return ()=>{cancelled=true;media.revert();disposeScene?.()}
   },[])
-  const jump=part=>{
-    const trigger=timeline.current?.scrollTrigger
-    if(trigger)window.scrollTo({top:trigger.start+(trigger.end-trigger.start)*part,behavior:'smooth'})
-  }
-  const pause=()=>{state.current.paused=!state.current.paused;setPaused(state.current.paused)}
   return <section className={`rio-journey ${ready?'scene-ready':''} ${failed?'scene-fallback-mode':''}`} ref={root}>
     <div className="journey-stage" ref={stage}>
       <div className="journey-poster" />
@@ -67,7 +47,6 @@ export default function Hero() {
       <div className="journey-chapter chapter-first rio-wrap">
         <span className="journey-eyebrow"><i /> YOUR TRUCK. YOUR BUSINESS. OUR SUPPORT.</span>
         <h1>More than dispatch.</h1>
-        <p>We help you run the business.</p>
       </div>
       <div className="journey-chapter chapter-yard rio-wrap">
         <span className="journey-eyebrow">01 / THE BUSINESS BEHIND EVERY MILE</span>
@@ -83,11 +62,6 @@ export default function Hero() {
         <p>Nationwide support for<br /><strong>owner-operators & growing fleets.</strong></p>
         <Link to="/contact" className="rio-button">Start with Dispatch by RIO <FiArrowUpRight /></Link>
         <a className="journey-skip" href="#about-section">Explore our services <FiArrowDown /></a>
-      </div>
-      <div className="journey-footer rio-wrap">
-        <div className="journey-chapters" aria-label="Explore the journey"><button className="active" onClick={()=>jump(0)} aria-current="step"><b>01</b> THE OPEN ROAD</button><button onClick={()=>jump(.43)}><b>02</b> BEHIND THE MILES</button><button onClick={()=>jump(.92)}><b>03</b> CONNECTED</button></div>
-        <span className="journey-hint">SCROLL TO DRIVE THE STORY <FiArrowDown /></span>
-        {ready&&!failed&&<button className="journey-pause" onClick={pause} aria-label={paused?'Resume ambient animation':'Pause ambient animation'}>{paused?<FiPlay />:<FiPause />}</button>}
       </div>
       <div className="journey-progress"><div className="journey-progress-fill" /></div>
     </div>

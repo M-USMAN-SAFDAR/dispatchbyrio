@@ -44,9 +44,6 @@ h1, h2, h3, h4, h5 { font-family: var(--font-display); }
 .service-tile p { font-size: 15px; color: #b7bdb4; line-height: 1.75; }
 .tile-number { font-size: 12px; }
 .tile-link { padding: 12px; right: 26px; bottom: 22px; }
-.process-photo { border-radius: 14px; }
-.process-photo p { font-size: 15px; }
-.process-photo span { font-size: 11px; }
 .process-step h3 { font-size: 21px; font-weight: 500; }
 .process-step p { font-size: 15px; color: var(--rio-muted); }
 .process-step > span { font-size: 13px; font-variant-numeric: tabular-nums; }

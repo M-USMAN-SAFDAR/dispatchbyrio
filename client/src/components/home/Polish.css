@@ -1,0 +1,59 @@
+/* Decorative motion stays separate from GSAP's reveal transforms. */
+.rio-home .section-heading h2 > span,
+.rio-home .intro-layout h2 > span,
+.rio-home .rio-final h2 > span { display: inline-block; }
+
+.rio-home .service-tile { overflow: hidden; isolation: isolate; }
+.rio-home .service-tile::before {
+  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: radial-gradient(ellipse at 0% 0%, #ee713d20, transparent 70%);
+  opacity: 0; transition: opacity 350ms ease;
+}
+.rio-home .service-icon { transition: transform 350ms cubic-bezier(.22,1,.36,1), background-color 350ms ease; }
+.rio-home .tile-number { transition: color 250ms ease; }
+.rio-home .service-tile:focus-within::before { opacity: 1; }
+.rio-home .service-tile:focus-within { border-color: #ee713d80; }
+
+.rio-home .process-steps { position: relative; padding-left: 27px; }
+.rio-home .process-route { position: absolute; left: 4px; top: 12px; bottom: 26px; width: 2px; background: #d6d8cf; overflow: hidden; }
+.rio-home .process-route-fill { height: 100%; background: var(--rio-orange); transform-origin: top; }
+.rio-home .process-step { position: relative; }
+.rio-home .process-step::before {
+  content: ''; position: absolute; left: -28px; top: 32px; width: 12px; height: 12px;
+  border-radius: 50%; border: 2px solid #b8bdb0; background: var(--rio-paper);
+  transition: background-color 300ms ease, border-color 300ms ease, box-shadow 300ms ease;
+}
+.rio-home .process-step:nth-child(2) { padding-top: 0; }
+.rio-home .process-step:nth-child(2)::before { top: 7px; }
+.rio-home .step-in-view::before { background: var(--rio-orange); border-color: var(--rio-orange); box-shadow: 0 0 0 5px #ee713d18; }
+.rio-home .process-step h3 { transition: color 300ms ease; }
+.rio-home .step-in-view h3 { color: #a44825; }
+.rio-home .plan-tile { position: relative; overflow: hidden; }
+.rio-home .featured-plan::before {
+  content: ''; position: absolute; top: 0; left: 30px; right: 30px; height: 2px;
+  background: linear-gradient(90deg, transparent, #ffaf80, transparent);
+}
+.rio-home .plan-cta svg, .rio-home .equipment-type svg { transition: transform 300ms cubic-bezier(.22,1,.36,1); }
+.rio-home .plan-tile:focus-within { box-shadow: 0 12px 28px #17201b18; }
+.rio-home .rio-final::before {
+  content: ''; position: absolute; width: 520px; height: 520px; right: -120px; top: -280px;
+  border: 1px solid #512e2220; border-radius: 50%; box-shadow: 0 0 0 65px #512e2207, 0 0 0 130px #512e2205;
+  pointer-events: none;
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .rio-home .service-tile:hover::before { opacity: 1; }
+  .rio-home .service-tile:hover .service-icon { transform: translateY(-4px) rotate(-6deg); background-color: #ee713d20; }
+  .rio-home .service-tile:hover .tile-number { color: #ffaf80; }
+  .rio-home .plan-tile:hover { box-shadow: 0 16px 32px #17201b14; }
+  .rio-home .plan-tile:hover .plan-cta svg, .rio-home .equipment-type:hover svg { transform: translate(3px,-3px); }
+}
+@media (max-width: 767px) {
+  .rio-home .process-steps { padding-left: 24px; }
+  .rio-home .process-step::before { left: -25px; top: 27px; }
+  .rio-home .process-step:nth-child(2)::before { top: 7px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rio-home .process-route-fill { transform: none; }
+  .rio-home .service-icon, .rio-home .process-step::before, .rio-home .process-step h3,
+  .rio-home .plan-cta svg, .rio-home .equipment-type svg { transition: none; }
+}

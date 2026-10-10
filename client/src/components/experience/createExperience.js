@@ -142,7 +142,7 @@ export function createExperience(container, state, reduced = false, onReady = ()
     frame=null
     if(disposed||contextFailed||!visible||document.hidden)return
     const dt=last?Math.min((now-last)/1000,.05):0;last=now
-    const animate=!reduced&&!state.paused
+    const animate=!reduced
     if(animate)elapsed+=dt
     const blend=1-Math.exp(-8*dt),zoom=narrow?1.2:1
     smoothX+=(pointerX-smoothX)*blend;smoothY+=(pointerY-smoothY)*blend
@@ -151,8 +151,9 @@ export function createExperience(container, state, reduced = false, onReady = ()
     camera.lookAt(target)
     truck.position.set(state.truckX,animate?Math.sin(elapsed*3)*.008:0,state.truckZ)
     truck.rotation.y=state.turn+(reduced?0:smoothX*.018)
-    if(animate)wheels.forEach(w=>{w.rotation.z-=dt*(1.7-state.yard*1.25)})
-    road.position.x=animate?-elapsed*1.6%5:road.position.x
+    // Distance follows scrolling, so reversing scroll reverses the drive.
+    wheels.forEach(w=>{w.rotation.z=-state.progress*48})
+    road.position.x=-state.progress*100%5
     yard.visible=state.yard>.005
     yardMaterials.forEach(m=>{m.opacity=state.yard})
     skyUniforms.dusk.value=state.dusk
@@ -163,7 +164,7 @@ export function createExperience(container, state, reduced = false, onReady = ()
     wire.visible=state.wire>.005
     routeMat.opacity=state.routes
     routeGroup.visible=state.routes>.005
-    if(routeGroup.visible)for(let i=0;i<beacons.length;i++)beacons[i].position.copy(routes[i].getPointAt((elapsed*.045+i*.3)%1))
+    if(routeGroup.visible)for(let i=0;i<beacons.length;i++)beacons[i].position.copy(routes[i].getPointAt((state.progress*2+i*.3)%1))
     renderer.render(scene,camera)
     if(firstFrame){firstFrame=false;onReady()}
     // Reduced-motion renders only on initialization, resize, or visibility changes.

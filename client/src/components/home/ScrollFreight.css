@@ -1,0 +1,40 @@
+.freight-map { position: sticky; top: 110px; align-self: start; background: #192a2e; border-radius: 16px; overflow: hidden; color: #eee6d3; }
+.freight-map-heading { display: flex; justify-content: space-between; gap: 16px; padding: 25px 28px 0; font-size: 9px; letter-spacing: .12em; color: #a9b9b0; }
+.freight-map-heading > span:first-child { color: #f5a06f; }
+.freight-map > svg { width: 100%; height: auto; display: block; }
+.freight-map-copy { padding: 0 30px 30px; margin-top: -18px; position: relative; }
+.freight-map-copy > span { font-size: 10px; letter-spacing: .14em; color: #b9c2b6; }
+.freight-map-copy h3 { font-size: clamp(28px, 3vw, 42px); line-height: 1.1; letter-spacing: -.04em; margin: 16px 0; font-weight: 500; }
+.freight-map-copy em { font-style: normal; color: #f3a172; }
+.freight-map-copy p { font-size: 14px; color: #b9c2b6; line-height: 1.7; }
+.freight-map-meter { height: 3px; background: #ffffff0c; }
+.freight-map-progress { height: 100%; background: #f28b53; transform: scaleX(0); transform-origin: left; }
+.rio-home .process-layout { align-items: start; }
+.rio-home .process-step { padding-block: 38px; }
+.rio-home .process-step::before { top: 45px; }
+.rio-home .process-step:nth-child(2) { padding-top: 0; }
+.rio-home .process-step:nth-child(2)::before { top: 7px; }
+.freight-convoy { height: 245px; margin: 15px 0 40px; position: relative; overflow: hidden; border-bottom: 1px solid #ffffff18; }
+.convoy-landscape { position: absolute; inset: 0; width: 115%; }
+.convoy-landscape > span { position: absolute; top: -40px; right: 12%; font-size: 220px; font-weight: 700; letter-spacing: -.08em; color: #ffffff04; }
+.convoy-landscape > svg { position: absolute; bottom: 30px; width: 100%; height: 140px; }
+.convoy-road { position: absolute; bottom: 27px; left: 0; right: 0; height: 18px; border-top: 1px solid #ffffff12; background: repeating-linear-gradient(90deg, #a3aa9235 0 24px, transparent 24px 50px) center / 100% 2px no-repeat; }
+.convoy-truck { position: absolute; width: clamp(190px, 24vw, 310px); bottom: 30px; left: 0; }
+.convoy-truck svg { display: block; width: 100%; }
+.convoy-caption { position: absolute; bottom: 7px; right: 0; font-size: 9px; letter-spacing: .18em; color: #a9b9b0; }
+@media (max-width: 767px) {
+  .freight-map { position: relative; top: auto; }
+  .freight-map-heading { padding: 22px 20px 0; font-size: 8px; }
+  .freight-map-copy { padding: 0 24px 26px; }
+  .freight-map-copy h3 { font-size: 32px; }
+  .rio-home .process-step { padding-block: 26px; }
+  .rio-home .process-step::before { top: 33px; }
+  .freight-convoy { height: 190px; margin-bottom: 25px; }
+  .convoy-landscape > span { font-size: 160px; top: -10px; }
+  .convoy-landscape > svg { height: 100px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .freight-map-progress { transform: none; }
+  .convoy-truck { left: 28%; }
+}
+.rio-home .rio-ticker > div { animation: none; }

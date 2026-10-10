@@ -1,84 +1,41 @@
-# DispatchByRIO — Truck Dispatch Services
+# Dispatch by RIO
 
-Professional truck dispatch services website for owner-operators and fleet owners across the United States.
+Truck dispatch and carrier business support website built with React 19, Vite,
+Tailwind CSS, GSAP, Framer Motion, and Three.js.
 
-## Architecture
+## Development
 
-- **Frontend**: React 19 (Vite) + Tailwind CSS 4 + Framer Motion
-- **Backend**: Node.js + Express.js + Mongoose (MongoDB)
-- **API**: Contact form submissions stored in MongoDB
-
----
-
-## Local Development
-
-1. Install dependencies:
-   ```bash
-   npm run install-all
-   ```
-2. Create a `.env` file in `server/` (copy from `.env.example`):
-   ```bash
-   cp server/.env.example server/.env
-   ```
-3. Start MongoDB locally (or use MongoDB Atlas URI in `.env`).
-4. Run both client and server:
-   ```bash
-   npm run dev
-   ```
-   - Frontend: [http://localhost:3000](http://localhost:3000)
-   - Backend API: [http://localhost:5000](http://localhost:5000)
-
----
-
-## Deployment Guide
-
-### 1. Backend (Render)
-
-1. Sign up at [Render](https://render.com/)
-2. Create a **Web Service**, connect your Git repo
-3. Configure:
-   - **Root Directory**: `server`
-   - **Build Command**: `npm install`
-   - **Start Command**: `node server.js`
-4. Add **Environment Variables**:
-   - `MONGO_URI` — Your MongoDB Atlas connection string
-   - `PORT` — `10000`
-   - `ALLOWED_ORIGINS` — Your frontend URL (e.g. `https://dispatchbyrio.com`)
-   - `ADMIN_API_KEY` — A strong random key for admin access
-
-### 2. Frontend (Vercel)
-
-1. Sign up at [Vercel](https://vercel.com/)
-2. Import your Git repo
-3. Configure:
-   - **Root Directory**: `client`
-   - **Framework Preset**: `Vite`
-   - **Build Command**: `npm run build`
-   - **Output Directory**: `dist`
-4. Add **Environment Variable**:
-   - `VITE_API_URL` — Your Render backend URL (e.g. `https://dispatchbyrio-backend.onrender.com`)
-5. Connect your custom domain in Vercel settings
-
----
-
-## Project Structure
-
+```sh
+npm install
+npm run dev
 ```
-├── client/                 # React frontend
-│   ├── public/             # Static assets (images, robots.txt, sitemap.xml)
-│   ├── src/
-│   │   ├── assets/         # Logo
-│   │   ├── components/     # Reusable components (Navbar, Footer, home sections)
-│   │   ├── pages/          # Route pages (Home, About, Pricing, Contact, etc.)
-│   │   ├── App.jsx         # Router + lazy-loaded routes
-│   │   ├── main.jsx        # Entry point
-│   │   └── index.css       # Global styles + Tailwind theme
-│   ├── vite.config.js
-│   └── vercel.json         # SPA rewrites for Vercel
-├── server/                 # Express backend
-│   ├── config/db.js        # MongoDB connection
-│   ├── models/Contact.js   # Contact form schema
-│   ├── routes/contact.js   # Contact API (POST + admin GET)
-│   └── server.js           # Express app entry
-└── package.json            # Root monorepo scripts
+
+Root installation also installs the frontend dependencies. Vite serves the
+website at http://localhost:3000. There is no backend or MongoDB requirement;
+the carrier application submits directly to FormSubmit.
+
+## Checks and production
+
+```sh
+npm --prefix client run lint
+npm run build
+npm run preview
 ```
+
+The build produces client/dist. The root vercel.json configures Vercel's build
+and SPA routing. Install dependencies before building; the build command does
+not install them a second time.
+
+## Project structure
+
+- client/src/pages: home, services, about, contact, FAQ, and legal routes.
+- client/src/components: shared navigation, footer, and page components.
+- client/src/components/home: active homepage animations and shared FAQ/CTA.
+- client/src/components/experience: original procedural Three.js truck scene.
+- client/public: deployed images, hero fallback poster, sitemap, and robots.
+- design/hero: original image sources and the offline asset-generation script.
+
+Routes and the 3D scene load on demand. ScrollTrigger drives the hero camera,
+truck movement, SVG route map, equipment truck, and homepage reveals. Reduced
+motion preferences are respected, and the 3D renderer stops while offscreen
+or when the browser tab is hidden.
