@@ -8,7 +8,7 @@ import './Journey.css'
 gsap.registerPlugin(ScrollTrigger)
 const initial = () => ({ camX: 0, camY: 3.1, camZ: 25.5, lookX: 0, lookY: 2.1, lookZ: 0, truckX: 0, truckZ: 0, turn: 0, yard: 0, dusk: 0, wire: 0, routes: 0, progress: 0 })
 export default function Hero() {
-  const root = useRef(null), stage = useRef(null), canvas = useRef(null), state = useRef(initial())
+  const root = useRef(null), canvas = useRef(null), state = useRef(initial())
   const [ready,setReady]=useState(false),[failed,setFailed]=useState(false)
   useLayoutEffect(()=>{
     let cancelled=false,disposeScene
@@ -24,7 +24,8 @@ export default function Hero() {
       })
       gsap.set('.journey-chapter:not(.chapter-first)',{autoAlpha:0})
       if(!reduced){
-        const tl=gsap.timeline({scrollTrigger:{trigger:root.current,pin:stage.current,start:'top top',end:()=>`+=${window.innerHeight*(window.innerWidth<768?2.4:3.2)}`,scrub:.55,anticipatePin:1,invalidateOnRefresh:true},defaults:{ease:'sine.inOut'}})
+        // CSS owns the sticky stage and its scroll space; GSAP only animates the scene.
+        const tl=gsap.timeline({scrollTrigger:{trigger:root.current,start:'top top',end:'bottom bottom',scrub:.55,invalidateOnRefresh:true},defaults:{ease:'sine.inOut'}})
         tl.to(state.current,{progress:1,duration:1,ease:'none'},0)
           .to(state.current,{camX:15,camY:9,camZ:23,lookX:-3,lookY:1.6,lookZ:-3,truckX:3,truckZ:-1,turn:-.12,yard:1,duration:.34},.12)
           .to(state.current,{camX:20,camY:22,camZ:21,lookX:0,lookY:0,lookZ:-10,truckX:10,truckZ:-6,turn:.23,dusk:.7,duration:.32},.46)
@@ -40,7 +41,7 @@ export default function Hero() {
     return ()=>{cancelled=true;media.revert();disposeScene?.()}
   },[])
   return <section className={`rio-journey ${ready?'scene-ready':''} ${failed?'scene-fallback-mode':''}`} ref={root}>
-    <div className="journey-stage" ref={stage}>
+    <div className="journey-stage">
       <div className="journey-poster" />
       <div className="journey-canvas" ref={canvas} role="img" aria-label="Animated Dispatch by RIO semi truck, sunset road, freight yard and connected routes" />
       <div className="journey-vignette" />

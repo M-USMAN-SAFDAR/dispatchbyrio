@@ -1,5 +1,5 @@
-.rio-journey { position: relative; background: #141b20; color: #fff2de; }
-.journey-stage { height: 100svh; min-height: 700px; position: relative; overflow: hidden; width: 100%; }
+.rio-journey { position: relative; height: 420svh; background: #141b20; color: #fff2de; }
+.journey-stage { height: 100svh; position: sticky; top: 0; overflow: hidden; width: 100%; }
 .journey-poster,.journey-canvas,.journey-vignette { position: absolute; inset: 0; }
 .journey-poster { background: #192831 url('/media/rio-hero-poster.jpg') center / cover no-repeat; }
 .journey-canvas { opacity: 0; transition: opacity 1s; }
@@ -26,7 +26,8 @@
 .journey-progress-fill {height:100%;background:#e78b53;transform:scaleX(0);transform-origin:left;}
 @media(max-width:1023px){.journey-bottom{gap:20px}.chapter-yard,.chapter-network{top:19%}}
 @media(max-width:767px){
- .journey-stage{min-height:760px;height:100svh;}
+ .rio-journey{height:340svh;}
+ .journey-stage{height:100svh;}
  .journey-canvas{top:30%;bottom:auto;height:43%;mask-image:linear-gradient(180deg,transparent,black 20%,black 83%,transparent);}
  .journey-poster{background-image:none;background:linear-gradient(#162936 0%,#6d6453 38%,#b58a5d 49%,#24272b 69%,#0b151e 100%);}
  .journey-chapter{top:120px;text-align:left;}
@@ -42,7 +43,7 @@
  .journey-skip{position:absolute;right:0;top:7px;font-size:9px;gap:9px;}
  .journey-vignette{background:linear-gradient(180deg,#101c2a55,transparent 40%,transparent 53%,#0b151ee8 73%,#0b151e 100%);}
 }
-@media(prefers-reduced-motion:reduce){.journey-canvas{transition:none;}}
+@media(prefers-reduced-motion:reduce){.rio-journey{height:auto;}.journey-stage{position:relative;min-height:700px;}.journey-canvas{transition:none;}}
 
 /* Readable controls and responsive display typography. */
 .journey-eyebrow { font-size: 11px; }
