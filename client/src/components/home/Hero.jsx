@@ -19,19 +19,8 @@ export default function Hero() {
       let disposed=false
       import('../experience/createExperience').then(({createExperience})=>{
         if(cancelled||disposed)return
-        const finishLoading = (fallback = false) => {
-          if(cancelled||disposed)return
-          if(fallback)setFailed(true)
-          else setReady(true)
-          window.dispatchEvent(new Event('rio:hero-ready'))
-        }
-        try { disposeScene=createExperience(canvas.current,state.current,reduced,()=>finishLoading(),()=>finishLoading(true)) }
-        catch(error){console.warn('3D scene unavailable:',error);finishLoading(true)}
-      }).catch(error=>{
-        if(cancelled||disposed)return
-        console.warn('3D scene unavailable:',error)
-        setFailed(true)
-        window.dispatchEvent(new Event('rio:hero-ready'))
+        try { disposeScene=createExperience(canvas.current,state.current,reduced,()=>setReady(true),()=>setFailed(true)) }
+        catch(error){console.warn('3D scene unavailable:',error);setFailed(true)}
       })
       gsap.set('.journey-chapter:not(.chapter-first)',{autoAlpha:0})
       if(!reduced){
