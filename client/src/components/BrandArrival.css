@@ -1,0 +1,25 @@
+.rio-brand-arrival {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 60;
+  display: flex;
+  align-items: baseline;
+  visibility: hidden;
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+  font-size: clamp(32px, 6vw, 76px);
+  font-weight: 700;
+  line-height: 1.6;
+  letter-spacing: -.025em;
+  color: #fff;
+  transform-origin: 0 0;
+}
+.rio-brand-horizon { display: inline-flex; overflow: hidden; }
+.rio-brand-horizon > span { display: inline-block; }
+.rio-brand-by { margin-inline: .22em; color: #ee713d; font-weight: 600; }
+.rio-brand-rio { font-weight: 800; letter-spacing: .05em; }
+@media (prefers-reduced-motion: reduce) {
+  .rio-brand-arrival { display: none; }
+}

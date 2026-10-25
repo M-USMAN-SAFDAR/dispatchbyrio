@@ -6,3 +6,4 @@ build/
 client/dist/
 *.log
 .DS_Store
+video-output/

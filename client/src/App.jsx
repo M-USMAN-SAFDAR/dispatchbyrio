@@ -7,19 +7,28 @@ import ScrollToTop from './components/ScrollToTop'
 import ErrorBoundary from './components/ErrorBoundary'
 import BackToTop from './components/BackToTop'
 import MobileCTA from './components/MobileCTA'
+import BrandArrival from './components/BrandArrival'
+import { INITIAL_LOADER_MIN_MS, loadWithMinimum } from './utils/loadWithMinimum'
 
-const Home = lazy(() => import('./pages/Home'))
-const About = lazy(() => import('./pages/About'))
-const ServicesPage = lazy(() => import('./pages/Services'))
-const Contact = lazy(() => import('./pages/Contact'))
-const FAQPage = lazy(() => import('./pages/FAQ'))
-const NotFound = lazy(() => import('./pages/NotFound'))
-const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'))
-const TermsOfService = lazy(() => import('./pages/TermsOfService'))
+let initialPageLoad = true
+const lazyPage = load => lazy(() => {
+  const minimumMs = initialPageLoad ? INITIAL_LOADER_MIN_MS : 0
+  initialPageLoad = false
+  return loadWithMinimum(load, minimumMs)
+})
 
-const PageLoader = () => (
-  <div className="min-h-screen bg-dark flex items-center justify-center">
-    <div className="w-10 h-10 border-3 border-white/20 border-t-primary rounded-full animate-spin" />
+const Home = lazyPage(() => import('./pages/Home'))
+const About = lazyPage(() => import('./pages/About'))
+const ServicesPage = lazyPage(() => import('./pages/Services'))
+const Contact = lazyPage(() => import('./pages/Contact'))
+const FAQPage = lazyPage(() => import('./pages/FAQ'))
+const NotFound = lazyPage(() => import('./pages/NotFound'))
+const PrivacyPolicy = lazyPage(() => import('./pages/PrivacyPolicy'))
+const TermsOfService = lazyPage(() => import('./pages/TermsOfService'))
+
+const PageLoader = ({ home }) => (
+  <div className="min-h-screen bg-dark flex items-center justify-center" role="status" aria-label="Loading page">
+    {!home && <div className="w-10 h-10 border-3 border-white/20 border-t-primary rounded-full animate-spin motion-reduce:animate-none" />}
   </div>
 )
 
@@ -29,9 +38,10 @@ function App() {
     <MotionConfig reducedMotion="user"><div className="min-h-screen bg-dark">
       <ScrollToTop />
       <Navbar />
+      {pathname === '/' && <BrandArrival />}
       <main id="main-content" className={pathname === '/' ? '' : 'rio-page'}>
         <ErrorBoundary>
-          <Suspense fallback={<PageLoader />}>
+          <Suspense fallback={<PageLoader home={pathname === '/'} />}>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/services" element={<ServicesPage />} />

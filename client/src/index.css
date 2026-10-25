@@ -143,7 +143,7 @@
   }
 }/* RIO cinematic redesign */
 :root { --rio-paper: #f2f0e9; --rio-ink: #171c1d; --rio-orange: #ee713d; }
-.rio-home { background: var(--rio-paper); color: var(--rio-ink); }
+.rio-home { background: linear-gradient(var(--color-dark) 0 100svh, var(--rio-paper) 100svh); color: var(--rio-ink); }
 .rio-wrap { width: min(1320px, calc(100% - 112px)); margin-inline: auto; }
 .rio-home section[id] { scroll-margin-top: 90px; }
 .rio-eyebrow { display: inline-flex; align-items: center; gap: 10px; color: #b9bcb7; font-size: 10px; letter-spacing: .15em; font-weight: 600; line-height: 1.7; }

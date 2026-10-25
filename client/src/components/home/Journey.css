@@ -1,12 +1,26 @@
-.rio-journey { position: relative; height: 420svh; background: #141b20; color: #fff2de; }
+.rio-journey { position: relative; height: 420svh; background: #141b20; color: #fff2de; transition: opacity .5s ease; }
+/* Keep the scene mounted and loading while the brand settles into the header. */
+[data-rio-intro="pending"] .rio-journey { opacity: 0; visibility: hidden; }
 .journey-stage { height: 100svh; position: sticky; top: 0; overflow: hidden; width: 100%; }
 .journey-poster,.journey-canvas,.journey-vignette { position: absolute; inset: 0; }
-.journey-poster { background: #192831 url('/media/rio-hero-poster.jpg') center / cover no-repeat; }
+.journey-poster { background: linear-gradient(180deg, #162936, #192831 55%, #0b151e); }
 .journey-canvas { opacity: 0; transition: opacity 1s; }
 .scene-ready .journey-canvas { opacity: 1; }
 .scene-fallback-mode .journey-canvas { opacity: 0; }
 .journey-canvas canvas { display: block; width:100%;height:100%; }
 .journey-vignette { pointer-events:none; background: linear-gradient(180deg,#0d192766,transparent 35%,transparent 60%,#0b151edb 88%,#0b151e 100%); }
+.journey-copy { position: absolute; inset: 0; pointer-events: none; }
+.journey-copy a { pointer-events: auto; }
+/* Animate the copy wrapper independently of GSAP's scroll-controlled chapters. */
+[data-rio-intro] .journey-copy { opacity: 0; visibility: hidden; }
+[data-rio-intro="complete"] :is(.scene-ready, .scene-fallback-mode) .journey-copy {
+  visibility: visible;
+  animation: journey-copy-arrive .75s cubic-bezier(.16,1,.3,1) .65s both;
+}
+@keyframes journey-copy-arrive {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 .journey-chapter { position:absolute; left:0;right:0;top:135px; pointer-events:none; }
 .chapter-first { text-align:center; }
 .journey-eyebrow { display:inline-flex; align-items:center;gap:9px; font-size:9px;font-weight:600;letter-spacing:.15em; color:#efdbbc; }
@@ -43,7 +57,13 @@
  .journey-skip{position:absolute;right:0;top:7px;font-size:9px;gap:9px;}
  .journey-vignette{background:linear-gradient(180deg,#101c2a55,transparent 40%,transparent 53%,#0b151ee8 73%,#0b151e 100%);}
 }
-@media(prefers-reduced-motion:reduce){.rio-journey{height:auto;}.journey-stage{position:relative;min-height:700px;}.journey-canvas{transition:none;}}
+@media(prefers-reduced-motion:reduce){.rio-journey{height:auto;transition:none;}.journey-stage{position:relative;min-height:700px;}.journey-canvas{transition:none;}}
+@media(prefers-reduced-motion:reduce){
+  [data-rio-intro] .journey-copy,
+  [data-rio-intro="complete"] :is(.scene-ready, .scene-fallback-mode) .journey-copy {
+    animation: none; opacity: 1; visibility: visible;
+  }
+}
 
 /* Readable controls and responsive display typography. */
 .journey-eyebrow { font-size: 11px; }

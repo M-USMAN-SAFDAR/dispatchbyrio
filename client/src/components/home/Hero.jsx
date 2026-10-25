@@ -19,8 +19,19 @@ export default function Hero() {
       let disposed=false
       import('../experience/createExperience').then(({createExperience})=>{
         if(cancelled||disposed)return
-        try { disposeScene=createExperience(canvas.current,state.current,reduced,()=>setReady(true),()=>setFailed(true)) }
-        catch(error){console.warn('3D scene unavailable:',error);setFailed(true)}
+        const finishLoading = (fallback = false) => {
+          if(cancelled||disposed)return
+          if(fallback)setFailed(true)
+          else setReady(true)
+          window.dispatchEvent(new Event('rio:hero-ready'))
+        }
+        try { disposeScene=createExperience(canvas.current,state.current,reduced,()=>finishLoading(),()=>finishLoading(true)) }
+        catch(error){console.warn('3D scene unavailable:',error);finishLoading(true)}
+      }).catch(error=>{
+        if(cancelled||disposed)return
+        console.warn('3D scene unavailable:',error)
+        setFailed(true)
+        window.dispatchEvent(new Event('rio:hero-ready'))
       })
       gsap.set('.journey-chapter:not(.chapter-first)',{autoAlpha:0})
       if(!reduced){
@@ -45,6 +56,7 @@ export default function Hero() {
       <div className="journey-poster" />
       <div className="journey-canvas" ref={canvas} role="img" aria-label="Animated Dispatch by RIO semi truck, sunset road, freight yard and connected routes" />
       <div className="journey-vignette" />
+      <div className="journey-copy">
       <div className="journey-chapter chapter-first rio-wrap">
         <span className="journey-eyebrow"><i /> YOUR TRUCK. YOUR BUSINESS. OUR SUPPORT.</span>
         <h1>More than dispatch.</h1>
@@ -63,6 +75,7 @@ export default function Hero() {
         <p>Nationwide support for<br /><strong>owner-operators & growing fleets.</strong></p>
         <Link to="/contact" className="rio-button">Start with Dispatch by RIO <FiArrowUpRight /></Link>
         <a className="journey-skip" href="#about-section">Explore our services <FiArrowDown /></a>
+      </div>
       </div>
       <div className="journey-progress"><div className="journey-progress-fill" /></div>
     </div>

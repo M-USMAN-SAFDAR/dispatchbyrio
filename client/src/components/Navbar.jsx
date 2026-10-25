@@ -105,7 +105,7 @@ const Navbar = () => {
                 alt="Dispatch by RIO"
                 className="h-7 sm:h-9 md:h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105 drop-shadow-[0_2px_6px_rgba(0,0,0,0.5)]"
               />
-              <div className="flex items-baseline select-none whitespace-nowrap font-bold text-xs sm:text-base md:text-lg tracking-tight">
+              <div data-rio-brand className="flex items-baseline select-none whitespace-nowrap font-bold text-xs sm:text-base md:text-lg tracking-tight">
                 <span className="text-white font-bold">Dispatch</span>
                 <span className="text-primary mx-0.5 sm:mx-1 font-semibold">by</span>
                 <span className="text-white font-extrabold uppercase tracking-wider">RIO</span>
